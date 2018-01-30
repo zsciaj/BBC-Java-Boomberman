@@ -57,7 +57,9 @@ public class Map extends JFrame{
 				case "1":
 					im = (ImageIcon) loadIcon("player2front.png");
 					break;
-						
+				case "2":
+					im = (ImageIcon) loadIcon("player2left.png");
+					break;						
 			  }
 				add(new JLabel(im));
 		  }
