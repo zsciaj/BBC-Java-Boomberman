@@ -15,35 +15,34 @@ import javax.swing.JPanel;
 
 public class Map extends JPanel{
 	
+	String[][] mapList;
 	
-	public void Map(String fileName) {
-		String[][] mapList = this.loadMap(fileName);
+	public void showMap() {
 		this.setSize(mapList[0].length*64,mapList.length*64);
 		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
-		for (String[] rows:mapList) {
+		for (String[] rows:this.getMapList()) {
 			for (String item:rows) {
 				ImageIcon im = new ImageIcon();
+				UnBreakableBlock block = null;
 				switch(item) {
 				case "0":
-					im = (ImageIcon) loadIcon("Grass.png");
+					block = new UnBreakableBlock();
 					break;
 				case "1":
-					im = (ImageIcon) loadIcon("1.png");
+					block = new BreakableBlock();
 					break;
 				case "2":
-					im = (ImageIcon) loadIcon("2.png");
+					block = new UnBreakableBlock();
 					break;						
 			  }
-				JLabel jL = new JLabel(im);
-				jL.setSize(64, 64);
-				add(jL);
+				this.add(block);
 		  }
 	  }
 		this.setVisible(true);
 	}
 	
 	
-	public String[][] loadMap(String fileName) {
+	public Map(String fileName) {
 		FileReader fr = null;
 		BufferedReader br = null;
 		String[][] list = new String[11][];
@@ -65,20 +64,18 @@ public class Map extends JPanel{
 			} catch (IOException e) {
 			}
 		}
-		return list;
+		this.setMapList(list);
 	}
 
-	
-	private static Icon loadIcon(String iconName) {
-		final URL resource = Map.class.getResource("/resource/" + iconName);
 
-		if (resource == null) {
-			// TODO Replace by logger
-			System.err.println(
-					"Error in " + Map.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
-			return new ImageIcon();
-		}
-		return new ImageIcon(resource);
+
+	private void setMapList(String[][] mapList) {
+		this.mapList = mapList;
+	}
+
+
+	private String[][] getMapList() {
+		return mapList;
 	}		  
 		  
 		
