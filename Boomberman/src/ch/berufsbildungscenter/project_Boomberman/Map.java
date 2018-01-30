@@ -1,5 +1,6 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,8 +46,8 @@ public class Map extends JFrame{
 	public void showMap() {
 		this.setSize(200,200);
 		this.setVisible(true);
-		this.
 		String[][] mapList = this.loadMap();
+		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
 		for (String[] rows:mapList) {
 			for (String item:rows) {
 				ImageIcon im = new ImageIcon();
