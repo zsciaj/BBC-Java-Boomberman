@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ch.berufsbildungscenter.lab14.view.CamperView;
 
 public class Map extends JFrame{
 	
@@ -52,11 +51,11 @@ public class Map extends JFrame{
 			for (String item:rows) {
 				ImageIcon im = new ImageIcon();
 				switch(item) {
-				case "1":
-					im = (ImageIcon) loadIcon("player1right.png");
+				case "0":
+					im = (ImageIcon) loadIcon("player1front.png");
 					break;
-				case "2":
-					im = (ImageIcon) loadIcon("player1left.png");
+				case "1":
+					im = (ImageIcon) loadIcon("player2front.png");
 					break;
 						
 			  }
