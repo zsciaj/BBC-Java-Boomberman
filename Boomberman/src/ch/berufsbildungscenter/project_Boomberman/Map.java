@@ -13,15 +13,42 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Map extends JFrame{
+public class Map extends JPanel{
 	
 	
-	public String[][] loadMap() {
+	public void Map(String fileName) {
+		String[][] mapList = this.loadMap(fileName);
+		this.setSize(mapList[0].length*64,mapList.length*64);
+		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
+		for (String[] rows:mapList) {
+			for (String item:rows) {
+				ImageIcon im = new ImageIcon();
+				switch(item) {
+				case "0":
+					im = (ImageIcon) loadIcon("Grass.png");
+					break;
+				case "1":
+					im = (ImageIcon) loadIcon("1.png");
+					break;
+				case "2":
+					im = (ImageIcon) loadIcon("2.png");
+					break;						
+			  }
+				JLabel jL = new JLabel(im);
+				jL.setSize(64, 64);
+				add(jL);
+		  }
+	  }
+		this.setVisible(true);
+	}
+	
+	
+	public String[][] loadMap(String fileName) {
 		FileReader fr = null;
 		BufferedReader br = null;
 		String[][] list = new String[11][];
 		try {
-			fr = new FileReader("resource/map1.txt");
+			fr = new FileReader("resource/"+ fileName +".txt");
 			br = new BufferedReader(fr);
 			String s;
 			int i1 = 0;
@@ -40,39 +67,7 @@ public class Map extends JFrame{
 		}
 		return list;
 	}
-	
-	
-	public void showMap() {
-		this.setSize(200,200);
-		this.setVisible(true);
-		String[][] mapList = this.loadMap();
-		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
-		for (String[] rows:mapList) {
-			for (String item:rows) {
-				ImageIcon im = new ImageIcon();
-				switch(item) {
-				case "0":
-					im = (ImageIcon) loadIcon("player1front.png");
-					break;
-				case "1":
-					im = (ImageIcon) loadIcon("player2front.png");
-					break;
-				case "2":
-					im = (ImageIcon) loadIcon("player2left.png");
-					break;						
-			  }
-				add(new JLabel(im));
-		  }
-	  }
-	}
-	
-	
-	public static void main(String[] args) {
-		Map map = new Map();
-		
-		map.showMap();
-	
-	}
+
 	
 	private static Icon loadIcon(String iconName) {
 		final URL resource = Map.class.getResource("/resource/" + iconName);
