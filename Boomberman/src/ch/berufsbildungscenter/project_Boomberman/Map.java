@@ -26,20 +26,23 @@ public class Map extends JPanel{
 				UnBreakableBlock block = null;
 				switch(item) {
 				case "0":
-					block = new UnBreakableBlock();
+					block = new Grass(this,"Grass.png");
 					break;
 				case "1":
-					block = new BreakableBlock();
+					block = new UnBreakableBlock(this,"1.png");
 					break;
 				case "2":
-					block = new UnBreakableBlock();
-					break;						
+					block = new BreakableBlock(this,"2.png");
+					break;
+				case "3":
+					block = new Player(this,"player1front.png");
 			  }
 				this.add(block);
 		  }
 	  }
 		this.setVisible(true);
 	}
+	
 	
 	
 	public Map(String fileName) {

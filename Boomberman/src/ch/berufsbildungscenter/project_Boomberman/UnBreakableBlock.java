@@ -7,20 +7,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class UnBreakableBlock extends JLabel {
+	
 	private ImageIcon icon;
+	private Map map;
 	
 	
-	public UnBreakableBlock(){
-		this.setIcon(loadIcon("2.png"));
+	public UnBreakableBlock(Map map,String image){
+		this.setIcon(loadIcon(image));
+		this.setMap(map);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+
+
 	protected static Icon loadIcon(String iconName) {
 		final URL resource = Map.class.getResource("/resource/" + iconName);
 
@@ -34,13 +32,19 @@ public class UnBreakableBlock extends JLabel {
 	}
 
 	
-	
-	
-	
-	private void setIcon(ImageIcon icon) {
+
+	protected void setIcon(ImageIcon icon) {
 		this.icon = icon;
 	}
 
+	private Map getMap() {
+		return map;
+	}
+
+
+	protected void setMap(Map map) {
+		this.map = map;
+	}
 
 }
 

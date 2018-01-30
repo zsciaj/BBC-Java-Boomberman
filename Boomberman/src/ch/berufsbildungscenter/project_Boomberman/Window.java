@@ -17,7 +17,7 @@ public class Window extends JFrame{
 		
 		Window w = new Window();
 		
-		Player p = new Player();
+		Player p = new Player(m,"Grass.png");
 		
 		
 		m.showMap();

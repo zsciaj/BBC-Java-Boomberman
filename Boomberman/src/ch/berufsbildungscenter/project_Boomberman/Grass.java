@@ -4,7 +4,8 @@ public class Grass extends UnBreakableBlock {
 
 	
 	
-	public Grass(){
-		this.setIcon(super.loadIcon("Grass.png"));
+	public Grass(Map map,String image) {
+		super(map,image);
 	}
+	
 }
