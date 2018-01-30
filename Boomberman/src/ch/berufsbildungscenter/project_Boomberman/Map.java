@@ -3,10 +3,17 @@ package ch.berufsbildungscenter.project_Boomberman;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Map extends JPanel{
+import ch.berufsbildungscenter.lab14.view.CamperView;
+
+public class Map extends JFrame{
 	
 	
 	public String[][] loadMap() {
@@ -35,22 +42,46 @@ public class Map extends JPanel{
 	}
 	
 	
-	public static void main(String[] args) {
-	  Map map = new Map();
-	  String[][] mapList = map.loadMap();
-	  for (String[] rows:mapList) {
-		  for (String item:rows) {
-			  switch(item) {
-			  
+	public void showMap() {
+		this.setSize(200,200);
+		this.setVisible(true);
+		String[][] mapList = this.loadMap();
+		for (String[] rows:mapList) {
+			for (String item:rows) {
+				ImageIcon im = new ImageIcon();
+				switch(item) {
+				case "1":
+					im = (ImageIcon) loadIcon("bomb.png");
+					break;
+				case "2":
+					im = (ImageIcon) loadIcon("player1left.png");
+					break;
+					
+					
 			  }
-			  
+				add(new JLabel(im));
 		  }
-		  
 	  }
-	  
-	  
-	  
-	  
 	}
+	
+	
+	public static void main(String[] args) {
+		Map map = new Map();
+		map.showMap();
+	
+	}
+	
+	private static Icon loadIcon(String iconName) {
+		final URL resource = Map.class.getResource("/resource/" + iconName);
 
+		if (resource == null) {
+			// TODO Replace by logger
+			System.err.println(
+					"Error in " + Map.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
+			return new ImageIcon();
+		}
+		return new ImageIcon(resource);
+	}		  
+		  
+		
 }
