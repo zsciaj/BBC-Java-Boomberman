@@ -45,19 +45,19 @@ public class Map extends JFrame{
 	public void showMap() {
 		this.setSize(200,200);
 		this.setVisible(true);
+		this.
 		String[][] mapList = this.loadMap();
 		for (String[] rows:mapList) {
 			for (String item:rows) {
 				ImageIcon im = new ImageIcon();
 				switch(item) {
 				case "1":
-					im = (ImageIcon) loadIcon("bomb.png");
+					im = (ImageIcon) loadIcon("player1right.png");
 					break;
 				case "2":
 					im = (ImageIcon) loadIcon("player1left.png");
 					break;
-					
-					
+						
 			  }
 				add(new JLabel(im));
 		  }
@@ -67,6 +67,7 @@ public class Map extends JFrame{
 	
 	public static void main(String[] args) {
 		Map map = new Map();
+		
 		map.showMap();
 	
 	}
