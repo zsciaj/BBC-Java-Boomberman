@@ -1,18 +1,23 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
+import java.awt.Dimension;
 import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+
 public class UnBreakableBlock extends JLabel {
 	
+	
+	private Dimension position;
 	private ImageIcon icon;
 	private Map map;
 	
 	
-	public UnBreakableBlock(Map map,String image){
+	public UnBreakableBlock(Map map,String image,Dimension position){
+		this.setPosition(position);
 		this.setIcon(loadIcon(image));
 		this.setMap(map);
 	}
@@ -33,17 +38,27 @@ public class UnBreakableBlock extends JLabel {
 
 	
 
-	protected void setIcon(ImageIcon icon) {
+	public void setIcon(ImageIcon icon) {
 		this.icon = icon;
 	}
 
-	private Map getMap() {
+	public Map getMap() {
 		return map;
 	}
 
 
-	protected void setMap(Map map) {
+	public void setMap(Map map) {
 		this.map = map;
+	}
+
+
+	public Dimension getPosition() {
+		return position;
+	}
+
+
+	public void setPosition(Dimension position) {
+		this.position = position;
 	}
 
 }

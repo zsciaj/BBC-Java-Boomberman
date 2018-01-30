@@ -1,6 +1,7 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,7 +18,7 @@ public class Window extends JFrame{
 		
 		Window w = new Window();
 		
-		Player p = new Player(m,"Grass.png");
+		Player p = new Player(m,"Grass.png",new Dimension(3,5));
 		
 		
 		m.showMap();

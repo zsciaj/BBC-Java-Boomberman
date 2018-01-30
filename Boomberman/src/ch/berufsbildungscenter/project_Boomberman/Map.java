@@ -1,10 +1,12 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -14,32 +16,39 @@ import javax.swing.JPanel;
 
 
 public class Map extends JPanel{
-	
+	HashMap<Dimension, UnBreakableBlock> mapDic = new HashMap<Dimension, UnBreakableBlock>();
 	String[][] mapList;
 	
+
+
 	public void showMap() {
 		this.setSize(mapList[0].length*64,mapList.length*64);
 		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
+		
+		int i = 0;
+		int j = 0;
 		for (String[] rows:this.getMapList()) {
 			for (String item:rows) {
 				ImageIcon im = new ImageIcon();
 				UnBreakableBlock block = null;
 				switch(item) {
 				case "0":
-					block = new Grass(this,"Grass.png");
+					block = new Grass(this,"Grass.png",new Dimension(i,j));
 					break;
 				case "1":
-					block = new UnBreakableBlock(this,"1.png");
+					block = new UnBreakableBlock(this,"1.png",new Dimension(i,j));
 					break;
 				case "2":
-					block = new BreakableBlock(this,"2.png");
+					block = new BreakableBlock(this,"2.png",new Dimension(i,j));
 					break;
 				case "3":
-					block = new Player(this,"player1front.png");
+					block = new Player(this,"player1front.png",new Dimension(i,j));
 			  }
+				this.getMapDic().put(new Dimension(i,j), block);
 				this.add(block);
+				j++;
 		  }
-	  }
+	  }i++;
 		this.setVisible(true);
 	}
 	
@@ -70,14 +79,24 @@ public class Map extends JPanel{
 		this.setMapList(list);
 	}
 
+	
+	public HashMap<Dimension, UnBreakableBlock> getMapDic() {
+		return mapDic;
+	}
 
 
-	private void setMapList(String[][] mapList) {
+
+	public void setMapDic(HashMap<Dimension, UnBreakableBlock> mapDic) {
+		this.mapDic = mapDic;
+	}
+
+
+	public void setMapList(String[][] mapList) {
 		this.mapList = mapList;
 	}
 
 
-	private String[][] getMapList() {
+	public String[][] getMapList() {
 		return mapList;
 	}		  
 		  
