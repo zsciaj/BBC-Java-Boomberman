@@ -4,14 +4,16 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
+
 public class Player extends UnBreakableBlock implements KeyListener{
 	
 	
 
 	
 
-	public Player(Map map, String image, Dimension position) {
-		super(map, image, position);
+	public Player(Map map, String image, int i) {
+		super(map, image, i);
 	}
 
 	@Override
@@ -28,32 +30,33 @@ public class Player extends UnBreakableBlock implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		System.out.println(e.getKeyChar());
 		char taste = e.getKeyChar();
 		int x = 0;
-		int j = 0;
+		int y = 0;
+		ImageIcon im = null;
 		switch (taste){
-		case 'w':
-			x = 1;
-			j = 0;
-			break;
-		case 'a':
-			x = 0;
-			j = -1;
-			break;
-		case 's':
-			x = -1;
-			j = 0;
-			break;
-		case 'd':
-			x = 0;
-			j = 1;
-			break;
-		}	
-		this.setPosition(this.getPosition(x, j));
-		this.getMap().update();
-		this.getMap().updateUI();
-
+			case 'w':
+				y = -1;
+				im = (ImageIcon) this.loadIcon("player1front.png");
+				break;
+			case 'a':
+				x = -1;
+				im = (ImageIcon) this.loadIcon("player1left.png");
+				break;
+			case 's':
+				y = 1;
+				im = (ImageIcon) this.loadIcon("player1right.png");
+				break;
+			case 'd':
+				x = 1;
+				im = (ImageIcon) this.loadIcon("player1back.png");
+				break;
+		}
+		if (this.getMap().getMapList().get(this.getPosition(x, y)) instanceof Grass) {
+			this.setPosition(this.getPosition(x,y));
+			this.getMap().update();
+		}
+		
 	}
 
 }

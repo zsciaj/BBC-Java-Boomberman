@@ -14,17 +14,18 @@ public class Window extends JFrame{
 
 	
 	public static void main(String[] args) {
-		Map m = new Map();
+		Window w = new Window();
+		Map m = new Map(w);
 		m.show(m.load("map1"));
 		
-		Window w = new Window();
 		
-		Player p = new Player(m,"Grass.png",new Dimension(3,5));
+		
+	
 		
 
 		
 		
-		w.addKeyListener(p);
+		
 		w.add(m,BorderLayout.SOUTH);
 		w.setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
 		w.setVisible(true);

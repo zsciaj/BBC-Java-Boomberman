@@ -4,8 +4,8 @@ import java.awt.Dimension;
 
 public class Bomb extends UnBreakableBlock implements Runnable {
 
-	public Bomb(Map map,String image,Dimension position) {
-		super(map,image,position);
+	public Bomb(Map map,String image,int i) {
+		super(map,image,i);
 	}
 
 	@Override

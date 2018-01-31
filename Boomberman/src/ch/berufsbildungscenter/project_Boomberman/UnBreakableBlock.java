@@ -11,13 +11,13 @@ import javax.swing.JLabel;
 public class UnBreakableBlock extends JLabel {
 	
 	
-	private Dimension position;
+	private int position;
 	private ImageIcon icon;
 	private Map map;
 	
 	
-	public UnBreakableBlock(Map map,String image,Dimension position){
-		this.setPosition(position);
+	public UnBreakableBlock(Map map,String image,int pos){
+		this.setPosition(pos);
 		this.setIcon(loadIcon(image));
 		this.setMap(map);
 	}
@@ -52,14 +52,18 @@ public class UnBreakableBlock extends JLabel {
 	}
 
 
-	public Dimension getPosition(int i1,int i2) {
-		Dimension p = new Dimension((int) this.position.getHeight()+i1,(int) this.position.getWidth()+i2);
-		return position;
+	public int getPosition() {
+		return this.position;
 	}
 
+	
+	public int getPosition(int i1, int i2) {
+		System.out.println(this.getPosition() +i1 + ((map.getWidth()/64+1)*i2));
+		return this.getPosition() +i1 + ((map.getWidth()/64+1)*i2);
+	}
 
-	public void setPosition(Dimension position) {
-		this.position = position;
+	public void setPosition(int pos) {
+		this.position = pos;
 	}
 
 }

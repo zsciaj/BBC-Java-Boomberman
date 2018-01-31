@@ -6,8 +6,8 @@ public class Grass extends UnBreakableBlock {
 
 	
 	
-	public Grass(Map map,String image,Dimension position) {
-		super(map,image,position);
+	public Grass(Map map,String image,int i) {
+		super(map,image,i);
 	}
 	
 }
