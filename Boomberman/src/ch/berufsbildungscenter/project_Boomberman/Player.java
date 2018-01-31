@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 public class Player extends UnBreakableBlock implements KeyListener{
 	
-	
+	int direction = 0;
 
 	
 
@@ -41,7 +41,7 @@ public class Player extends UnBreakableBlock implements KeyListener{
 				break;
 			case 'a':
 				x = -1;
-				im = (ImageIcon) this.loadIcon("");
+				im = (ImageIcon) this.loadIcon("player1front.png");
 				break;
 			case 's':
 				y = 1;
@@ -51,9 +51,13 @@ public class Player extends UnBreakableBlock implements KeyListener{
 				x = 1;
 				im = (ImageIcon) this.loadIcon("player1back.png");
 				break;
+			case ' ':
+				
+				break;	
 		}
 		this.setIcon(im);
 		this.updateUI();
+		System.out.println(taste);
 		if (this.getMap().getMapList().get(this.getPosition(x, y)) instanceof Grass) {
 			this.setPosition(this.getPosition(x,y));
 			this.getMap().update();

@@ -18,14 +18,7 @@ public class Window extends JFrame{
 		Map m = new Map(w);
 		m.show(m.load("map1"));
 		
-		
-		
-	
-		
 
-		
-		
-		
 		w.add(m,BorderLayout.SOUTH);
 		w.setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
 		w.setVisible(true);
