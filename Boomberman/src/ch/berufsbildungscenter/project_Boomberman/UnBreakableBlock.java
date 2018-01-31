@@ -58,7 +58,6 @@ public class UnBreakableBlock extends JLabel {
 
 	
 	public int getPosition(int i1, int i2) {
-		System.out.println(this.getPosition() +i1 + ((map.getWidth()/64+1)*i2));
 		return this.getPosition() +i1 + ((map.getWidth()/64+1)*i2);
 	}
 

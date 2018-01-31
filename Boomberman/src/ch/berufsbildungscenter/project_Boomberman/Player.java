@@ -41,7 +41,7 @@ public class Player extends UnBreakableBlock implements KeyListener{
 				break;
 			case 'a':
 				x = -1;
-				im = (ImageIcon) this.loadIcon("player1left.png");
+				im = (ImageIcon) this.loadIcon("");
 				break;
 			case 's':
 				y = 1;
@@ -52,6 +52,8 @@ public class Player extends UnBreakableBlock implements KeyListener{
 				im = (ImageIcon) this.loadIcon("player1back.png");
 				break;
 		}
+		this.setIcon(im);
+		this.updateUI();
 		if (this.getMap().getMapList().get(this.getPosition(x, y)) instanceof Grass) {
 			this.setPosition(this.getPosition(x,y));
 			this.getMap().update();
