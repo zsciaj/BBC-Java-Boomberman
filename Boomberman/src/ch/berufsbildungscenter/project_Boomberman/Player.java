@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 public class Player extends UnBreakableBlock implements KeyListener{
 	
 	int[] direction = {-1,0};
+	int lives = 100;
 
 	public Player(Map map, String image, int pos) {
 		super(map, image, pos);
@@ -56,14 +57,12 @@ public class Player extends UnBreakableBlock implements KeyListener{
 			case ' ':
 				Bomb b = new Bomb(this.getMap(),"bomb.png",this.getPosition(direction[0],direction[1]));
 				Thread t = new Thread(b);
-				
 				t.start();
-		
 				if (this.getMap().getMapList().get(this.getPosition(direction[0],direction[1])) instanceof Grass) {
 					this.getMap().getMapList().set(this.getPosition(direction[0],direction[1]),b);
-					this.getMap().update();
-					break;
+					this.getMap().update();	
 				}
+				break;
 		}
 		this.setIcon(im);
 		this.setDirection(new int[]{x,y});
@@ -81,7 +80,6 @@ public class Player extends UnBreakableBlock implements KeyListener{
 	public int[] getDirection() {
 		return direction;
 	}
-
 
 
 
