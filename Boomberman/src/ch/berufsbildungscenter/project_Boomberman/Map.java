@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.Icon;
@@ -16,22 +17,28 @@ import javax.swing.JPanel;
 
 
 public class Map extends JPanel{
-	HashMap<Dimension, UnBreakableBlock> mapDic = new HashMap<Dimension, UnBreakableBlock>();
+	ArrayList<UnBreakableBlock> mapList = new ArrayList<UnBreakableBlock>();
 	
 
 	
 	public void update(){
-		for (Dimension pos:this.getMapDic().keySet()) {
-			System.out.println(this.getMapDic());
-			this.remove(this.getMapDic().get(pos));
-			this.add(this.getMapDic().get(pos),pos);
-		
+		for (UnBreakableBlock block:this.getMapList()) {
+			this.remove(block);
+			this.add(block,block.getPosition(0, 0));
+			
 		}
 		
 	}
 	
 	
 	
+	private void remove(Dimension dimension) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 	public void show(String[][] list) {
 		this.setSize(list[0].length*64,list.length*64);
 		this.setLayout(new GridLayout(list.length,list[0].length));
@@ -55,11 +62,12 @@ public class Map extends JPanel{
 				case "3":
 					block = new Player(this,"player1front.png",new Dimension(i,j));
 			  }
-				this.getMapDic().put(new Dimension(i,j), block);
+				this.getMapList().add(block);
 				this.add(block);
-				j++;
+				i++;
 		  }
-	  }i++;
+			j++;
+	  }
 		this.setVisible(true);
 	}
 	
@@ -90,22 +98,17 @@ public class Map extends JPanel{
 		return list;
 	}
 
-	
-	public HashMap<Dimension, UnBreakableBlock> getMapDic() {
-		return mapDic;
+
+
+	public ArrayList<UnBreakableBlock> getMapList() {
+		return mapList;
 	}
 
 
 
-	public void setMapDic(HashMap<Dimension, UnBreakableBlock> mapDic) {
-		this.mapDic = mapDic;
-	}
-	
-	
-	public void changeMapDic(Dimension pos, UnBreakableBlock item) {
-		this.mapDic.put(pos,item);
+	public void setMapList(ArrayList<UnBreakableBlock> mapList) {
+		this.mapList = mapList;
 	}
 
-
-		
+	
 }
