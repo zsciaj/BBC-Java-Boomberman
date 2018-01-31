@@ -8,13 +8,15 @@ import javax.swing.ImageIcon;
 
 public class Player extends UnBreakableBlock implements KeyListener{
 	
-	int direction = 0;
+	int[] direction = {-1,0};
+
+	public Player(Map map, String image, int pos) {
+		super(map, image, pos);
+		
+	}
 
 	
-
-	public Player(Map map, String image, int i) {
-		super(map, image, i);
-	}
+	
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -52,11 +54,19 @@ public class Player extends UnBreakableBlock implements KeyListener{
 				im = (ImageIcon) this.loadIcon("player1back.png");
 				break;
 			case ' ':
+				Bomb b = new Bomb(this.getMap(),"bomb.png",this.getPosition(direction[0],direction[1]));
+				Thread t = new Thread(b);
 				
-				break;	
+				t.start();
+		
+				if (this.getMap().getMapList().get(this.getPosition(direction[0],direction[1])) instanceof Grass) {
+					this.getMap().getMapList().set(this.getPosition(direction[0],direction[1]),b);
+					this.getMap().update();
+					break;
+				}
 		}
 		this.setIcon(im);
-		this.updateUI();
+		this.setDirection(new int[]{x,y});
 		System.out.println(taste);
 		if (this.getMap().getMapList().get(this.getPosition(x, y)) instanceof Grass) {
 			this.setPosition(this.getPosition(x,y));
@@ -64,5 +74,21 @@ public class Player extends UnBreakableBlock implements KeyListener{
 		}
 		
 	}
+
+
+
+
+	public int[] getDirection() {
+		return direction;
+	}
+
+
+
+
+	public void setDirection(int[] direction) {
+		this.direction = direction;
+	}
+
+
 
 }

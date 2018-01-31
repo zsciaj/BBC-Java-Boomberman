@@ -30,19 +30,19 @@ public class Map extends JPanel{
 	
 	public void update(){
 		for (UnBreakableBlock block: this.getMapList()) {
-			if (block.getPosition() != this.getMapList().indexOf(block)) {
-				
-				Grass g = new Grass(this,"Grass.png",this.getMapList().indexOf(block));
-				this.remove(this.getMapList().indexOf(block));
-				this.add(g,this.getMapList().indexOf(block));
-				
-				this.remove(block.getPosition());
-				this.add(block,block.getPosition());
-				
-				this.getMapList().set(this.getMapList().indexOf(block), g);
-				this.getMapList().set(block.getPosition(), block);
-				
-			}
+		
+			Grass g = new Grass(this,"Grass.png",this.getMapList().indexOf(block));
+			block.updateUI();
+			this.remove(this.getMapList().indexOf(block));
+			this.add(g,this.getMapList().indexOf(block));
+			
+			this.remove(block.getPosition());
+			this.add(block,block.getPosition());
+			
+			this.getMapList().set(this.getMapList().indexOf(block), g);
+			this.getMapList().set(block.getPosition(), block);
+			
+		
 		}
 		this.updateUI();
 			
