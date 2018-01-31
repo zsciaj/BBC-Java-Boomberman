@@ -1,10 +1,12 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -13,15 +15,62 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Map extends JFrame{
+public class Map extends JPanel{
+	HashMap<Dimension, UnBreakableBlock> mapDic = new HashMap<Dimension, UnBreakableBlock>();
+	
+
+	
+	public void update(){
+		for (Dimension pos:this.getMapDic().keySet()) {
+			System.out.println(this.getMapDic());
+			this.remove(this.getMapDic().get(pos));
+			this.add(this.getMapDic().get(pos),pos);
+		
+		}
+		
+	}
 	
 	
-	public String[][] loadMap() {
+	
+	public void show(String[][] list) {
+		this.setSize(list[0].length*64,list.length*64);
+		this.setLayout(new GridLayout(list.length,list[0].length));
+		
+		int i = 0;
+		int j = 0;
+		for (String[] rows:list) {
+			for (String item:rows) {
+				ImageIcon im = new ImageIcon();
+				UnBreakableBlock block = null;
+				switch(item) {
+				case "0":
+					block = new Grass(this,"Grass.png",new Dimension(i,j));
+					break;
+				case "1":
+					block = new UnBreakableBlock(this,"1.png",new Dimension(i,j));
+					break;
+				case "2":
+					block = new BreakableBlock(this,"2.png",new Dimension(i,j));
+					break;
+				case "3":
+					block = new Player(this,"player1front.png",new Dimension(i,j));
+			  }
+				this.getMapDic().put(new Dimension(i,j), block);
+				this.add(block);
+				j++;
+		  }
+	  }i++;
+		this.setVisible(true);
+	}
+	
+	
+	
+	public String[][] load(String fileName) {
 		FileReader fr = null;
 		BufferedReader br = null;
 		String[][] list = new String[11][];
 		try {
-			fr = new FileReader("resource/map1.txt");
+			fr = new FileReader("resource/"+ fileName +".txt");
 			br = new BufferedReader(fr);
 			String s;
 			int i1 = 0;
@@ -40,51 +89,23 @@ public class Map extends JFrame{
 		}
 		return list;
 	}
-	
-	
-	public void showMap() {
-		this.setSize(200,200);
-		this.setVisible(true);
-		String[][] mapList = this.loadMap();
-		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
-		for (String[] rows:mapList) {
-			for (String item:rows) {
-				ImageIcon im = new ImageIcon();
-				switch(item) {
-				case "0":
-					im = (ImageIcon) loadIcon("player1front.png");
-					break;
-				case "1":
-					im = (ImageIcon) loadIcon("player2front.png");
-					break;
-				case "2":
-					im = (ImageIcon) loadIcon("player2left.png");
-					break;						
-			  }
-				add(new JLabel(im));
-		  }
-	  }
-	}
-	
-	
-	public static void main(String[] args) {
-		Map map = new Map();
-		
-		map.showMap();
-	
-	}
-	
-	private static Icon loadIcon(String iconName) {
-		final URL resource = Map.class.getResource("/resource/" + iconName);
 
-		if (resource == null) {
-			// TODO Replace by logger
-			System.err.println(
-					"Error in " + Map.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
-			return new ImageIcon();
-		}
-		return new ImageIcon(resource);
-	}		  
-		  
+	
+	public HashMap<Dimension, UnBreakableBlock> getMapDic() {
+		return mapDic;
+	}
+
+
+
+	public void setMapDic(HashMap<Dimension, UnBreakableBlock> mapDic) {
+		this.mapDic = mapDic;
+	}
+	
+	
+	public void changeMapDic(Dimension pos, UnBreakableBlock item) {
+		this.mapDic.put(pos,item);
+	}
+
+
 		
 }
