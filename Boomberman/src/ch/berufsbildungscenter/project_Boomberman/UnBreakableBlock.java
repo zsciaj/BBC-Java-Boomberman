@@ -52,7 +52,8 @@ public class UnBreakableBlock extends JLabel {
 	}
 
 
-	public Dimension getPosition() {
+	public Dimension getPosition(int i1,int i2) {
+		Dimension p = new Dimension((int) this.position.getHeight()+i1,(int) this.position.getWidth()+i2);
 		return position;
 	}
 

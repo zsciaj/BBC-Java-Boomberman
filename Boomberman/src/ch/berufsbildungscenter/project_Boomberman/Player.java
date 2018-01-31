@@ -29,8 +29,11 @@ public class Player extends UnBreakableBlock implements KeyListener{
 		System.out.println(e.getKeyChar());
 		switch (e.getKeyChar()){
 		case 'w':
-			super.getMap().getMapDic().get(super.getPosition());
-			break;
+			this.getMap().changeMapDic(this.getPosition(0, 0), new Grass(this.getMap(),"Grass.png",this.getPosition(0, 0)));
+			this.getMap().changeMapDic(this.getPosition(1, 0), this);
+			this.getMap().update();
+			this.getMap().updateUI();
+		
 		}
 
 	}

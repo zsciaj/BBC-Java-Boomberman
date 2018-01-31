@@ -17,17 +17,28 @@ import javax.swing.JPanel;
 
 public class Map extends JPanel{
 	HashMap<Dimension, UnBreakableBlock> mapDic = new HashMap<Dimension, UnBreakableBlock>();
-	String[][] mapList;
 	
 
-
-	public void showMap() {
-		this.setSize(mapList[0].length*64,mapList.length*64);
-		this.setLayout(new GridLayout(mapList.length,mapList[0].length));
+	
+	public void update(){
+		for (Dimension pos:this.getMapDic().keySet()) {
+			System.out.println(this.getMapDic());
+			this.remove(this.getMapDic().get(pos));
+			this.add(this.getMapDic().get(pos),pos);
+		
+		}
+		
+	}
+	
+	
+	
+	public void show(String[][] list) {
+		this.setSize(list[0].length*64,list.length*64);
+		this.setLayout(new GridLayout(list.length,list[0].length));
 		
 		int i = 0;
 		int j = 0;
-		for (String[] rows:this.getMapList()) {
+		for (String[] rows:list) {
 			for (String item:rows) {
 				ImageIcon im = new ImageIcon();
 				UnBreakableBlock block = null;
@@ -54,7 +65,7 @@ public class Map extends JPanel{
 	
 	
 	
-	public Map(String fileName) {
+	public String[][] load(String fileName) {
 		FileReader fr = null;
 		BufferedReader br = null;
 		String[][] list = new String[11][];
@@ -76,7 +87,7 @@ public class Map extends JPanel{
 			} catch (IOException e) {
 			}
 		}
-		this.setMapList(list);
+		return list;
 	}
 
 	
@@ -89,16 +100,12 @@ public class Map extends JPanel{
 	public void setMapDic(HashMap<Dimension, UnBreakableBlock> mapDic) {
 		this.mapDic = mapDic;
 	}
-
-
-	public void setMapList(String[][] mapList) {
-		this.mapList = mapList;
+	
+	
+	public void changeMapDic(Dimension pos, UnBreakableBlock item) {
+		this.mapDic.put(pos,item);
 	}
 
 
-	public String[][] getMapList() {
-		return mapList;
-	}		  
-		  
 		
 }

@@ -14,14 +14,14 @@ public class Window extends JFrame{
 
 	
 	public static void main(String[] args) {
-		Map m = new Map("map1");
+		Map m = new Map();
+		m.show(m.load("map1"));
 		
 		Window w = new Window();
 		
 		Player p = new Player(m,"Grass.png",new Dimension(3,5));
 		
-		
-		m.showMap();
+
 		
 		
 		w.addKeyListener(p);
