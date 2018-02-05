@@ -40,19 +40,19 @@ public class Player extends UnBreakableBlock implements KeyListener{
 		switch (taste){
 			case 'w':
 				y = -1;
-				im = (ImageIcon) this.loadIcon("player1front.png");
+				im = (ImageIcon) this.loadIcon("player1back.png");
 				break;
 			case 'a':
 				x = -1;
-				im = (ImageIcon) this.loadIcon("player1front.png");
+				im = (ImageIcon) this.loadIcon("player1left.png");
 				break;
 			case 's':
 				y = 1;
-				im = (ImageIcon) this.loadIcon("player1right.png");
+				im = (ImageIcon) this.loadIcon("player1front.png");
 				break;
 			case 'd':
 				x = 1;
-				im = (ImageIcon) this.loadIcon("player1back.png");
+				im = (ImageIcon) this.loadIcon("player1right.png");
 				break;
 			case ' ':
 				Bomb b = new Bomb(this.getMap(),"bomb.png",this.getPosition(direction[0],direction[1]));
@@ -64,7 +64,10 @@ public class Player extends UnBreakableBlock implements KeyListener{
 				}
 				break;
 		}
-		this.setIcon(im);
+		if ( im != null) {
+			this.setIcon(im);
+		}
+		
 		this.setDirection(new int[]{x,y});
 		System.out.println(taste);
 		if (this.getMap().getMapList().get(this.getPosition(x, y)) instanceof Grass) {

@@ -63,10 +63,10 @@ public class Map extends JPanel{
 					block = new Grass(this,"Grass.png",i);
 					break;
 				case "1":
-					block = new UnBreakableBlock(this,"1.png",i);
+					block = new UnBreakableBlock(this,"unbreakableblock.png",i);
 					break;
 				case "2":
-					block = new BreakableBlock(this,"2.png",i);
+					block = new BreakableBlock(this,"breakableblock.png",i);
 					break;
 				case "3":
 					block = new Player(this,"player1front.png",i);
