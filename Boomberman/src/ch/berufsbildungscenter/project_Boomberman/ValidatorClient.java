@@ -17,7 +17,7 @@ public class ValidatorClient {
 			
 			
 			
-			Remote remote = Naming.lookup("rmi://localhost:1234/validator");   // 192.168.3.195
+			Remote remote = Naming.lookup("rmi://192.168.3.195:1234/validator");   // 192.168.3.195
 			Validator validator = (Validator) remote;
 			
 			JFrame jf = new JFrame();
@@ -31,7 +31,7 @@ public class ValidatorClient {
 		} catch (NotBoundException nbe) {
 			System.err.println("Could not find requested object on the server");
 		} catch (RemoteException re) {
-			System.err.println(re.getMessage());
+			System.err.println(re.getMessage()); 
 		}
 	}
 }
