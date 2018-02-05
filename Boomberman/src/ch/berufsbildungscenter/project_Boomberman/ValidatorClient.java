@@ -23,6 +23,7 @@ public class ValidatorClient {
 			JFrame jf = new JFrame();
 			JFrame jp = validator.validate();
 			jf.add(jp);
+			jf.setVisible(true);
 			
 			
 		} catch (MalformedURLException me) {
