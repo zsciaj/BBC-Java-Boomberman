@@ -3,6 +3,7 @@ package ch.berufsbildungscenter.project_Boomberman;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -12,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Window extends JPanel implements Serializable{
+	
+
+	
 	
 	public Window() {
 		
@@ -28,7 +32,8 @@ public class Window extends JPanel implements Serializable{
 		add(m,BorderLayout.SOUTH);
 		setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
 	}
-	
+
+
 
 	
 }

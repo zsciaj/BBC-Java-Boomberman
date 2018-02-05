@@ -19,7 +19,8 @@ import javax.swing.JPanel;
 
 public class Map extends JPanel{
 	
-	
+	KeyListener player1;
+	KeyListener player2;
 	ArrayList<UnBreakableBlock> mapList = new ArrayList<UnBreakableBlock>();
 	
 	
@@ -132,6 +133,26 @@ public class Map extends JPanel{
 
 	public void setMapList(ArrayList<UnBreakableBlock> mapList) {
 		this.mapList = mapList;
+	}
+
+
+	public KeyListener getPlayer1() {
+		return player1;
+	}
+
+
+	public void setPlayer1(KeyListener player1) {
+		this.player1 = player1;
+	}
+
+
+	public KeyListener getPlayer2() {
+		return player2;
+	}
+
+
+	public void setPlayer2(KeyListener player2) {
+		this.player2 = player2;
 	}
 
 	

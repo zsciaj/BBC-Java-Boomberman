@@ -18,28 +18,24 @@ import ch.berufsbildungscenter.project_Boomberman.*;
 
 public class ValidatorImpl extends UnicastRemoteObject implements Validator {
 
+	
 	Window w = new Window();
-  
-  public ValidatorImpl() throws RemoteException {
+	
+	
+	protected ValidatorImpl() throws RemoteException {
+	}
 
-  }
+
  
 
 	@Override
-	public Window validate() throws RemoteException {
-		
-		
+	public Window getJPanel() throws RemoteException {
 		return this.getW();
 	}
 
 
 	public Window getW() {
 		return w;
-	}
-
-
-	public void setW(Window w) {
-		this.w = w;
 	}
 
 	

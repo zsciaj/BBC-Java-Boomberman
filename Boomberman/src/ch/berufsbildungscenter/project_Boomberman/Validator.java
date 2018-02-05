@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public interface Validator extends Remote {
-	public abstract Window validate() throws RemoteException;
+	public abstract Window getJPanel() throws RemoteException;
 
+	
 }
