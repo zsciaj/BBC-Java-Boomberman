@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 
 
 public class LoginServer {
+	
 	public static void main(String[] args) {
 		try {
 			// start RMI registry on default port 1099

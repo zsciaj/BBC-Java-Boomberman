@@ -33,10 +33,8 @@ public class ValidatorImpl extends UnicastRemoteObject implements Validator {
 
 		jf.add(m,BorderLayout.SOUTH);
 		jf.setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
-		jf.setVisible(true);
 		
 		ValidatorImpl val;
-		
 		try {
 			val = new ValidatorImpl();
 			val.setJf(jf);
