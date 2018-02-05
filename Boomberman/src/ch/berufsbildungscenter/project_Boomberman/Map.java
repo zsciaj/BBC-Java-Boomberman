@@ -19,13 +19,13 @@ import javax.swing.JPanel;
 
 public class Map extends JPanel{
 	
-	Window window;
+	JFrame jf;
 	
 	ArrayList<UnBreakableBlock> mapList = new ArrayList<UnBreakableBlock>();
 	
 
-	public Map(Window w){
-		this.setWindow(w);
+	public Map(JFrame w){
+		this.setJf(w);
 	}
 	
 	public void update(){
@@ -86,7 +86,7 @@ public class Map extends JPanel{
 					break;
 				case "3":
 					block = new Player(this,"player1front.png",i);
-					this.getWindow().addKeyListener((KeyListener) block);
+					this.getJf().addKeyListener((KeyListener) block);
 					break;
 			  }
 				
@@ -129,12 +129,12 @@ public class Map extends JPanel{
 
 
 
-	public Window getWindow() {
-		return window;
+	public JFrame getJf() {
+		return jf;
 	}
 
-	public void setWindow(Window window) {
-		this.window = window;
+	public void setJf(JFrame window) {
+		this.jf = window;
 	}
 
 	public ArrayList<UnBreakableBlock> getMapList() {

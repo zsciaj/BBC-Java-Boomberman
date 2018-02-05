@@ -4,7 +4,9 @@ package ch.berufsbildungscenter.project_Boomberman;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import javax.swing.JFrame;
+
 public interface Validator extends Remote {
-	public abstract String validate(String id, String pw) throws RemoteException;
+	public abstract JFrame validate() throws RemoteException;
 
 }

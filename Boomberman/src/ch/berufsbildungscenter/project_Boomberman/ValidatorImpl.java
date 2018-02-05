@@ -1,23 +1,76 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
+import java.awt.BorderLayout;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
-import java.util.Map;
+
+
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import ch.berufsbildungscenter.project_Boomberman.*;
+
 
 public class ValidatorImpl extends UnicastRemoteObject implements Validator {
-  private Map<String, String> memberMap = null;
+
+  private JFrame jf;
   
   public ValidatorImpl() throws RemoteException {
-    memberMap = new HashMap<String, String>();
-    memberMap.put("Marco", "Pa2014riS");
   }
   
-  public String validate(String id, String pw) throws RemoteException {
-    if(memberMap.containsKey(id) && memberMap.get(id).equals(pw)) {
-      return "Welcome " + id;
-    } else {
-      return "Sorry, invalid login information!";
-    }
-  }
+  
+  
+ 
+ 
+  
+	public static void main(String[] args) {
+		
+		JFrame jf = new JFrame();
+		
+		Map m = new Map(jf);  
+		m.show(m.load("map1"));
+		
+		
+		Timer t = new Timer();
+		Thread th = new Thread(t);
+		th.start();
+			
+		jf.add(t,BorderLayout.NORTH);
+
+		jf.add(m,BorderLayout.SOUTH);
+		jf.setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
+		jf.setVisible(true);
+		
+		ValidatorImpl val;
+		
+		try {
+			val = new ValidatorImpl();
+			val.setJf(jf);
+		} catch (RemoteException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public JFrame validate() throws RemoteException {
+		return this.getJf();
+	}
+
+
+	public JFrame getJf() {
+		return jf;
+	}
+
+
+
+
+	public void setJf(JFrame jf) {
+		this.jf = jf;
+	}
+	
 }
