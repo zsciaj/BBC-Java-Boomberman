@@ -8,7 +8,7 @@ public class LoginServer {
 	public static void main(String[] args) {
 		try {
 			// start RMI registry on default port 1099
-			Registry reg = LocateRegistry.createRegistry(1099);
+			Registry reg = LocateRegistry.createRegistry(1234);
 
 			// register remote object in rmi registry
 			Validator aValidator = new ValidatorImpl();

@@ -11,9 +11,9 @@ public class ValidatorClient {
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1099/validator");
+			Remote remote = Naming.lookup("rmi://localhost:1234/validator");
 			Validator validator = (Validator) remote;
-			String id = "Marco";
+			String id = "Nico";
 			String pw = "Pa2014riS";
 			String s = validator.validate(id, pw);
 			System.out.println(s);

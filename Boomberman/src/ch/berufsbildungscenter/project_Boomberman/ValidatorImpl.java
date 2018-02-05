@@ -10,7 +10,7 @@ public class ValidatorImpl extends UnicastRemoteObject implements Validator {
   
   public ValidatorImpl() throws RemoteException {
     memberMap = new HashMap<String, String>();
-    memberMap.put("Marco", "Pa2014riS");
+    memberMap.put("Nico", "Pa2014riS");
   }
   
   public String validate(String id, String pw) throws RemoteException {
