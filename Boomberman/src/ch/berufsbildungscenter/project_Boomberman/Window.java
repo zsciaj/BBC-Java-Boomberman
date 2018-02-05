@@ -17,7 +17,7 @@ public class Window extends JFrame{
 	public static void main(String[] args) {
 		Window w = new Window();
 		
-		Map m = new Map(w);
+		Map m = new Map(w);  
 		m.show(m.load("map1"));
 		
 		
