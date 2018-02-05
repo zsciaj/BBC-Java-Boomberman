@@ -6,6 +6,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -16,51 +18,29 @@ import ch.berufsbildungscenter.project_Boomberman.*;
 
 public class ValidatorImpl extends UnicastRemoteObject implements Validator {
 
-  private JFrame jf;
+	Window w = new Window();
   
   public ValidatorImpl() throws RemoteException {
-		JFrame jf = new JFrame();
-		
-		Map m = new Map(jf);  
-		m.show(m.load("map1"));
-		
-		
-		Timer t = new Timer();
-		Thread th = new Thread(t);
-		th.start();
-			
-		jf.add(t,BorderLayout.NORTH);
 
-		jf.add(m,BorderLayout.SOUTH);
-		jf.setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
-		
-		ValidatorImpl val;
-		try {
-			val = new ValidatorImpl();
-			val.setJf(jf);
-		} catch (RemoteException e) {
-			
-			e.printStackTrace();
-		}
   }
-  
-
+ 
 
 	@Override
-	public JFrame validate() throws RemoteException {
-		return this.getJf();
+	public Window validate() throws RemoteException {
+		
+		
+		return this.getW();
 	}
 
 
-	public JFrame getJf() {
-		return jf;
+	public Window getW() {
+		return w;
 	}
 
 
-
-
-	public void setJf(JFrame jf) {
-		this.jf = jf;
+	public void setW(Window w) {
+		this.w = w;
 	}
+
 	
 }

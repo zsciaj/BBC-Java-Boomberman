@@ -5,8 +5,9 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public interface Validator extends Remote {
-	public abstract JFrame validate() throws RemoteException;
+	public abstract Window validate() throws RemoteException;
 
 }

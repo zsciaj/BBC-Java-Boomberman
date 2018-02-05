@@ -17,11 +17,11 @@ public class ValidatorClient {
 			
 			
 			
-			Remote remote = Naming.lookup("rmi://192.168.3.195:1234/validator");
+			Remote remote = Naming.lookup("rmi://localhost:1234/validator");   // 192.168.3.195
 			Validator validator = (Validator) remote;
 			
 			JFrame jf = new JFrame();
-			JFrame jp = validator.validate();
+			Window jp = validator.validate();
 			jf.add(jp);
 			jf.setVisible(true);
 			
