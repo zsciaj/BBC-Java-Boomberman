@@ -12,7 +12,6 @@ public class UnBreakableBlock extends JLabel {
 	
 	
 	private int position;
-	private ImageIcon icon;
 	private Map map;
 	
 	
@@ -38,9 +37,6 @@ public class UnBreakableBlock extends JLabel {
 
 	
 
-	public void setIcon(ImageIcon icon) {
-		this.icon = icon;
-	}
 
 	public Map getMap() {
 		return map;
