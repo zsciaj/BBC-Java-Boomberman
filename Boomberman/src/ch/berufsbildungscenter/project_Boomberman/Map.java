@@ -30,7 +30,7 @@ public class Map extends JPanel{
 	
 	public void update(){
 		for (UnBreakableBlock block: this.getMapList()) {
-		
+			
 			Grass g = new Grass(this,"Grass.png",this.getMapList().indexOf(block));
 			block.updateUI();
 			this.remove(this.getMapList().indexOf(block));
@@ -41,14 +41,30 @@ public class Map extends JPanel{
 			
 			this.getMapList().set(this.getMapList().indexOf(block), g);
 			this.getMapList().set(block.getPosition(), block);
-			
-		
 		}
+		this.remove(1);
+		this.add(new UnBreakableBlock(this,"unbreakableblock.png",1),1);
 		this.updateUI();
 			
 	}
 
-
+	
+	public void remove(UnBreakableBlock o) {
+		Grass g = new Grass(this,"Grass.png",this.getMapList().indexOf(o));
+		
+		this.remove(this.getMapList().indexOf(o));
+		this.add(g,this.getMapList().indexOf(o));
+		
+//		this.remove(o.getPosition());
+//		this.add(o,o.getPosition());
+		
+		this.getMapList().set(this.getMapList().indexOf(o), g);
+//		this.getMapList().set(o.getPosition(), o);
+	}
+	
+	
+	
+	
 	public void show(String[][] list) {
 		this.setSize(list[0].length*64,list.length*64);
 		this.setLayout(new GridLayout(list.length,list[0].length));

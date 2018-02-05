@@ -30,6 +30,8 @@ public class Window extends JFrame{
 		
 		
 		w.add(t,BorderLayout.NORTH);
+		
+		
 		w.add(m,BorderLayout.SOUTH);
 		w.setSize((int)m.getSize().getWidth(),(int)m.getSize().getHeight());
 		w.setVisible(true);
