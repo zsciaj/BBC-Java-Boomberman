@@ -26,7 +26,7 @@ public class Bomb extends UnBreakableBlock implements Runnable {
 					}else if(this.getMap().getMapList().get(this.getPosition(i, j)) instanceof Player){
 						
 						//this.getMap().getMapList().get(this.getPosition(i, j))  +++++ :DAMAGE();
-						//this.getMap().update();ffff
+						//this.getMap().update();
 					}
 						
 				}
