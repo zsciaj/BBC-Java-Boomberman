@@ -2,6 +2,7 @@ package ch.berufsbildungscenter.project_Boomberman;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,26 +18,35 @@ import javax.swing.JPanel;
 
 
 public class Map extends JPanel{
+	
+	Window window;
+	
 	ArrayList<UnBreakableBlock> mapList = new ArrayList<UnBreakableBlock>();
 	
 
+	public Map(Window w){
+		this.setWindow(w);
+	}
 	
 	public void update(){
-		for (UnBreakableBlock block:this.getMapList()) {
-			this.remove(block);
-			this.add(block,block.getPosition(0, 0));
+		for (UnBreakableBlock block: this.getMapList()) {
+		
+			Grass g = new Grass(this,"Grass.png",this.getMapList().indexOf(block));
+			block.updateUI();
+			this.remove(this.getMapList().indexOf(block));
+			this.add(g,this.getMapList().indexOf(block));
 			
+			this.remove(block.getPosition());
+			this.add(block,block.getPosition());
+			
+			this.getMapList().set(this.getMapList().indexOf(block), g);
+			this.getMapList().set(block.getPosition(), block);
+			
+		
 		}
-		
+		this.updateUI();
+			
 	}
-	
-	
-	
-	private void remove(Dimension dimension) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 
 	public void show(String[][] list) {
@@ -44,31 +54,34 @@ public class Map extends JPanel{
 		this.setLayout(new GridLayout(list.length,list[0].length));
 		
 		int i = 0;
-		int j = 0;
+		
 		for (String[] rows:list) {
 			for (String item:rows) {
-				ImageIcon im = new ImageIcon();
 				UnBreakableBlock block = null;
 				switch(item) {
 				case "0":
-					block = new Grass(this,"Grass.png",new Dimension(i,j));
+					block = new Grass(this,"Grass.png",i);
 					break;
 				case "1":
-					block = new UnBreakableBlock(this,"1.png",new Dimension(i,j));
+					block = new UnBreakableBlock(this,"1.png",i);
 					break;
 				case "2":
-					block = new BreakableBlock(this,"2.png",new Dimension(i,j));
+					block = new BreakableBlock(this,"2.png",i);
 					break;
 				case "3":
-					block = new Player(this,"player1front.png",new Dimension(i,j));
+					block = new Player(this,"player1front.png",i);
+					this.getWindow().addKeyListener((KeyListener) block);
+					break;
 			  }
+				
 				this.getMapList().add(block);
 				this.add(block);
 				i++;
 		  }
-			j++;
+
 	  }
 		this.setVisible(true);
+		System.out.println(getMapList());
 	}
 	
 	
@@ -99,6 +112,14 @@ public class Map extends JPanel{
 	}
 
 
+
+	public Window getWindow() {
+		return window;
+	}
+
+	public void setWindow(Window window) {
+		this.window = window;
+	}
 
 	public ArrayList<UnBreakableBlock> getMapList() {
 		return mapList;
