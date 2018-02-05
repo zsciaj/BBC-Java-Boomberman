@@ -19,15 +19,6 @@ public class ValidatorImpl extends UnicastRemoteObject implements Validator {
   private JFrame jf;
   
   public ValidatorImpl() throws RemoteException {
-  }
-  
-  
-  
- 
- 
-  
-	public static void main(String[] args) {
-		
 		JFrame jf = new JFrame();
 		
 		Map m = new Map(jf);  
@@ -53,8 +44,9 @@ public class ValidatorImpl extends UnicastRemoteObject implements Validator {
 			
 			e.printStackTrace();
 		}
-		
-	}
+  }
+  
+
 
 	@Override
 	public JFrame validate() throws RemoteException {

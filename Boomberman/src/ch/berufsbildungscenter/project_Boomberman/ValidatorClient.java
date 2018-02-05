@@ -19,9 +19,10 @@ public class ValidatorClient {
 			
 			Remote remote = Naming.lookup("rmi://192.168.3.195:1234/validator");
 			Validator validator = (Validator) remote;
-
+			
+			JFrame jf = new JFrame();
 			JFrame jp = validator.validate();
-			jp.setVisible(true);
+			jf.add(jp);
 			
 			
 		} catch (MalformedURLException me) {
