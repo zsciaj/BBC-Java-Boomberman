@@ -36,7 +36,7 @@ public class Map extends JPanel{
 	}
 	
 	public void update(){
-		for (UnBreakableBlock block: this.getMapList()) {
+		for (UnBreakableBlock block: this.getMapList()) {     
 			
 			Grass g = new Grass(this,"Grass.png",this.getMapList().indexOf(block));
 			block.updateUI();
