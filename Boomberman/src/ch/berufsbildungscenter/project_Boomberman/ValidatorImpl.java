@@ -26,14 +26,6 @@ public class ValidatorImpl extends UnicastRemoteObject implements Validator {
 	}
 
 
- 
-
-	@Override
-	public Window getJPanel() throws RemoteException {
-		return this.getW();
-	}
-
-
 	public Window getW() {
 		return w;
 	}

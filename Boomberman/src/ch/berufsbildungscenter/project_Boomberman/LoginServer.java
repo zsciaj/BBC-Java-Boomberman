@@ -12,16 +12,34 @@ import java.io.InputStreamReader;
 
 public class LoginServer {
 	
+	private static Validator validatorImpl = new ValidatorImpl();
+
+	
 	public static void main(String[] args) {
 		try {
 			// start RMI registry on default port 1099
 			Registry reg = LocateRegistry.createRegistry(1234);
 
 			// register remote object in rmi registry
-			Validator aValidator = new ValidatorImpl();
-			reg.rebind("validator", aValidator);
+			Validator m = LoginServer.getValidatorImpl();
+			reg.rebind("validator", m);
+			System.out.println("sdsd");
 		} catch (RemoteException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
+
+	public static Validator getValidatorImpl() {
+		return validatorImpl;
+	}
+
+
+	public static void setValidatorImpl(Validator validatorImpl) {
+		LoginServer.validatorImpl = validatorImpl;
+	}
+	
+	
+	
+	
 }

@@ -9,6 +9,8 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ch.berufsbildungscenter.project_Boomberman2.Validator;
+
 public class ValidatorClient {
 
 	public static void main(String[] args) {
@@ -21,7 +23,7 @@ public class ValidatorClient {
 			Validator validator = (Validator) remote;
 			
 			JFrame jf = new JFrame();
-			Window jp = validator.validate();
+			Window jp = validator.getJPanel();
 			jf.add(jp);
 			jf.setVisible(true);
 			

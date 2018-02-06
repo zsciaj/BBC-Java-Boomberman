@@ -1,12 +1,13 @@
-package ch.berufsbildungscenter.project_Boomberman;
+package ch.berufsbildungscenter.project_Boomberman2;
 
 import ch.berufsbildungscenter.project_Boomberman2.Map;
 
 public class Explosion extends UnBreakableBlock implements Runnable {
 
-	public Explosion(Map map, String image, int pos) {
-		super(map, image, pos);
-		
+
+
+	public Explosion(String image) {
+		super(image);
 	}
 
 	@Override

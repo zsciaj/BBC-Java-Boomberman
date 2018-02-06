@@ -1,4 +1,4 @@
-package ch.berufsbildungscenter.project_Boomberman;
+package ch.berufsbildungscenter.project_Boomberman2;
 
 import java.awt.Dimension;
 import java.net.URL;
@@ -12,19 +12,25 @@ import ch.berufsbildungscenter.project_Boomberman2.Map;
 
 public class UnBreakableBlock extends JLabel {
 	
+	private static Validator val;
 	
-	private int position;
-	private Map map;
-	
-	
-	public UnBreakableBlock(Map map,String image,int pos){
-		this.setPosition(pos);
+	public UnBreakableBlock(String image) {
 		this.setIcon(loadIcon(image));
-		this.setMap(map);
 	}
+
+	public static Validator getVal() {
+		return val;
+	}
+
+
+	public static void setVal(Validator val) {
+		UnBreakableBlock.val = val;
+	}
+
 	
-
-
+	
+	
+	
 	protected static Icon loadIcon(String iconName) {
 		final URL resource = Map.class.getResource("/resource/" + iconName);
 
@@ -40,30 +46,7 @@ public class UnBreakableBlock extends JLabel {
 	
 
 
-	public Map getMap() {
-		return map;
-	}
-
-
-	public void setMap(Map map) {
-		this.map = map;
-	}
-
-
-	public int getPosition() {
-		return this.position;
-	}
-
 	
-	public int getPosition(int i1, int i2) {
-		return this.getPosition() +i1 + ((map.getWidth()/64+1)*i2);
-	}
-
-	public void setPosition(int pos) {
-		this.position = pos;
-	}
-
-
 	
 }
 

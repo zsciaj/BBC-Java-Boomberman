@@ -6,6 +6,10 @@ import java.awt.event.KeyListener;
 
 import javax.swing.ImageIcon;
 
+import ch.berufsbildungscenter.project_Boomberman.Bomb;
+import ch.berufsbildungscenter.project_Boomberman.Grass;
+import ch.berufsbildungscenter.project_Boomberman.UnBreakableBlock;
+
 public class Player extends UnBreakableBlock implements KeyListener{
 	
 	int[] direction = {-1,0};

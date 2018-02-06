@@ -1,4 +1,4 @@
-package ch.berufsbildungscenter.project_Boomberman;
+package ch.berufsbildungscenter.project_Boomberman2;
 
 import java.awt.Dimension;
 
@@ -6,11 +6,12 @@ import ch.berufsbildungscenter.project_Boomberman2.Map;
 
 public class BreakableBlock extends UnBreakableBlock {
 
-	
-	
-	public BreakableBlock(Map map,String image,int i) {
-		super(map,image,i);
+	public BreakableBlock(String image) {
+		super(image);
 	}
+
+	
+
 	
 	
 	
