@@ -1,16 +1,18 @@
 package ch.berufsbildungscenter.project_Boomberman;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 public class InputName extends JDialog {
 
@@ -18,6 +20,7 @@ public class InputName extends JDialog {
 	private JTextField playerName = new JTextField();
 	private JButton startButton = new JButton("Start");
 	private String player1Name;
+	
 
 	public static void main(String[] args) {
 
@@ -30,7 +33,7 @@ public class InputName extends JDialog {
 
 	public InputName() {
 		setTitle(" ");
-		
+
 		playerName.setFont(new Font("Arial", Font.TRUETYPE_FONT, 30));
 		playerName.setHorizontalAlignment(JTextField.CENTER);
 		startButton.setFont(new Font("Arial", Font.BOLD, 24));
