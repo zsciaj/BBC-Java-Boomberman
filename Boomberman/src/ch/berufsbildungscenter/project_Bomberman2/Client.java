@@ -95,7 +95,7 @@ public class Client implements KeyListener, Serializable{
 	public void update() {
 		Field s;
 		try {
-			s = this.getReceiver().sendField();
+			s = this.getReceiver().sendField(); 
 			for (ArrayList<Block> ab: s) {
 				for(Block b:ab) {
 					this.getMap().remove(0);
