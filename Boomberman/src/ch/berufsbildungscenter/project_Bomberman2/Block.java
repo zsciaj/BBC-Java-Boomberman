@@ -53,11 +53,11 @@ public class Block extends JLabel {
 
 
 	protected static Icon loadIcon(String iconName) {
-		final URL resource = Map.class.getResource("/resource/" + iconName);
+		final URL resource = Block.class.getResource("/resource/" + iconName);
 
 		if (resource == null) {
 			System.err.println(
-					"Error in " + Map.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
+					"Error in " + Block.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
 			return new ImageIcon();
 		}
 		return new ImageIcon(resource);
