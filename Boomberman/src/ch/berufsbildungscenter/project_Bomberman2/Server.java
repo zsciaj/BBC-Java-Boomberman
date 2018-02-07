@@ -10,7 +10,7 @@ public class Server {
 	
 	public static void main(String[] args) {
 		try {
-			Registry reg = LocateRegistry.createRegistry(1099);
+			Registry reg = LocateRegistry.createRegistry(1299);
 
 			
 			Field field = new Field();

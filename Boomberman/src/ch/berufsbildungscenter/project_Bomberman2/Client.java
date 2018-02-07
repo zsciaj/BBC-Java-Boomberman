@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 public class Client implements KeyListener{
 
 	private static Receiver receiver;
@@ -26,8 +27,9 @@ public class Client implements KeyListener{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1099/validator");
+			Remote remote = Naming.lookup("rmi://localhost:1299/validator");
 			Receiver receiver = (Receiver) remote;
+			
 			
 			Client client = new Client();
 			client.setReceiver(receiver);
@@ -38,7 +40,7 @@ public class Client implements KeyListener{
 
 			
 		} catch (MalformedURLException me) {
-			System.err.println("rmi://localhost:1099/validator is not a valid URL");
+			System.err.println("rmi://localhost:1499/validator is not a valid URL");
 		} catch (NotBoundException nbe) {
 			System.err.println("Could not find requested object on the server");
 		} catch (RemoteException re) {
@@ -48,7 +50,7 @@ public class Client implements KeyListener{
 
 	
 	@Override
-	public void keyPressed(KeyEvent arg0) {
+	public void keyReleased(KeyEvent arg0) {
 		char key = arg0.getKeyChar();
 		
 		
@@ -56,20 +58,24 @@ public class Client implements KeyListener{
 			System.out.println(key);
 			switch (key) {
 				case 'w':
-					this.getReceiver().movePlayer(this.getPlayer(),0,1);
+					this.getReceiver().movePlayer(this.getPlayer(),0,-1);
+					this.update();
 					break;
 				case 's':
-					this.getReceiver().movePlayer(this.getPlayer(),0,-1);
+					this.getReceiver().movePlayer(this.getPlayer(),0,1);
+					this.update();
 					break;
 				case 'a':
 					this.getReceiver().movePlayer(this.getPlayer(),-1,0);
+					this.update();
 					break;
 				case 'd':
 					this.getReceiver().movePlayer(this.getPlayer(),1,0);
+					this.update();
 					break;
 				
 			}
-			this.update();
+			
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -155,7 +161,7 @@ public class Client implements KeyListener{
 	
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}

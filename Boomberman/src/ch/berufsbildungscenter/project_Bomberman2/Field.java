@@ -23,11 +23,11 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	
 	
 	public void movePlayer(Player p, int x, int y){
-		
-		int[] pos = this.findBlock(p);
-		this.set(pos[0], pos[1], new Block("Grass.png",false,true));	
-		this.set(pos[0] + x, pos[1] + y, p);
-		
+		int[] pos = this.findIndex(p);
+		if (this.get(pos[0]+y, pos[1]+x).isWalkable()){
+			this.set(pos[0], pos[1], new Block("Grass.png",false,true));	
+			this.set(pos[0] + y, pos[1] + x, p);
+		}
 	}
 	
 	
@@ -42,38 +42,39 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			int i1 = 0;
 			while ((s = br.readLine()) != null){
 				
-				this.add(new ArrayList<Block>());
+				ArrayList line = new ArrayList<Block>();
 				
-				String[] al = new String[11];
-				al = s.split("/");
-				for (String i: al) {
+				String[] keyList = new String[15];
+				keyList = s.split("/");
+				for (String i: keyList) {
+					
+					System.out.print(i);
+					
 					switch(i) {
 					case "0":
-						this.get(i1).add(new Block("Grass.png",false,true));
+						line.add(new Block("Grass.png",false,true));
 						break;
 					case "1":
-						this.get(i1).add(new Block("unbreakableblock.png",false,false));
+						line.add(new Block("unbreakableblock.png",false,false));
 						break;
 					case "2":
-						this.get(i1).add(new Block("breakableblock.png",true,false));
+						line.add(new Block("breakableblock.png",true,false));
 						break;
 					case "3":
 						if (player1 == null) {
 							this.setPlayer1(new Player("player1front.png",false,true));
-							this.get(i1).add(this.getPlayer1());
+							line.add(this.getPlayer1());
 						}else {
-							this.get(i1).add(new Block("breakableblock.png",true,false));
-//							this.setPlayer2(new Player("player2front.png",false,true));
-//							this.get(i1).add(this.getPlayer2());
+							this.setPlayer2(new Player("player2front.png",false,true));
+							line.add(this.getPlayer2());
 						}
 						break;
-						
-
-		
 					}
+					
 				}
+				System.out.println(" ");
 				
-				i1++;
+				this.add(line);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();	
@@ -90,22 +91,32 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	
 	
 	
-	public int[] findBlock(Block b) {
+	public int[] findIndex(Block b1) {
+		
 		int x = 0;
-		int y = 0;
-		for (ArrayList<Block> i: this) {
-			if (i.contains(b)) {
-				y = i.indexOf(b);
-				break;
+		for (ArrayList<Block> list: this) {
+			System.out.println("1b");
+			int y = 0;
+			for (Block b2 :list) {
+				if (b2.getId().equals(b1.getId())) {
+					System.out.println("2b");
+					
+					int[] pos = new int[2];
+					pos[0] = x;
+					pos[1] = y;
+					return pos;
+					
+				}
+				y++;
 			}
-			x ++;
+			x++;
 		}
-		int[] list = new int[2];
-		list[0] = x;
-		list[1] = y;
-		return list;
+		return null;
 	}
 	
+	public void remove(int x, int y) {
+		this.get(x).remove(y);
+	}
 	
 	public Block get(int x,int y) {
 		return this.get(x).get(y);
