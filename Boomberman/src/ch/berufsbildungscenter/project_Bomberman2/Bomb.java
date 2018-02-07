@@ -13,28 +13,20 @@ public class Bomb extends Block implements Runnable {
 	public void run() {
 		try {
 			Thread.sleep(3000);
+			this.explode();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}finally {
+			this.getField().delete(this);
 		}
-		this.explode(1,0);
-		this.explode(-1,0);
-		this.explode(0,-1);
-		this.explode(0,1);
-		this.getField().delete(this);
-		
 	}
 	
-	public void explode(int x, int y) {
-		for (int i = 0; i < 4; i =+ y) {
-			for (int j = 0; j < 4; j =+ y) {
-				int[] pos = this.getField().findIndex(this);
-				if (this.getField().get(pos[0] + i, pos[1] + j).isBreakable()) {
-					this.getField().placeExplosion(this,i,j);
-				}else {
-					return;
-				}
-			}
-		}
+
+	public void explode() {
+			this.getField().placeExplosion(this, -1, 0);
+			this.getField().placeExplosion(this, 1, 0);
+			this.getField().placeExplosion(this, 0, -1);
+			this.getField().placeExplosion(this, 0, 1);
 	}
 
 	public Field getField() {

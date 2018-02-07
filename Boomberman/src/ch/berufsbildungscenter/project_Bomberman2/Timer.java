@@ -1,11 +1,14 @@
-package ch.berufsbildungscenter.project_Boomberman;
+package ch.berufsbildungscenter.project_Bomberman2;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class Timer extends JLabel implements Runnable{
+public class Timer extends JLabel implements Runnable,Serializable{
 
 	Date startTime = new Date();
 	
@@ -17,6 +20,8 @@ public class Timer extends JLabel implements Runnable{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			this.setFont(new Font("Arial",Font.BOLD, 30));
+			this.setBackground(Color.WHITE);
 			this.setText(this.getTime() / 60 + ":" + this.getTime() % 60);
 			
 			this.updateUI();

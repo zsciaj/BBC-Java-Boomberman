@@ -10,6 +10,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	private Client client1;
 	private Client client2;
 	private static Field field;
+
   
 	public ReceiverImpl(Field field) throws RemoteException {
 		this.setField(field);
@@ -33,8 +34,8 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	
 
 
-
-
+	
+	
 	public void movePlayer(Player p, int x, int y) throws RemoteException {
 		this.getField().movePlayer(p,x,y);
 	}
@@ -53,6 +54,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	public static void setField(Field map) {
 		ReceiverImpl.field = map;
 	}
+
 
 	
 	

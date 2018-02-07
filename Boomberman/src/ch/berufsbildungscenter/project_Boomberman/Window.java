@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import ch.berufsbildungscenter.project_Bomberman2.Timer;
 import ch.berufsbildungscenter.project_Boomberman2.Map;
 
 public class Window extends JPanel implements Serializable{

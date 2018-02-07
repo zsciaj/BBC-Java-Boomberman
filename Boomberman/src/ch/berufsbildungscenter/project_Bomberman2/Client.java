@@ -2,6 +2,7 @@ package ch.berufsbildungscenter.project_Bomberman2;
 
 
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,16 +25,21 @@ public class Client implements KeyListener, Serializable{
 	private JFrame window;
 	private JPanel map;
 	private int[] playerDirection;
+	private Timer timer = new Timer();
+	JPanel infoBar;
+	
+	public Client(Receiver r) {
+		this.setReceiver(r);
+	}
 	
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.195
+			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.195       localhost
 			Receiver receiver = (Receiver) remote;
 			
-			Client client = new Client();
-			client.setReceiver(receiver);
-			client.setPlayer(receiver.sendPlayer());
+			Client client = new Client(receiver);
+			client.setPlayer(client.getReceiver().sendPlayer());
 			client.show();
 			
 			
@@ -54,7 +60,6 @@ public class Client implements KeyListener, Serializable{
 		
 		
 		try {
-			System.out.println(key);
 			int[] dir = new int[2];
 			switch (key) {
 				case 'w':
@@ -89,16 +94,15 @@ public class Client implements KeyListener, Serializable{
 	
 	public void update() {
 		Field s;
-		System.out.println("Update");
-		this.getMap().removeAll();
 		try {
 			s = this.getReceiver().sendField();
 			for (ArrayList<Block> ab: s) {
 				for(Block b:ab) {
+					this.getMap().remove(0);
 					this.getMap().add(b);
 				}
 			}
-			map.updateUI();
+			this.getMap().updateUI();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -108,16 +112,18 @@ public class Client implements KeyListener, Serializable{
 	
 	
 	
-	
-	
 	public void show() {
 		JFrame window = new JFrame();
 		JPanel map = new JPanel();
+		JPanel infoBar = new JPanel();
 		map.setLayout(new GridLayout(11,15));
 		
+		infoBar.setLayout(new GridLayout(1,3));
+		infoBar.add(this.getTimer());
+		Thread t1 = new Thread(this.getTimer());
+		t1.start();
+		
 		Field s;
-		
-		
 		try {
 			s = this.getReceiver().sendField();
 			for (ArrayList<Block> i: s) {
@@ -126,16 +132,20 @@ public class Client implements KeyListener, Serializable{
 				}
 			}
 			
-			this.setMap(map);
-			window.add(map);
+			window.add(map,BorderLayout.SOUTH);
 			window.setVisible(true);
-			window.setSize(960, 704);
+			window.setSize(960, 774);
 			window.setResizable(false);
 			window.addKeyListener(this);
+			window.add(infoBar,BorderLayout.NORTH);
+			
+			this.setInfoBar(infoBar);
 			this.setWindow(window);
+			this.setMap(map);
+			
 			Updater u = new Updater(this);
-			Thread t  = new Thread(u);
-			t.start();
+			Thread t2  = new Thread(u);
+			t2.start();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -229,6 +239,23 @@ public class Client implements KeyListener, Serializable{
 	public static void setReceiver(Receiver receiver) {
 		Client.receiver = receiver;
 	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
+	public JPanel getInfoBar() {
+		return infoBar;
+	}
+
+	public void setInfoBar(JPanel infoBar) {
+		this.infoBar = infoBar;
+	}
+	
 	
 	
 	

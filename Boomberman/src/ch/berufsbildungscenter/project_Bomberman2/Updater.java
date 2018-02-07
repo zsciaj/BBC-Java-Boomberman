@@ -12,7 +12,7 @@ public class Updater implements Runnable{
 	public void run() {
 		while(true) {
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

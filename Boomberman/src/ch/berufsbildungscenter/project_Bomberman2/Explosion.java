@@ -9,11 +9,13 @@ public class Explosion extends Bomb {
 
 	public void run() {
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}finally {
+			this.getField().delete(this);
 		}
-		this.getField().delete(this);
+		
 		
 	}
 
