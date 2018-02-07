@@ -7,8 +7,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import ch.berufsbildungscenter.project_Boomberman2.Map;
-
 public class Block extends JLabel {
 	
 	private boolean breakable;
