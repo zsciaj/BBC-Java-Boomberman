@@ -17,11 +17,14 @@ public class Block extends JLabel {
 		this.setBreakable(breakable);
 		this.setWalkable(walkable);
 		this.setIcon(loadIcon(image));
+
 		
 	}
 	
 	
-	
+	public void setIcon(String image) {
+		super.setIcon(loadIcon(image));
+	}
 	
 
 	public boolean isBreakable() {
@@ -47,7 +50,6 @@ public class Block extends JLabel {
 	public String getId() {
 		return id;
 	}
-
 
 
 

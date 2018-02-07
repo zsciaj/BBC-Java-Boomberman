@@ -24,9 +24,56 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	
 	public void movePlayer(Player p, int x, int y){
 		int[] pos = this.findIndex(p);
-		if (this.get(pos[0]+y, pos[1]+x).isWalkable()){
+		
+		switch(x + " " + y) {
+		case "-1 0":
+			p.setIcon("player" + p.getPlayerNr() + "left.png");
+			break;
+		case "1 0":
+			p.setIcon("player" + p.getPlayerNr() + "right.png");
+			break;
+		case "0 -1":
+			p.setIcon("player" + p.getPlayerNr() + "back.png");
+			break;
+		case "0 1":
+			p.setIcon("player" + p.getPlayerNr() + "front.png");
+			break;
+		}
+		
+		if (this.get(pos[0] + y, pos[1] + x).isWalkable()){
 			this.set(pos[0], pos[1], new Block("Grass.png",false,true));	
 			this.set(pos[0] + y, pos[1] + x, p);
+			
+		}
+	}
+	
+	public void delete(Block b) {
+		int[] pos = this.findIndex(b);
+		this.set(pos[0], pos[1], new Block("Grass.png",false,true));
+	}
+	
+	
+	public void placeBomb(Player p, int x, int y) {
+		int[] pos = this.findIndex(p);
+		if (this.get(pos[0] + y, pos[1] + x).isWalkable()){
+			
+			Bomb b = new Bomb("bomb.png",false,false,this);
+
+			this.set(pos[0] + y, pos[1] + x, b);	
+			Thread t = new Thread(b);
+			t.start();
+		}
+	}
+	
+	public void placeExplosion(Bomb b, int x, int y) {
+		int[] pos = this.findIndex(b);
+		if (this.get(pos[0] + y, pos[1] + x).isWalkable()){
+			
+			Explosion e = new Explosion("bomb.png",false,false,this);
+
+			this.set(pos[0] + y, pos[1] + x, e);	
+			Thread t = new Thread(e);
+			t.start();
 		}
 	}
 	
@@ -63,10 +110,12 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 					case "3":
 						if (player1 == null) {
 							this.setPlayer1(new Player("player1front.png",false,true));
+							this.getPlayer1().setPlayerNr(1);
 							line.add(this.getPlayer1());
 						}else {
 							this.setPlayer2(new Player("player2front.png",false,true));
 							line.add(this.getPlayer2());
+							this.getPlayer2().setPlayerNr(2);
 						}
 						break;
 					}
@@ -127,10 +176,6 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 		this.get(x).set(y, b);
 	}
 
-	
-	
-	
-	
 	
 	
 	
