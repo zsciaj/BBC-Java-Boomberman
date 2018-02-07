@@ -5,6 +5,7 @@ package ch.berufsbildungscenter.project_Bomberman2;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
@@ -16,31 +17,29 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class Client implements KeyListener{
+public class Client implements KeyListener, Serializable{
 
 	private static Receiver receiver;
 	private Player player;
 	private JFrame window;
 	private JPanel map;
-	
+	private int[] playerDirection;
 	
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1299/validator");
+			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.195
 			Receiver receiver = (Receiver) remote;
-			
 			
 			Client client = new Client();
 			client.setReceiver(receiver);
 			client.setPlayer(receiver.sendPlayer());
 			client.show();
-
 			
-
 			
+	
 		} catch (MalformedURLException me) {
-			System.err.println("rmi://localhost:1499/validator is not a valid URL");
+			System.err.println("rmi://192.168.3.195:1499/validator is not a valid URL");
 		} catch (NotBoundException nbe) {
 			System.err.println("Could not find requested object on the server");
 		} catch (RemoteException re) {
@@ -56,25 +55,29 @@ public class Client implements KeyListener{
 		
 		try {
 			System.out.println(key);
+			int[] dir = new int[2];
 			switch (key) {
 				case 'w':
-					this.getReceiver().movePlayer(this.getPlayer(),0,-1);
-					this.update();
+					dir[1] = -1;
+					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);
 					break;
 				case 's':
-					this.getReceiver().movePlayer(this.getPlayer(),0,1);
-					this.update();
+					dir[1] = 1;
+					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);	
 					break;
 				case 'a':
-					this.getReceiver().movePlayer(this.getPlayer(),-1,0);
-					this.update();
-					break;
+					dir[0] = -1;
+					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);
+					break;	
 				case 'd':
-					this.getReceiver().movePlayer(this.getPlayer(),1,0);
-					this.update();
+					dir[0] = 1;	
+					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);
 					break;
-				
+				case ' ':
+					this.getReceiver().placeBomb(this.getPlayer(),this.getPlayerDirection()[0],this.getPlayerDirection()[1]);	
+					break;
 			}
+			this.setPlayerDirection(dir);
 			
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -86,13 +89,13 @@ public class Client implements KeyListener{
 	
 	public void update() {
 		Field s;
-		this.getMap().removeAll();
 		System.out.println("Update");
+		this.getMap().removeAll();
 		try {
 			s = this.getReceiver().sendField();
-			for (ArrayList<Block> i: s) {
-				for(Block j:i) {
-					this.getMap().add(j);
+			for (ArrayList<Block> ab: s) {
+				for(Block b:ab) {
+					this.getMap().add(b);
 				}
 			}
 			map.updateUI();
@@ -130,6 +133,9 @@ public class Client implements KeyListener{
 			window.setResizable(false);
 			window.addKeyListener(this);
 			this.setWindow(window);
+			Updater u = new Updater(this);
+			Thread t  = new Thread(u);
+			t.start();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -175,6 +181,16 @@ public class Client implements KeyListener{
 	
 	
 	
+
+	public int[] getPlayerDirection() {
+		return playerDirection;
+	}
+
+
+	public void setPlayerDirection(int[] playerDirection) {
+		this.playerDirection = playerDirection;
+	}
+
 
 	public JPanel getMap() {
 		return map;

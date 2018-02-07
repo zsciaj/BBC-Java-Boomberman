@@ -7,6 +7,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 
+	private Client client1;
+	private Client client2;
 	private static Field field;
   
 	public ReceiverImpl(Field field) throws RemoteException {
@@ -30,16 +32,18 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 
-	public void movePlayer(Player p, int x, int y)  throws RemoteException{
+
+
+
+	public void movePlayer(Player p, int x, int y) throws RemoteException {
 		this.getField().movePlayer(p,x,y);
-		
 	}
+
+
 	
-	
-	
-	
-	
-	
+	public void placeBomb(Player p, int x, int y) throws RemoteException {
+		this.getField().placeBomb(p,x,y);
+	}
 	
 
 	public static Field getField() {

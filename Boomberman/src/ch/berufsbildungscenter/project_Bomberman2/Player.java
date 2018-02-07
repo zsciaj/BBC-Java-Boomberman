@@ -3,6 +3,7 @@ package ch.berufsbildungscenter.project_Bomberman2;
 public class Player extends Block{
 
 	private boolean used;
+	private int playerNr;
 	
 	public Player(String image, boolean breakable, boolean walkable) {
 		super(image, breakable, walkable);
@@ -16,4 +17,13 @@ public class Player extends Block{
 		this.used = used;
 	}
 
+	public int getPlayerNr() {
+		return playerNr;
+	}
+
+	public void setPlayerNr(int playerNr) {
+		this.playerNr = playerNr;
+	}
+
+	
 }

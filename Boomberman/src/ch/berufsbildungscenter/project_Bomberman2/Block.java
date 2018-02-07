@@ -7,8 +7,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import ch.berufsbildungscenter.project_Boomberman2.Map;
-
 public class Block extends JLabel {
 	
 	private boolean breakable;
@@ -19,11 +17,14 @@ public class Block extends JLabel {
 		this.setBreakable(breakable);
 		this.setWalkable(walkable);
 		this.setIcon(loadIcon(image));
+
 		
 	}
 	
 	
-	
+	public void setIcon(String image) {
+		super.setIcon(loadIcon(image));
+	}
 	
 
 	public boolean isBreakable() {
@@ -53,13 +54,12 @@ public class Block extends JLabel {
 
 
 
-
 	protected static Icon loadIcon(String iconName) {
-		final URL resource = Map.class.getResource("/resource/" + iconName);
+		final URL resource = Block.class.getResource("/resource/" + iconName);
 
 		if (resource == null) {
 			System.err.println(
-					"Error in " + Map.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
+					"Error in " + Block.class.getName() + ": Icon /resource/" + iconName + " could not be loaded.");
 			return new ImageIcon();
 		}
 		return new ImageIcon(resource);
