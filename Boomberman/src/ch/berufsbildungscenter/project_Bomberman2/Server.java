@@ -23,6 +23,6 @@ public class Server {
 			
 		} catch (RemoteException e) {
 			System.out.println(e.getMessage());
-		}
+		}  
 	}
 }
