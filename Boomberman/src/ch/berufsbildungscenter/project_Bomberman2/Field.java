@@ -21,9 +21,9 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	private Player player2;
 	
 	
+	
 	public void movePlayer(Player p, int x, int y){
 		
-	
 		int[] pos = this.findBlock(p);
 		this.set(pos[0], pos[1], new Block("Grass.png",false,true));	
 		this.set(pos[0] + x, pos[1] + y, p);
@@ -81,7 +81,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			try {
 				br.close();
 				fr.close();
-			} catch (IOException e) {
+			} catch (IOException e) {  
 			}
 		}
 	}
