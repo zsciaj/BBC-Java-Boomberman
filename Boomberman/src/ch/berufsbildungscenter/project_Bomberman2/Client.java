@@ -37,7 +37,7 @@ public class Client implements KeyListener, Serializable{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.195     localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1199/validator"); //192.168.3.195     localhost
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client(receiver);
 			InputName inputName = new InputName();
@@ -48,7 +48,6 @@ public class Client implements KeyListener, Serializable{
 			}
 			client.setPlayer(client.getReceiver().sendPlayer());
 			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
-			System.out.println(client.getReceiver().resendPlayer(client.getPlayer()).getPlayerData().getName());
 			inputName.dispose();
 			
 			client.show();
@@ -113,10 +112,9 @@ public class Client implements KeyListener, Serializable{
 			
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			
-			
-			
-			
 			this.getReceiver().getPlayerData(1).revalidate();
+			System.out.println(this.getReceiver().getPlayerData(1).getLives());
+			System.out.println(this.getReceiver().getPlayerData(2).getLives());
 			this.getReceiver().getPlayerData(2).revalidate();
 			
 			for (ArrayList<Block> ab: s) {

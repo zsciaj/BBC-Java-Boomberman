@@ -22,7 +22,7 @@ public class PlayerData extends JPanel implements Serializable {
 	public PlayerData() {
 		
 		
-		j1.setText(this.getLives() + "");
+		j1.setText(String.valueOf(lives));
 		j2.setText(this.getName());
 		
 		add(j1,BorderLayout.NORTH);
@@ -38,20 +38,25 @@ public class PlayerData extends JPanel implements Serializable {
 	public int getLives() {
 		return lives;
 	}
+	
 	public void setLives(int lives) {
 		this.lives = lives;
 		this.getJ1().setText(String.valueOf(lives));
 	
 	}
+	
 	public ImageIcon getImage() {
 		return image;
 	}
+	
 	public void setImage(ImageIcon image) {
 		this.image = image;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 		this.getJ2().setText(name);
