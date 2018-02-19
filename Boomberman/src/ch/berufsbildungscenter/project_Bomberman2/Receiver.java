@@ -20,4 +20,6 @@ public interface Receiver extends Remote {
 	public PlayerData getPlayerData(int code) throws RemoteException;
 	
 	public void setPlayername(String name,Player p) throws RemoteException;
+	
+	public Player resendPlayer(Player p) throws RemoteException;
 }

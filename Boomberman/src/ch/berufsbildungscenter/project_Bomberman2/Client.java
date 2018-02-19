@@ -44,12 +44,13 @@ public class Client implements KeyListener, Serializable{
 			
 			
 			while(inputName.getPlayerName() == null) {
-				String y = new String();
+				String s = new String();
 			}
 			client.setPlayer(client.getReceiver().sendPlayer());
 			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
-			System.out.println(inputName.getPlayerName());
+			System.out.println(client.getReceiver().resendPlayer(client.getPlayer()).getPlayerData().getName());
 			inputName.dispose();
+			
 			client.show();
 			
 		} catch (MalformedURLException me) {
@@ -59,6 +60,7 @@ public class Client implements KeyListener, Serializable{
 		} catch (RemoteException re) {
 			System.err.println(re.getMessage());
 		}
+
 	}
 
 	
@@ -108,7 +110,15 @@ public class Client implements KeyListener, Serializable{
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
-			this.getPlayer().setLives(this.getReceiver().getPlayerLives(this.getPlayer()));
+			
+			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
+			
+			
+			
+			
+			this.getReceiver().getPlayerData(1).revalidate();
+			this.getReceiver().getPlayerData(2).revalidate();
+			
 			for (ArrayList<Block> ab: s) {
 				for(Block b:ab) {
 					
@@ -116,7 +126,7 @@ public class Client implements KeyListener, Serializable{
 					this.getMap().add(b);
 				}
 			}
-			this.getMap().updateUI();
+			this.getMap().revalidate();
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -141,8 +151,7 @@ public class Client implements KeyListener, Serializable{
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
-			
-			this.setPlayer(this.getReceiver().sendPlayer());
+		
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
 			infoBar.add(this.getTimer());
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()*-1+3));

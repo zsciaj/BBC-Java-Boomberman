@@ -33,6 +33,14 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		}
 	}
 	
+	public Player resendPlayer(Player p) throws RemoteException {
+		if (p.getPlayerNr() == 1) {
+			return this.getField().getPlayer1();
+		}else {
+			return this.getField().getPlayer2();
+		}
+	}
+	
 	
 	public PlayerData getPlayerData(int code) throws RemoteException {
 		if (code == 1) {
@@ -43,21 +51,21 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		
 	}
 	
-	public void setPlayername(String name,Player p) {
+	public void setPlayername(String name,Player p) throws RemoteException{
 		if (p.getPlayerNr() == 1) {
-			this.getField().getPlayer1().setName(name);
+			this.getField().getPlayer1().getPlayerData().setName(name);
 		}else {
-			this.getField().getPlayer2().setName(name);
+			this.getField().getPlayer2().getPlayerData().setName(name);
 		}
 		
 	}
 	
 
 	public int getPlayerLives(Player p) throws RemoteException{
-		if (p.getPlayerNr() == this.getField().getPlayer1().getPlayerNr()) {
-			return this.getField().getPlayer1().getLives();
+		if (p.getPlayerNr() == 1) {
+			return this.getField().getPlayer1().getPlayerData().getLives();
 		}else {
-			return this.getField().getPlayer1().getLives();
+			return this.getField().getPlayer2().getPlayerData().getLives();
 		}
 	}
 

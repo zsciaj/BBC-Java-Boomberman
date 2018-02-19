@@ -15,12 +15,12 @@ public class PlayerData extends JPanel implements Serializable {
 	
 	int lives = 100;
 	ImageIcon image;
-	String name = "";
-	
+	String name = "test";
+	JLabel j1 = new JLabel();
+	JLabel j2 = new JLabel();
 	
 	public PlayerData() {
-		JLabel j1 = new JLabel();
-		JLabel j2 = new JLabel();
+		
 		
 		j1.setText(this.getLives() + "");
 		j2.setText(this.getName());
@@ -31,12 +31,17 @@ public class PlayerData extends JPanel implements Serializable {
 		
 	}
 	
+	public void hit(int damage) {
+		this.setLives(this.getLives()-damage);
+	}
 	
 	public int getLives() {
 		return lives;
 	}
 	public void setLives(int lives) {
 		this.lives = lives;
+		this.getJ1().setText(String.valueOf(lives));
+	
 	}
 	public ImageIcon getImage() {
 		return image;
@@ -49,6 +54,23 @@ public class PlayerData extends JPanel implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+		this.getJ2().setText(name);
+	}
+
+	public JLabel getJ1() {
+		return j1;
+	}
+
+	public void setJ1(JLabel j1) {
+		this.j1 = j1;
+	}
+
+	public JLabel getJ2() {
+		return j2;
+	}
+
+	public void setJ2(JLabel j2) {
+		this.j2 = j2;
 	}
 	
 	
