@@ -47,7 +47,7 @@ public class Client implements KeyListener, Serializable{
 			client.setPlayer(client.getReceiver().sendPlayer());
 			
 			
-			while (!(inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() *-1 +3).getName() == null)) {
+			while (inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() *-1 +3).getName() == null) {
 				String s = new String();
 				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			}
