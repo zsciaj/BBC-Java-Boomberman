@@ -1,16 +1,12 @@
 package ch.berufsbildungscenter.project_Bomberman2;
 
-import java.awt.GridLayout;
-import java.awt.List;
-import java.awt.event.KeyListener;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
 
 
 
@@ -24,22 +20,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	
 	public void movePlayer(Player p, int x, int y){
 		int[] pos = this.findIndex(p);
-		
-		switch(x + " " + y) {
-		case "-1 0":
-			p.setIcon("player" + p.getPlayerNr() + "left.png");
-			break;
-		case "1 0":
-			p.setIcon("player" + p.getPlayerNr() + "right.png");
-			break;
-		case "0 -1":
-			p.setIcon("player" + p.getPlayerNr() + "back.png");
-			break;
-		case "0 1":
-			p.setIcon("player" + p.getPlayerNr() + "front.png");
-			break;
-		}
-		
+
 		if (this.get(pos[0] + y, pos[1] + x).isWalkable()){
 			this.set(pos[0], pos[1], new Block("Grass.png",true,true));	
 			this.set(pos[0] + y, pos[1] + x, p);
@@ -55,7 +36,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	
 	public void placeBomb(Player p, int x, int y) {
 		int[] pos = this.findIndex(p);
-		if (this.get(pos[0] + y, pos[1] + x).isWalkable()){
+		if (this.get(pos[0] + y, pos[1] + x).isWalkable()) {
 			
 			
 			Bomb b = new Bomb("bomb.png",false,false,this);
@@ -67,20 +48,17 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	
 			
 	
-	public void placeExplosion(Bomb b, int x, int y) {
-		int[] pos = this.findIndex(b);
-		for (int i = 0; i < 4; i++) {
-			if (this.get(pos[0] + i*x, pos[1] + i*y).isBreakable()){
-				Explosion e = new  Explosion("Explosion.png", false, true, this);
-				this.set(pos[0] +  i*x, pos[1] + i*y, e);
-				Thread t = new Thread(e);
-				t.start();
-			}else {
-				return;
-			}
+	public void placeExplosion(int x, int y) {
+		
+ 		Explosion e = new  Explosion("Explosion.png", false, true, this);
+		this.set(x, y, e);
+		Thread t = new Thread(e);
+		t.start();
 			
-		}
+			
+			
 	}
+	
 	
 	
 	
@@ -94,7 +72,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			int i1 = 0;
 			while ((s = br.readLine()) != null){
 				
-				ArrayList line = new ArrayList<Block>();
+				ArrayList<Block> line = new ArrayList<Block>();
 				
 				String[] keyList = new String[15];
 				keyList = s.split("/");
@@ -109,14 +87,14 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 						break;
 					case "2":
 						line.add(new Block("breakableblock.png",true,false));
-						break;
+						break; 
 					case "3":
 						if (player1 == null) {
-							this.setPlayer1(new Player("player1front.png",true,true));
+							this.setPlayer1(new Player("player1front.png",false,false));
 							this.getPlayer1().setPlayerNr(1);
 							line.add(this.getPlayer1());
 						}else {
-							this.setPlayer2(new Player("player2front.png",true,true));
+							this.setPlayer2(new Player("player2front.png",false,false));
 							line.add(this.getPlayer2());
 							this.getPlayer2().setPlayerNr(2);
 						}
@@ -175,8 +153,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 		this.get(x).set(y, b);
 	}
 
-	
-	
+
 	
 	public Player getPlayer1() {
 		return player1;

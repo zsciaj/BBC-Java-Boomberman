@@ -20,8 +20,9 @@ import javax.swing.JPanel;
 
 public class Client implements KeyListener, Serializable{
 
-	private static Receiver receiver;
-	private Player player;
+	
+	private Receiver receiver;
+	Player  player;
 	private JFrame window;
 	private JPanel map;
 	private int[] playerDirection;
@@ -39,7 +40,6 @@ public class Client implements KeyListener, Serializable{
 			Receiver receiver = (Receiver) remote;
 			
 			Client client = new Client(receiver);
-			client.setPlayer(client.getReceiver().sendPlayer());
 			client.show();
 			
 			
@@ -64,18 +64,22 @@ public class Client implements KeyListener, Serializable{
 			switch (key) {
 				case 'w':
 					dir[1] = -1;
+					this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "back.png");
 					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);
 					break;
 				case 's':
 					dir[1] = 1;
+					this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "front.png");
 					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);	
 					break;
 				case 'a':
 					dir[0] = -1;
+					this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "left.png");
 					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);
 					break;	
 				case 'd':
 					dir[0] = 1;	
+					this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "right.png");
 					this.getReceiver().movePlayer(this.getPlayer(),dir[0],dir[1]);
 					break;
 				case ' ':
@@ -95,9 +99,11 @@ public class Client implements KeyListener, Serializable{
 	public void update() {
 		Field s;
 		try {
-			s = this.getReceiver().sendField(); 
+			s = this.getReceiver().sendField();
+			this.getPlayer().setLives(this.getReceiver().getPlayerLives(this.getPlayer()));
 			for (ArrayList<Block> ab: s) {
 				for(Block b:ab) {
+					
 					this.getMap().remove(0);
 					this.getMap().add(b);
 				}
@@ -123,6 +129,7 @@ public class Client implements KeyListener, Serializable{
 		Thread t1 = new Thread(this.getTimer());
 		t1.start();
 		
+		int c;
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
@@ -142,7 +149,8 @@ public class Client implements KeyListener, Serializable{
 			this.setInfoBar(infoBar);
 			this.setWindow(window);
 			this.setMap(map);
-			
+		
+			this.setPlayer(this.getReceiver().sendPlayer());
 			Updater u = new Updater(this);
 			Thread t2  = new Thread(u);
 			t2.start();
@@ -178,13 +186,11 @@ public class Client implements KeyListener, Serializable{
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -221,23 +227,20 @@ public class Client implements KeyListener, Serializable{
 		this.window = window;
 	}
 
-
 	public Player getPlayer() {
 		return player;
 	}
 
-
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void setPlayer(Player p) {
+		this.player = p;
 	}
 
-
-	public static Receiver getReceiver() {
+	public Receiver getReceiver() {
 		return receiver;
 	}
 
-	public static void setReceiver(Receiver receiver) {
-		Client.receiver = receiver;
+	public void setReceiver(Receiver receiver) {
+		this.receiver = receiver;
 	}
 
 	public Timer getTimer() {

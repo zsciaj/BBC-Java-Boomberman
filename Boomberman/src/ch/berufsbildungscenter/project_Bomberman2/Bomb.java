@@ -13,7 +13,10 @@ public class Bomb extends Block implements Runnable {
 	public void run() {
 		try {
 			Thread.sleep(3000);
-			this.explode();
+			this.explode(-1,0);
+			this.explode(1,0);
+			this.explode(0,1);
+			this.explode(0,-1);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}finally {
@@ -21,13 +24,30 @@ public class Bomb extends Block implements Runnable {
 		}
 	}
 	
-
-	public void explode() {
-			this.getField().placeExplosion(this, -1, 0);
-			this.getField().placeExplosion(this, 1, 0);
-			this.getField().placeExplosion(this, 0, -1);
-			this.getField().placeExplosion(this, 0, 1);
+	
+	public void explode(int x, int y) {
+		int addX = x;
+		int addY = y;
+		for (int j = 0;j<3;j++) {
+			int[] pos = this.getField().findIndex(this);
+			Block actual = this.getField().get(x + pos[0],y + pos[1]);
+			if (actual.isBreakable()) {
+				this.getField().placeExplosion(x + pos[0],y + pos[1]);
+			}else {
+				if (actual.getId().equals(this.getField().getPlayer1().getId())){
+					((Player) actual).setLives(100000);
+				}else if (actual.getId().equals(this.getField().getPlayer2().getId())){
+					((Player) actual).hit(50/(j+1));
+				}
+				return;
+			}
+			x += addX;
+			y += addY;
+		}
+	
 	}
+		
+
 
 	public Field getField() {
 		return field;

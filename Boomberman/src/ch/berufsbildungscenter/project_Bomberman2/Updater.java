@@ -1,5 +1,7 @@
 package ch.berufsbildungscenter.project_Bomberman2;
 
+import java.rmi.RemoteException;
+
 public class Updater implements Runnable{
 
 	Client client;
@@ -17,6 +19,7 @@ public class Updater implements Runnable{
 				e.printStackTrace();
 			}
 			this.getClient().update();
+			System.out.println(this.getClient().getPlayer().getLives());
 		}
 		
 	}

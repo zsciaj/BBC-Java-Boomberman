@@ -22,7 +22,13 @@ public class Timer extends JLabel implements Runnable,Serializable{
 			}
 			this.setFont(new Font("Arial",Font.BOLD, 30));
 			this.setBackground(Color.WHITE);
-			this.setText(this.getTime() / 60 + ":" + this.getTime() % 60);
+			String s;
+			if ( this.getTime() % 60 < 10) {
+				s =  "0" + this.getTime() % 60;
+			}else {
+				s =  "" + this.getTime() % 60;
+			}
+			this.setText(this.getTime() / 60 + ":" + s);
 			
 			this.updateUI();
 		}
