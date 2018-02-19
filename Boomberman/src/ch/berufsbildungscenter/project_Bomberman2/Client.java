@@ -44,11 +44,13 @@ public class Client implements KeyListener, Serializable{
 			Client client = new Client(receiver);
 			InputName inputName = new InputName();
 			
-			
-			while(inputName.getPlayerName() == null) {
-				String s = new String();
-			}
 			client.setPlayer(client.getReceiver().sendPlayer());
+			
+			
+			while (!(inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() *-1 +3).getName() == null)) {
+				String s = new String();
+				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
+			}
 			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			inputName.dispose();
 			
@@ -114,9 +116,14 @@ public class Client implements KeyListener, Serializable{
 			
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			
+			
+		
+			
 			this.getReceiver().getPlayerData(1).revalidate();
+			
 			System.out.println(this.getReceiver().getPlayerData(1).getLives());
 			System.out.println(this.getReceiver().getPlayerData(2).getLives());
+			
 			this.getReceiver().getPlayerData(2).revalidate();
 			
 			for (ArrayList<Block> ab: s) {
