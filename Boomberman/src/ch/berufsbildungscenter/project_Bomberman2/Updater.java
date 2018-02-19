@@ -19,7 +19,7 @@ public class Updater implements Runnable{
 				e.printStackTrace();
 			}
 			this.getClient().update();
-			System.out.println(this.getClient().getPlayer().getLives());
+			
 		}
 		
 	}

@@ -47,6 +47,7 @@ public class InputName extends JDialog {
 		add(this.getStartButton(), BorderLayout.SOUTH);
 		add(this.getInput(), BorderLayout.CENTER);
 
+
 	
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

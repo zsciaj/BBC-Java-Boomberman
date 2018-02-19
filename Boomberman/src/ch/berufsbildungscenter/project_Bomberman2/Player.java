@@ -13,14 +13,6 @@ public class Player extends Block{
 		this.getPlayerData().setImage((ImageIcon) loadIcon(image));
 		
 	}
-
-	public void setLives(int lives) {
-		this.getPlayerData().setLives(lives);
-	}
-	
-	public int getLives() {
-		return this.getPlayerData().getLives();
-	}
 	
 	public boolean isUsed() {
 		return used;
@@ -46,6 +38,5 @@ public class Player extends Block{
 		this.playerData = playerData;
 	}
 
-	
 
 }

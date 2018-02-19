@@ -12,7 +12,7 @@ public class Bomb extends Block implements Runnable {
 	
 	public void run() {
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 			this.explode(-1,0);
 			this.explode(1,0);
 			this.explode(0,1);
@@ -35,9 +35,9 @@ public class Bomb extends Block implements Runnable {
 				this.getField().placeExplosion(x + pos[0],y + pos[1]);
 			}else {
 				if (actual.getId().equals(this.getField().getPlayer1().getId())){
-					
+					this.getField().getPlayer1().getPlayerData().hit(50/(j+1));
 				}else if (actual.getId().equals(this.getField().getPlayer2().getId())){
-					
+					this.getField().getPlayer2().getPlayerData().hit(50/(j+1));
 				}
 				return;
 			}
