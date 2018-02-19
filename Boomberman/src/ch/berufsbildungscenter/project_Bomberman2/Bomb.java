@@ -35,9 +35,9 @@ public class Bomb extends Block implements Runnable {
 				this.getField().placeExplosion(x + pos[0],y + pos[1]);
 			}else {
 				if (actual.getId().equals(this.getField().getPlayer1().getId())){
-					((Player) actual).setLives(100000);
+					
 				}else if (actual.getId().equals(this.getField().getPlayer2().getId())){
-					((Player) actual).hit(50/(j+1));
+					
 				}
 				return;
 			}

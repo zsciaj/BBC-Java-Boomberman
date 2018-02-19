@@ -27,6 +27,7 @@ public class Client implements KeyListener, Serializable{
 	private JPanel map;
 	private int[] playerDirection;
 	private Timer timer = new Timer();
+	
 	JPanel infoBar;
 	
 	public Client(Receiver r) {
@@ -36,14 +37,21 @@ public class Client implements KeyListener, Serializable{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.195       localhost
+			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.195     localhost
 			Receiver receiver = (Receiver) remote;
-			
 			Client client = new Client(receiver);
+			InputName inputName = new InputName();
+			
+			
+			while(inputName.getPlayerName() == null) {
+				String y = new String();
+			}
+			client.setPlayer(client.getReceiver().sendPlayer());
+			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
+			System.out.println(inputName.getPlayerName());
+			inputName.dispose();
 			client.show();
 			
-			
-	
 		} catch (MalformedURLException me) {
 			System.err.println("rmi://192.168.3.195:1499/validator is not a valid URL");
 		} catch (NotBoundException nbe) {
@@ -125,7 +133,7 @@ public class Client implements KeyListener, Serializable{
 		map.setLayout(new GridLayout(11,15));
 		
 		infoBar.setLayout(new GridLayout(1,3));
-		infoBar.add(this.getTimer());
+		
 		Thread t1 = new Thread(this.getTimer());
 		t1.start();
 		
@@ -133,6 +141,12 @@ public class Client implements KeyListener, Serializable{
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
+			
+			this.setPlayer(this.getReceiver().sendPlayer());
+			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
+			infoBar.add(this.getTimer());
+			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()*-1+3));
+			
 			for (ArrayList<Block> i: s) {
 				for(Block j:i) {
 					map.add(j);
@@ -150,7 +164,7 @@ public class Client implements KeyListener, Serializable{
 			this.setWindow(window);
 			this.setMap(map);
 		
-			this.setPlayer(this.getReceiver().sendPlayer());
+			
 			Updater u = new Updater(this);
 			Thread t2  = new Thread(u);
 			t2.start();
@@ -258,6 +272,7 @@ public class Client implements KeyListener, Serializable{
 	public void setInfoBar(JPanel infoBar) {
 		this.infoBar = infoBar;
 	}
+
 	
 	
 	

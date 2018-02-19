@@ -1,15 +1,27 @@
 package ch.berufsbildungscenter.project_Bomberman2;
 
+import javax.swing.ImageIcon;
+
 public class Player extends Block{
 
 	private boolean used;
 	private int playerNr;
-	private int lives = 100;
+	private PlayerData playerData = new PlayerData();
 	
 	public Player(String image, boolean breakable, boolean walkable) {
 		super(image, breakable, walkable);
+		this.getPlayerData().setImage((ImageIcon) loadIcon(image));
+		
 	}
 
+	public void setLives(int lives) {
+		this.getPlayerData().setLives(lives);
+	}
+	
+	public int getLives() {
+		return this.getPlayerData().getLives();
+	}
+	
 	public boolean isUsed() {
 		return used;
 	}
@@ -26,16 +38,14 @@ public class Player extends Block{
 		this.playerNr = playerNr;
 	}
 
-	public void hit(int damage) {
-		this.setLives(this.getLives() - damage);
+	public PlayerData getPlayerData() {
+		return playerData;
 	}
 
-	public int getLives() {
-		return lives;
+	public void setPlayerData(PlayerData playerData) {
+		this.playerData = playerData;
 	}
 
-	public void setLives(int lives) {
-		this.lives = lives;
-	}
+	
 
 }

@@ -17,42 +17,72 @@ import javax.swing.border.Border;
 public class InputName extends JDialog {
 
 	private JTextField demand = new JTextField("Gib deinen Spielnamen ein und drücke auf 'Start'!");
-	private JTextField playerName = new JTextField();
+	private JTextField input = new JTextField();
 	private JButton startButton = new JButton("Start");
-	private String player1Name;
+	private String playerName;
 	
 
 	public static void main(String[] args) {
 
 		InputName inputName = new InputName();
-		inputName.setSize(550, 300);
-		inputName.setVisible(true);
-		inputName.setResizable(false);
+		
 
 	}
 
 	public InputName() {
-		setTitle(" ");
+		this.setSize(350, 120);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setTitle(" ");
 
-		playerName.setFont(new Font("Arial", Font.TRUETYPE_FONT, 30));
-		playerName.setHorizontalAlignment(JTextField.CENTER);
-		startButton.setFont(new Font("Arial", Font.BOLD, 24));
-		startButton.setMaximumSize(new Dimension(100, 100));
-		demand.setHorizontalAlignment(JTextField.CENTER);
-		demand.setFont(new Font("Arial", Font.TRUETYPE_FONT, 24));
-		demand.setEditable(false);
+		this.getInput().setFont(new Font("Arial",  Font.BOLD, 16));
+
+		this.getStartButton().setFont(new Font("Arial", Font.BOLD, 20));
+		
+		this.getDemand().setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
+		this.getDemand().setEditable(false);
 		
 		
-		add(demand, BorderLayout.NORTH);
-		add(startButton, BorderLayout.SOUTH);
-		add(playerName, BorderLayout.CENTER);
-		
+		add(this.getDemand(), BorderLayout.NORTH);
+		add(this.getStartButton(), BorderLayout.SOUTH);
+		add(this.getInput(), BorderLayout.CENTER);
+
+	
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				player1Name = playerName.getText();
-				System.out.println(player1Name);
+				playerName = input.getText();
 			}
 		});
+		
 	}
 
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public JTextField getDemand() {
+		return demand;
+	}
+
+	public void setDemand(JTextField demand) {
+		this.demand = demand;
+	}
+
+	public JTextField getInput() {
+		return input;
+	}
+
+	public void setInput(JTextField input) {
+		this.input = input;
+	}
+
+	public JButton getStartButton() {
+		return startButton;
+	}
+
+	public void setStartButton(JButton startButton) {
+		this.startButton = startButton;
+	}
+
+	
 }

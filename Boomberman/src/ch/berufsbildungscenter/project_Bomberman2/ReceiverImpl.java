@@ -10,6 +10,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 //	private Client client1;
 //	private Client client2;
 	private Field field;
+	private Timer timer = new Timer();
 
   
 	public ReceiverImpl(Field field) throws RemoteException {
@@ -32,6 +33,25 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		}
 	}
 	
+	
+	public PlayerData getPlayerData(int code) throws RemoteException {
+		if (code == 1) {
+			return this.getField().getPlayer1().getPlayerData();
+		}else {
+			return this.getField().getPlayer2().getPlayerData();
+		}
+		
+	}
+	
+	public void setPlayername(String name,Player p) {
+		if (p.getPlayerNr() == 1) {
+			this.getField().getPlayer1().setName(name);
+		}else {
+			this.getField().getPlayer2().setName(name);
+		}
+		
+	}
+	
 
 	public int getPlayerLives(Player p) throws RemoteException{
 		if (p.getPlayerNr() == this.getField().getPlayer1().getPlayerNr()) {
@@ -41,7 +61,6 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		}
 	}
 
-	
 	
 	public void movePlayer(Player p, int x, int y) throws RemoteException {
 		this.getField().movePlayer(p,x,y);
