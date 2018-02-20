@@ -1,6 +1,7 @@
 package ch.berufsbildungscenter.project_Bomberman2;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -28,10 +29,17 @@ public class PlayerData extends JPanel implements Serializable {
 		this.getNameLabel().setText(this.getName());
 		this.getPictureLabel().setIcon(image);
 		this.setName("Player " + String.valueOf(nr));
-	
+		
+		this.getHealthbar().setBackground(Color.decode("#F0BB47"));
+		this.getNameLabel().setBackground(Color.decode("#F0BB47"));
+		this.getHealthbar().setForeground(Color.GREEN);
+		this.getHealtName().setBackground(Color.decode("#F0BB47"));
+		
 		this.getHealtName().setLayout(new GridLayout(2,1));
 		this.getHealtName().add(this.getHealthbar(),0);
 		this.getHealtName().add(this.getNameLabel(),1);
+
+		this.setBackground(Color.decode("#F0BB47"));
 		
 		add(this.getPictureLabel(),BorderLayout.WEST);
 		add(this.getHealtName());
@@ -40,6 +48,9 @@ public class PlayerData extends JPanel implements Serializable {
 	
 	public void hit(int damage) {
 		this.setLives(this.getLives()-damage); 
+		if (this.getLives() <= 0) {
+			this.getHealthbar().setBackground(Color.RED);
+		}
 	}
 	
 	public int getLives() {
@@ -84,9 +95,6 @@ public class PlayerData extends JPanel implements Serializable {
 		return healthbar;
 	}
 
-	public void setHealthbar(JProgressBar healthbar) {
-		this.healthbar = healthbar;
-	}
 
 	public JPanel getHealtName() {
 		return healtName;
