@@ -2,6 +2,7 @@ package ch.berufsbildungscenter.project_Bomberman2;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.Serializable;
 
@@ -10,29 +11,35 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 public class PlayerData extends JPanel implements Serializable {
 	
 	int lives = 100;
-	ImageIcon image;
-	String name = "test";
-	JLabel j1 = new JLabel();
-	JLabel j2 = new JLabel();
+	private String name = "Player";
+	private JLabel nameLabel = new JLabel();
+	private JLabel pictureLabel = new JLabel();
+	private JProgressBar healthbar = new JProgressBar();
+	private JPanel healtName = new JPanel();
 	
-	public PlayerData() {
+	public PlayerData(ImageIcon image,int nr) {
+
+		this.getHealthbar().setValue(this.getLives());
+		this.getNameLabel().setText(this.getName());
+		this.getPictureLabel().setIcon(image);
+		this.setName("Player " + String.valueOf(nr));
+	
+		this.getHealtName().setLayout(new GridLayout(2,1));
+		this.getHealtName().add(this.getHealthbar(),0);
+		this.getHealtName().add(this.getNameLabel(),1);
 		
-		
-		j1.setText(String.valueOf(lives));
-		j2.setText(this.getName());
-		
-		add(j1,BorderLayout.NORTH);
-		add(j2,BorderLayout.SOUTH);
-		
+		add(this.getPictureLabel(),BorderLayout.WEST);
+		add(this.getHealtName());
 		
 	}
 	
 	public void hit(int damage) {
-		this.setLives(this.getLives()-damage);
+		this.setLives(this.getLives()-damage); 
 	}
 	
 	public int getLives() {
@@ -41,17 +48,11 @@ public class PlayerData extends JPanel implements Serializable {
 	
 	public void setLives(int lives) {
 		this.lives = lives;
-		this.getJ1().setText(String.valueOf(lives));
+		this.getHealthbar().setValue(lives);
 	
 	}
 	
-	public ImageIcon getImage() {
-		return image;
-	}
-	
-	public void setImage(ImageIcon image) {
-		this.image = image;
-	}
+
 	
 	public String getName() {
 		return name;
@@ -59,24 +60,43 @@ public class PlayerData extends JPanel implements Serializable {
 	
 	public void setName(String name) {
 		this.name = name;
-		this.getJ2().setText(name);
+		this.getNameLabel().setText(name);
+
 	}
 
-	public JLabel getJ1() {
-		return j1;
+	public JLabel getNameLabel() {
+		return nameLabel;
 	}
 
-	public void setJ1(JLabel j1) {
-		this.j1 = j1;
+	public void setNameLabel(JLabel nameLabel) {
+		this.nameLabel = nameLabel;
 	}
 
-	public JLabel getJ2() {
-		return j2;
+	public JLabel getPictureLabel() {
+		return pictureLabel;
 	}
 
-	public void setJ2(JLabel j2) {
-		this.j2 = j2;
+	public void setPictureLabel(JLabel pictureLabel) {
+		this.pictureLabel = pictureLabel;
 	}
+
+	public JProgressBar getHealthbar() {
+		return healthbar;
+	}
+
+	public void setHealthbar(JProgressBar healthbar) {
+		this.healthbar = healthbar;
+	}
+
+	public JPanel getHealtName() {
+		return healtName;
+	}
+
+	public void setHealtName(JPanel healtName) {
+		this.healtName = healtName;
+	}
+
+
 	
 	
 	

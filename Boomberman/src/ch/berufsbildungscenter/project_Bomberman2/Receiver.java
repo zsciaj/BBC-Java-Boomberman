@@ -14,8 +14,6 @@ public interface Receiver extends Remote {
 	public abstract Player sendPlayer() throws RemoteException;
 	
 	public abstract void placeBomb(Player p,int x,int y) throws RemoteException;
-
-	public abstract int getPlayerLives(Player p) throws RemoteException;
 	
 	public PlayerData getPlayerData(int code) throws RemoteException;
 	

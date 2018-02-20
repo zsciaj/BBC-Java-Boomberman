@@ -42,7 +42,6 @@ public class InputName extends JDialog {
 		this.getDemand().setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
 		this.getDemand().setEditable(false);
 		
-		
 		add(this.getDemand(), BorderLayout.NORTH);
 		add(this.getStartButton(), BorderLayout.SOUTH);
 		add(this.getInput(), BorderLayout.CENTER);

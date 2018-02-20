@@ -23,9 +23,9 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 	public synchronized Player sendPlayer() throws RemoteException{
-		if (this.getField().getPlayer1().isUsed()) {
+		if (this.getField().getPlayer1().isUsed()) {					//Überprufe ob der Spieler1 schon vergeben ist
 			this.getField().getPlayer2().setUsed(true);
-			return this.getField().getPlayer2();
+			return this.getField().getPlayer2();					
 		}else {
 			this.getField().getPlayer1().setUsed(true);
 			return this.getField().getPlayer1();
@@ -34,7 +34,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 	public Player resendPlayer(Player p) throws RemoteException {
-		if (p.getPlayerNr() == 1) {
+		if (p.getPlayerNr() == 1) {											//Überprüfe ob der Spieler player 1 ist
 			return this.getField().getPlayer1();
 		}else {
 			return this.getField().getPlayer2();
@@ -43,7 +43,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	
 	
 	public PlayerData getPlayerData(int code) throws RemoteException {
-		if (code == 1) {
+		if (code == 1) {											
 			return this.getField().getPlayer1().getPlayerData();
 		}else {
 			return this.getField().getPlayer2().getPlayerData();
@@ -52,7 +52,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 	public void setPlayername(String name,Player p) throws RemoteException{
-		if (p.getPlayerNr() == 1) {
+		if (p.getPlayerNr() == 1) {												//Überprüfe ob der Spieler player 1 ist
 			this.getField().getPlayer1().getPlayerData().setName(name);
 		}else {
 			this.getField().getPlayer2().getPlayerData().setName(name);
@@ -60,15 +60,6 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		
 	}
 	
-
-	public int getPlayerLives(Player p) throws RemoteException{
-		if (p.getPlayerNr() == 1) {
-			return this.getField().getPlayer1().getPlayerData().getLives();
-		}else {
-			return this.getField().getPlayer2().getPlayerData().getLives();
-		}
-	}
-
 	
 	public void movePlayer(Player p, int x, int y) throws RemoteException {
 		this.getField().movePlayer(p,x,y);

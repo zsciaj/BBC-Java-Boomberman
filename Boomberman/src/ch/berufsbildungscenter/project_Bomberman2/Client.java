@@ -16,19 +16,21 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 
 public class Client implements KeyListener, Serializable{
 
 	
 	private Receiver receiver;
-	Player  player;
+	private Player  player;
 	private JFrame window;
 	private JPanel map;
 	private int[] playerDirection;
 	private Timer timer = new Timer();
+	private JPanel infoBar;
 	
-	JPanel infoBar;
+	
 	
 	public Client(Receiver r) {
 		this.setReceiver(r);
@@ -37,7 +39,7 @@ public class Client implements KeyListener, Serializable{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1199/validator"); //192.168.3.195     localhost
+			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.172     localhost
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client(receiver);
 			InputName inputName = new InputName();
@@ -110,20 +112,22 @@ public class Client implements KeyListener, Serializable{
 	public void update() {
 		Field s;
 		try {
-			s = this.getReceiver().sendField();
+			
+			
 			
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			
 			
-		
+			this.getInfoBar().remove(0);
+			this.getInfoBar().add(this.getReceiver().getPlayerData(1),0);					//Marcooooooooooooooooooooooooooooo helprprprprpprprprprprprprprprprp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			
-			this.getReceiver().getPlayerData(1).revalidate();
+			this.getInfoBar().remove(2);
+			this.getInfoBar().add(this.getReceiver().getPlayerData(2),2);
+
 			
-			System.out.println(this.getReceiver().getPlayerData(1).getLives());
-			System.out.println(this.getReceiver().getPlayerData(2).getLives());
 			
-			this.getReceiver().getPlayerData(2).revalidate();
 			
+			s = this.getReceiver().sendField();
 			for (ArrayList<Block> ab: s) {
 				for(Block b:ab) {
 					
@@ -169,7 +173,7 @@ public class Client implements KeyListener, Serializable{
 			
 			window.add(map,BorderLayout.SOUTH);
 			window.setVisible(true);
-			window.setSize(960, 774);
+			window.setSize(960, 804);
 			window.setResizable(false);
 			window.addKeyListener(this);
 			window.add(infoBar,BorderLayout.NORTH);

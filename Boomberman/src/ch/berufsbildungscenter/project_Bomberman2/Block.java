@@ -11,7 +11,7 @@ public class Block extends JLabel {
 	
 	private boolean breakable;
 	private boolean walkable;
-	String id = UUID.randomUUID().toString();
+	String id = UUID.randomUUID().toString();									//Zufällige Id um das Objekt zu identifizieren
 	
 	public Block(String image, boolean breakable, boolean walkable) {
 		this.setBreakable(breakable);
@@ -54,7 +54,7 @@ public class Block extends JLabel {
 
 
 
-	protected static Icon loadIcon(String iconName) {
+	protected static Icon loadIcon(String iconName) {							//Methode um Bilder zu laden	
 		final URL resource = Block.class.getResource("/resource/" + iconName);
 
 		if (resource == null) {

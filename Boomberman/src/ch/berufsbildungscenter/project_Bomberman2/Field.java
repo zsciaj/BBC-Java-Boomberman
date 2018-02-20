@@ -22,22 +22,21 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 		int[] pos = this.findIndex(p);
 
 		if (this.get(pos[0] + y, pos[1] + x).isWalkable()){
-			this.set(pos[0], pos[1], new Block("Grass.png",true,true));	
-			this.set(pos[0] + y, pos[1] + x, p);
+			this.set(pos[0], pos[1], new Block("Grass.png",true,true));			//Setze an der alten Position ein neues Grass
+			this.set(pos[0] + y, pos[1] + x, p);								//Setze den Spieler an die neue Position
 			
 		}
 	}
 	
 	public void delete(Block b) {
 		int[] pos = this.findIndex(b);
-		this.set(pos[0], pos[1], new Block("Grass.png",true,true));
+		this.set(pos[0], pos[1], new Block("Grass.png",true,true));				//Ersetzt den Block mit einem neuen Grass
 	}
 	
 	
 	public void placeBomb(Player p, int x, int y) {
 		int[] pos = this.findIndex(p);
 		if (this.get(pos[0] + y, pos[1] + x).isWalkable()) {
-			
 			
 			Bomb b = new Bomb("bomb.png",false,false,this);
 			this.set(pos[0] + y, pos[1] + x, b);	
@@ -71,7 +70,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			String s;
 			int i1 = 0;
 			while ((s = br.readLine()) != null){
-				
+
 				ArrayList<Block> line = new ArrayList<Block>();
 				
 				String[] keyList = new String[15];
@@ -90,13 +89,13 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 						break; 
 					case "3":
 						if (player1 == null) {
-							this.setPlayer1(new Player("player1front.png",false,false));
-							this.getPlayer1().setPlayerNr(1);
+							this.setPlayer1(new Player("player1front.png",false,false,1));
 							line.add(this.getPlayer1());
+			
 						}else {
-							this.setPlayer2(new Player("player2front.png",false,false));
+							this.setPlayer2(new Player("player2front.png",false,false,2));
 							line.add(this.getPlayer2());
-							this.getPlayer2().setPlayerNr(2);
+							
 						}
 						break;
 					}
@@ -126,7 +125,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 		for (ArrayList<Block> list: this) {
 			int y = 0;
 			for (Block b2 :list) {
-				if (b2.getId().equals(b1.getId())) {	
+				if (b2.getId().equals(b1.getId())) {	//Überprüfe ob der aktuelle Block mit dem zu findenden übereinstimmt.
 					int[] pos = new int[2];
 					pos[0] = x;
 					pos[1] = y;

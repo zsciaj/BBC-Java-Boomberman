@@ -6,12 +6,13 @@ public class Player extends Block{
 
 	private boolean used;
 	private int playerNr;
-	private PlayerData playerData = new PlayerData();
+	private PlayerData playerData;
 	
-	public Player(String image, boolean breakable, boolean walkable) {
+	public Player(String image, boolean breakable, boolean walkable,int nr) {
 		super(image, breakable, walkable);
-		this.getPlayerData().setImage((ImageIcon) loadIcon(image));
-		
+		this.setPlayerNr(nr);
+		this.setPlayerData(new PlayerData((ImageIcon) loadIcon(image),nr));
+			
 	}
 	
 	public boolean isUsed() {
