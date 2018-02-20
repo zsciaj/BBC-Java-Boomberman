@@ -32,7 +32,7 @@ public class Client implements KeyListener, Serializable{
 	private JPanel map;
 	private int[] playerDirection;
 	private JPanel infoBar;
-	
+	private Thread thread;
 	
 	
 	public Client(Receiver r) {
@@ -113,20 +113,21 @@ public class Client implements KeyListener, Serializable{
 	
 	public void showOver(String image) {
 		JLabel j = new JLabel();
-		this.getWindow().removeAll();
-		this.getWindow().setLayout(new GridLayout(1,1));
+		this.getMap().removeAll();
+		this.getMap().setLayout(new GridLayout(1,1));
 		j.setIcon(Block.loadIcon(image));
-		this.getWindow().add(j);
-		this.getWindow().revalidate();
+		this.getMap().add(j);
+		this.getMap().revalidate();
+		this.getThread().stop();
 	}
 	
 	public void ckeckGameOver() {
 	
 		try {
 			if (this.getReceiver().getPlayerData(2).getLives() <= 0) {
-				this.showOver("player1over.png");	
-			}else if (this.getReceiver().getPlayerData(1).getLives() <= 0){
 				this.showOver("player2over.png");	
+			}else if (this.getReceiver().getPlayerData(1).getLives() <= 0){
+				this.showOver("player1over.png");	
 			}
 				
 		} catch (RemoteException e) {
@@ -216,6 +217,7 @@ public class Client implements KeyListener, Serializable{
 			
 			Updater u = new Updater(this);
 			Thread t2  = new Thread(u);
+			this.setThread(t2);
 			t2.start();
 		} catch (RemoteException e1) {
 			System.err.println("Feheler");
@@ -246,7 +248,15 @@ public class Client implements KeyListener, Serializable{
 
 	
 	
-	
+
+
+	public Thread getThread() {
+		return thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
 
 	public int[] getPlayerDirection() {
 		return playerDirection;
