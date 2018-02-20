@@ -38,7 +38,7 @@ public class Client implements KeyListener, Serializable{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1199/validator"); //192.168.3.172     localhost
+			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.172     localhost
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client(receiver);
 			InputName inputName = new InputName();
