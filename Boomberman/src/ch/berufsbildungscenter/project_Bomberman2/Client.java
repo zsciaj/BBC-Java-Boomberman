@@ -3,7 +3,9 @@ package ch.berufsbildungscenter.project_Bomberman2;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -12,9 +14,11 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.UnmarshalException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -38,7 +42,7 @@ public class Client implements KeyListener, Serializable{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1199/validator"); //192.168.3.172     localhost
+			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.172     localhost
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client(receiver);
 			InputName inputName = new InputName();
@@ -107,6 +111,29 @@ public class Client implements KeyListener, Serializable{
 		
 	}
 	
+	public void showOver(String image) {
+		JLabel j = new JLabel();
+		this.getWindow().removeAll();
+		this.getWindow().setLayout(new GridLayout(1,1));
+		j.setIcon(Block.loadIcon(image));
+		this.getWindow().add(j);
+		this.getWindow().revalidate();
+	}
+	
+	public void ckeckGameOver() {
+	
+		try {
+			if (this.getReceiver().getPlayerData(2).getLives() <= 0) {
+				this.showOver("player1over.png");	
+			}else if (this.getReceiver().getPlayerData(1).getLives() <= 0){
+				this.showOver("player2over.png");	
+			}
+				
+		} catch (RemoteException e) {
+			System.err.println("Feheler");
+		}
+	}
+
 	
 	public void update() {
 		Field s;
@@ -117,12 +144,16 @@ public class Client implements KeyListener, Serializable{
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			
 			
-			this.getInfoBar().remove(0);
-			this.getInfoBar().add(this.getReceiver().getPlayerData(1),0);					//Marcooooooooooooooooooooooooooooo helprprprprpprprprprprprprprprprp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//			this.getInfoBar().remove(0);
+//			this.getInfoBar().remove(1);
+//			this.getInfoBar().remove(2);
+			this.getInfoBar().removeAll();
 			
-			this.getInfoBar().remove(2);
-			this.getInfoBar().add(this.getReceiver().getPlayerData(2),2);
-
+			this.getInfoBar().add(this.getReceiver().getPlayerData(1));					//Marcooooooooooooooooooooooooooooo helprprprprpprprprprprprprprprprp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			this.getInfoBar().add(this.getReceiver().sendTimer());
+			this.getInfoBar().add(this.getReceiver().getPlayerData(2));
+			
+			this.ckeckGameOver();
 			
 			
 			
@@ -136,7 +167,7 @@ public class Client implements KeyListener, Serializable{
 			}
 			this.getMap().revalidate();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			System.err.println("Feheler");
 		}
 	}
 	
@@ -149,8 +180,9 @@ public class Client implements KeyListener, Serializable{
 		JPanel map = new JPanel();
 		JPanel infoBar = new JPanel();
 		map.setLayout(new GridLayout(11,15));
-		
+		map.setBackground(Color.decode("#F0BB47"));
 		infoBar.setLayout(new GridLayout(1,3));
+		infoBar.setBackground(Color.decode("#F0BB47"));
 		
 		int c;
 		Field s;
@@ -169,10 +201,13 @@ public class Client implements KeyListener, Serializable{
 			
 			window.add(map,BorderLayout.SOUTH);
 			window.setVisible(true);
-			window.setSize(960, 804);
+			window.setSize(930, 806);
 			window.setResizable(false);
 			window.addKeyListener(this);
-			window.add(infoBar,BorderLayout.NORTH);
+			
+			window.add(infoBar,BorderLayout.CENTER);
+			
+			
 			
 			this.setInfoBar(infoBar);
 			this.setWindow(window);
@@ -182,26 +217,13 @@ public class Client implements KeyListener, Serializable{
 			Updater u = new Updater(this);
 			Thread t2  = new Thread(u);
 			t2.start();
-		} catch (RemoteException e) {
-			e.printStackTrace();
+		} catch (RemoteException e1) {
+			System.err.println("Feheler");
 		}
 		
 		
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
