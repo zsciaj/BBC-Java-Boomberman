@@ -27,7 +27,6 @@ public class Client implements KeyListener, Serializable{
 	private JFrame window;
 	private JPanel map;
 	private int[] playerDirection;
-	private Timer timer = new Timer();
 	private JPanel infoBar;
 	
 	
@@ -39,7 +38,7 @@ public class Client implements KeyListener, Serializable{
 	public static void main(String[] args) {
 
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1199/validator"); //192.168.3.172     localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1199/validator"); //192.168.3.172     localhost
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client(receiver);
 			InputName inputName = new InputName();
@@ -153,16 +152,13 @@ public class Client implements KeyListener, Serializable{
 		
 		infoBar.setLayout(new GridLayout(1,3));
 		
-		Thread t1 = new Thread(this.getTimer());
-		t1.start();
-		
 		int c;
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
 		
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
-			infoBar.add(this.getTimer());
+			infoBar.add(this.getReceiver().sendTimer());
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()*-1+3));
 			
 			for (ArrayList<Block> i: s) {
@@ -273,14 +269,6 @@ public class Client implements KeyListener, Serializable{
 
 	public void setReceiver(Receiver receiver) {
 		this.receiver = receiver;
-	}
-
-	public Timer getTimer() {
-		return timer;
-	}
-
-	public void setTimer(Timer timer) {
-		this.timer = timer;
 	}
 
 	public JPanel getInfoBar() {

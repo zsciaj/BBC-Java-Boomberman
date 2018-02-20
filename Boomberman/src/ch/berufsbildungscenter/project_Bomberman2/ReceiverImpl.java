@@ -28,9 +28,15 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 			return this.getField().getPlayer2();					
 		}else {
 			this.getField().getPlayer1().setUsed(true);
+			Thread t = new Thread(this.getTimer());
+			t.start();
 			return this.getField().getPlayer1();
-			
+	
 		}
+	}
+	
+	public Timer sendTimer()  throws RemoteException{
+		return this.getTimer();
 	}
 	
 	public Player resendPlayer(Player p) throws RemoteException {
@@ -78,6 +84,16 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 
 	public void setField(Field map) {
 		this.field = map;
+	}
+
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
 	}
 
 
