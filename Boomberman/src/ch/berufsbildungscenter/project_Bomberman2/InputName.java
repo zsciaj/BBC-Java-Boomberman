@@ -36,7 +36,6 @@ public class InputName extends JDialog {
 		this.setTitle(" ");
 
 		this.getInput().setFont(new Font("Arial",  Font.BOLD, 16));
-
 		this.getStartButton().setFont(new Font("Arial", Font.BOLD, 20));
 		
 		this.getDemand().setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
@@ -83,6 +82,7 @@ public class InputName extends JDialog {
 	public void setStartButton(JButton startButton) {
 		this.startButton = startButton;
 	}
+	
 
 	
 }
