@@ -36,7 +36,7 @@ public class Client implements KeyListener, Serializable {
 
 	public Client(Receiver r) {
 		this.setReceiver(r);
-	}
+	} 
    
 	public void prepare() {
 		try {
