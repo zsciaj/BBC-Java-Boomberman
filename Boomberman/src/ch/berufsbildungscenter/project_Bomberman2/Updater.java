@@ -1,9 +1,5 @@
 package ch.berufsbildungscenter.project_Bomberman2;
 
-import java.lang.reflect.InvocationTargetException;
-
-import javax.swing.SwingUtilities;
-
 public class Updater extends Thread {
 
 	private Client client;
@@ -17,31 +13,33 @@ public class Updater extends Thread {
 		while (!stop) {
 	
 			try {
-				
+				getClient().update();
+				getClient().ckeckGameOver();
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			
 		
-			 try {
-				 SwingUtilities.invokeAndWait(new Runnable() { 								// https://stackoverflow.com/questions/8224422/updating-gui-gives-a-flickering-effect \\
-			
-			 @Override
-			 public void run() {
-				getClient().update();
-				getClient().ckeckGameOver();
-			
-			 }
-			 });
-			
-			 } catch (InvocationTargetException e) {
-			 // TODO Auto-generated catch block
-			 e.printStackTrace();
-			 } catch (InterruptedException e) {
-			 // TODO Auto-generated catch block
-			 e.printStackTrace();
-			 }
+			// try {
+			// SwingUtilities.invokeAndWait(new Runnable() { //
+			// https://stackoverflow.com/questions/8224422/updating-gui-gives-a-flickering-effect
+			// \\
+			//
+			// @Override
+			// public void run() {
+			// getClient().update();
+			//
+			// }
+			// });
+			//
+			// } catch (InvocationTargetException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// } catch (InterruptedException e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// }
 
 		}
 
