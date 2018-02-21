@@ -28,14 +28,14 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 			return this.getField().getPlayer2();					
 		}else {
 			this.getField().getPlayer1().setUsed(true);
-			Thread t = new Thread(this.getTimer());
-			t.start();
 			return this.getField().getPlayer1();
 	
 		}
 	}
 	
 	public Timer sendTimer()  throws RemoteException{
+		Thread t = new Thread(this.getTimer());
+		t.start();
 		return this.getTimer();
 	}
 	
@@ -49,8 +49,9 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	
 	
 	public PlayerData getPlayerData(int code) throws RemoteException {
-		if (code == 1) {											
+		if (code == 1) {	
 			return this.getField().getPlayer1().getPlayerData();
+			
 		}else {
 			return this.getField().getPlayer2().getPlayerData();
 		}
@@ -62,6 +63,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 			this.getField().getPlayer1().getPlayerData().setName(name);
 		}else {
 			this.getField().getPlayer2().getPlayerData().setName(name);
+			
 		}
 		
 	}

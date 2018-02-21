@@ -33,7 +33,7 @@ public class Client implements KeyListener, Serializable{
 	private int[] playerDirection;
 	private JPanel infoBar;
 	private Thread thread;
-	
+	private Timer timer;
 	
 	public Client(Receiver r) {
 		this.setReceiver(r);
@@ -51,7 +51,6 @@ public class Client implements KeyListener, Serializable{
 			
 			
 			while (inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() *-1 +3).getName() == null) {
-				String s = new String();
 				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			}
 			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
@@ -105,7 +104,7 @@ public class Client implements KeyListener, Serializable{
 			this.setPlayerDirection(dir);
 			
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		
@@ -121,18 +120,37 @@ public class Client implements KeyListener, Serializable{
 		this.getThread().stop();
 	}
 	
-	public void ckeckGameOver() {
 	
+	public void chekLessLives(Boolean addon) {
 		try {
-			if (this.getReceiver().getPlayerData(2).getLives() <= 0) {
+			if (this.getReceiver().getPlayerData(1).getLives() == this.getReceiver().getPlayerData(2).getLives() && addon) {
+				this.showOver("playersdraw.png");
+			}else if (this.getReceiver().getPlayerData(2).getLives() <= 0) {
 				this.showOver("player2over.png");	
 			}else if (this.getReceiver().getPlayerData(1).getLives() <= 0){
 				this.showOver("player1over.png");	
 			}
-				
 		} catch (RemoteException e) {
-			System.err.println("Feheler");
+			//e.printStackTrace();
 		}
+	}
+	
+	
+	
+	public void ckeckGameOver() {
+	
+		System.out.println(this.getTimer().getText());
+		if (this.getTimer().getText().equals("0:00")) {
+			this.chekLessLives(true);
+		}else {
+			try {
+				this.chekLessLives(this.getReceiver().getPlayerData(1).getLives() <= 0);
+			} catch (RemoteException e) {
+				//e.printStackTrace();
+			}
+		}
+				
+		
 	}
 
 	
@@ -145,19 +163,28 @@ public class Client implements KeyListener, Serializable{
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			
 			
-//			this.getInfoBar().remove(0);
-//			this.getInfoBar().remove(1);
-//			this.getInfoBar().remove(2);
+			
 			this.getInfoBar().removeAll();
 			
-			this.getInfoBar().add(this.getReceiver().getPlayerData(1));					//Marcooooooooooooooooooooooooooooo helprprprprpprprprprprprprprprprp!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			this.getInfoBar().add(this.getReceiver().sendTimer());
+			this.getInfoBar().add(this.getReceiver().getPlayerData(1));					//
+			this.setTimer(this.getReceiver().sendTimer());
+			this.getInfoBar().add(this.getTimer());
 			this.getInfoBar().add(this.getReceiver().getPlayerData(2));
 			
+			
+			
+			this.getInfoBar().getComponent(1).revalidate();
+			this.getInfoBar().getComponent(2).revalidate();
+			
+			this.getReceiver().getPlayerData(1).revalidate();
+			this.getReceiver().getPlayerData(2).revalidate();
+			this.getInfoBar().revalidate();
+			
+			
+			
+			
 			this.ckeckGameOver();
-			
-			
-			
+	
 			s = this.getReceiver().sendField();
 			for (ArrayList<Block> ab: s) {
 				for(Block b:ab) {
@@ -168,7 +195,7 @@ public class Client implements KeyListener, Serializable{
 			}
 			this.getMap().revalidate();
 		} catch (RemoteException e) {
-			System.err.println("Feheler");
+			//e.printStackTrace();
 		}
 	}
 	
@@ -191,7 +218,8 @@ public class Client implements KeyListener, Serializable{
 			s = this.getReceiver().sendField();
 		
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
-			infoBar.add(this.getReceiver().sendTimer());
+			this.setTimer(this.getReceiver().sendTimer());
+			infoBar.add(this.getTimer());
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()*-1+3));
 			
 			for (ArrayList<Block> i: s) {
@@ -202,7 +230,7 @@ public class Client implements KeyListener, Serializable{
 			
 			window.add(map,BorderLayout.SOUTH);
 			window.setVisible(true);
-			window.setSize(930, 806);
+			window.setSize(920, 806);
 			window.setResizable(false);
 			window.addKeyListener(this);
 			
@@ -220,7 +248,7 @@ public class Client implements KeyListener, Serializable{
 			this.setThread(t2);
 			t2.start();
 		} catch (RemoteException e1) {
-			System.err.println("Feheler");
+			//e.printStackTrace();
 		}
 		
 		
@@ -309,6 +337,14 @@ public class Client implements KeyListener, Serializable{
 
 	public void setInfoBar(JPanel infoBar) {
 		this.infoBar = infoBar;
+	}
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
 	}
 
 	

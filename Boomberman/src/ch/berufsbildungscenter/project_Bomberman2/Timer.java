@@ -12,6 +12,10 @@ public class Timer extends JLabel implements Runnable,Serializable{
 
 	Date startTime = new Date();
 	
+	
+	
+	
+	
 	@Override
 	public void run() {
 		while (true) {
@@ -23,6 +27,9 @@ public class Timer extends JLabel implements Runnable,Serializable{
 			this.setFont(new Font("Arial",Font.BOLD, 30));
 			this.setBackground(Color.WHITE);
 			String s;
+			
+			
+			
 			if ( this.getTime() % 60 < 10) {
 				s =  "0" + this.getTime() % 60;
 			}else {
@@ -37,7 +44,7 @@ public class Timer extends JLabel implements Runnable,Serializable{
 	
 	public int getTime() {
 		Date d = new Date();
-		return (( 300  +  (this.getStartSek() + this.getStartMin()*60) - (d.getSeconds() + d.getMinutes()*60)  ));
+		return (( 60  +  (this.getStartSek() + this.getStartMin()*60) - (d.getSeconds() + d.getMinutes()*60)  ));
 	}
 	
 	public Date getStartTime() {
