@@ -7,7 +7,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class Server {
-	Registry reg;
+	private static Registry reg;
 	
 	public Server() {
 		try {

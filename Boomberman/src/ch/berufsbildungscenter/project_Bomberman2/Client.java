@@ -39,16 +39,9 @@ public class Client implements KeyListener, Serializable {
 	} 
    
 	public void prepare() {
+		
 		try {
 			
-			InputName inputName = new InputName();
-			this.setPlayer(this.getReceiver().sendPlayer());
-
-			while (inputName.getPlayerName() == null || this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
-				this.getReceiver().setPlayername(inputName.getPlayerName(), this.getPlayer());
-			}
-			this.getReceiver().setPlayername(inputName.getPlayerName(), this.getPlayer());
-			inputName.dispose();
 			this.getReceiver().start();
 			this.show();
 		} catch (RemoteException e) {
@@ -64,6 +57,14 @@ public class Client implements KeyListener, Serializable {
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client(receiver);
 			client.prepare();
+			InputName inputName = new InputName();
+			client.setPlayer(client.getReceiver().sendPlayer());
+
+			while (inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
+				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
+			}
+			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
+			inputName.dispose();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -210,11 +211,15 @@ public class Client implements KeyListener, Serializable {
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
-
+			
+			System.out.println("1"+ this.getReceiver());
+			System.out.println("2"+ this.getReceiver().getPlayerData(1));
+			System.out.println("3"+ this.getPlayer());
+			
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
 			this.setTimer(this.getReceiver().sendTimer());
 			infoBar.add(this.getTimer());
-			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() * -1 + 3));
+			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() *-1+3));
 
 			for (ArrayList<Block> i : s) {
 				for (Block j : i) {
