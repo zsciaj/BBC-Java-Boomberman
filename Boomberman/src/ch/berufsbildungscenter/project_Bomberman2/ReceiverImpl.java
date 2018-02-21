@@ -34,6 +34,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 	public Timer sendTimer()  throws RemoteException{
+		
 		Thread t = new Thread(this.getTimer());
 		t.start();
 		return this.getTimer();

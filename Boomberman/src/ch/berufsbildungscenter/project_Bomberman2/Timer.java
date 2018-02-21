@@ -12,7 +12,9 @@ public class Timer extends JLabel implements Runnable,Serializable{
 
 	Date startTime = new Date();
 	
-	
+	public Timer() {
+		this.setText("0:0");
+	}
 	
 	
 	
