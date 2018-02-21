@@ -21,6 +21,9 @@ public interface Receiver extends Remote {
 	
 	public Player resendPlayer(Player p) throws RemoteException;
 	
-
+	public void start() throws RemoteException;
+	
 	public Timer sendTimer() throws RemoteException;
+	
+	public void restart() throws RemoteException;
 }

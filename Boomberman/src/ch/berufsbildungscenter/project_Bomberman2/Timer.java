@@ -39,7 +39,7 @@ public class Timer extends JLabel implements Runnable,Serializable{
 			}
 			this.setText(this.getTime() / 60 + ":" + s);
 			
-			this.updateUI();
+			this.revalidate();
 		}
 	}
 

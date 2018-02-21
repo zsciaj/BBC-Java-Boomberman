@@ -10,11 +10,22 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 //	private Client client1;
 //	private Client client2;
 	private Field field;
-	private Timer timer = new Timer();
-
+	private Timer timer;
+	private Server server;
+	
+	public void restart() throws RemoteException{
+		this.getServer().load();
+	}
   
-	public ReceiverImpl(Field field) throws RemoteException {
+	public ReceiverImpl(Field field,Server server) throws RemoteException {
 		this.setField(field);
+		this.setServer(server);
+	}
+	
+	public void start() {
+		this.setTimer(new Timer());
+		Thread t = new Thread(this.getTimer());
+		t.start();
 	}
   
 	
@@ -34,9 +45,6 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 	public Timer sendTimer()  throws RemoteException{
-		
-		Thread t = new Thread(this.getTimer());
-		t.start();
 		return this.getTimer();
 	}
 	
@@ -97,6 +105,14 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 
 	public void setTimer(Timer timer) {
 		this.timer = timer;
+	}
+
+	public Server getServer() {
+		return server;
+	}
+
+	public void setServer(Server server) {
+		this.server = server;
 	}
 
 

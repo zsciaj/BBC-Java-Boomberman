@@ -3,6 +3,8 @@ package ch.berufsbildungscenter.project_Bomberman2;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
@@ -13,6 +15,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,31 +38,45 @@ public class Client implements KeyListener, Serializable {
 		this.setReceiver(r);
 	}
    
-	public static void main(String[] args) {
-
+	public void prepare() {
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1199/validator"); // 192.168.3.172 localhost
-			Receiver receiver = (Receiver) remote;
-			Client client = new Client(receiver);
+			
 			InputName inputName = new InputName();
+			this.setPlayer(this.getReceiver().sendPlayer());
 
-			client.setPlayer(client.getReceiver().sendPlayer());
-
-			while (inputName.getPlayerName() == null
-					|| client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
-				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
+			while (inputName.getPlayerName() == null || this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
+				this.getReceiver().setPlayername(inputName.getPlayerName(), this.getPlayer());
 			}
-			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
+			this.getReceiver().setPlayername(inputName.getPlayerName(), this.getPlayer());
 			inputName.dispose();
-			client.show();
-		} catch (MalformedURLException me) {
-			System.err.println("rmi://192.168.3.195:1499/validator is not a valid URL");
-		} catch (NotBoundException nbe) {
-			System.err.println("Could not find requested object on the server");
-		} catch (RemoteException re) {
-			System.err.println(re.getMessage());
+			this.getReceiver().start();
+			this.show();
+		} catch (RemoteException e) {
+			System.err.println(e.getMessage());
 		}
 
+	}
+	
+	public static void load() {
+		
+		try {
+			Remote remote = Naming.lookup("rmi://localhost:1109/validator");
+			Receiver receiver = (Receiver) remote;
+			Client client = new Client(receiver);
+			client.prepare();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		load();
 	}
 
 	@Override
@@ -102,11 +119,26 @@ public class Client implements KeyListener, Serializable {
 	}
 
 	private void showOver(String image) {
-		JLabel j = new JLabel();
+		JButton b = new JButton();
+		
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					getWindow().dispose();
+					getReceiver().restart();
+				} catch (RemoteException e1) {
+					e1.printStackTrace();
+				}
+				load();
+				
+			}
+		});
+		
+		
 		this.getMap().removeAll();
 		this.getMap().setLayout(new GridLayout(1, 1));
-		j.setIcon(Block.loadIcon(image));
-		this.getMap().add(j);
+		b.setIcon(Block.loadIcon(image));
+		this.getMap().add(b);
 		this.getMap().revalidate();
 	}
 

@@ -22,18 +22,13 @@ public class InputName extends JDialog {
 	private String playerName;
 	
 
-	public static void main(String[] args) {
 
-		InputName inputName = new InputName();
-		
-
-	}
 
 	public InputName() {
 		this.setSize(350, 120);
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setTitle(" ");
+		this.setTitle("Enter Your Name");
 
 		this.getInput().setFont(new Font("Arial",  Font.BOLD, 16));
 		this.getStartButton().setFont(new Font("Arial", Font.BOLD, 20));
@@ -49,7 +44,7 @@ public class InputName extends JDialog {
 	
 		startButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				playerName = input.getText();
+				setPlayerName(input.getText());
 			}
 		});
 		
@@ -59,6 +54,10 @@ public class InputName extends JDialog {
 		return playerName;
 	}
 
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+	
 	public JTextField getDemand() {
 		return demand;
 	}

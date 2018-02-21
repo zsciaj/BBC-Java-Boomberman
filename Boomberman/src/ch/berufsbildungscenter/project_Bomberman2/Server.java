@@ -7,22 +7,35 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class Server {
+	Registry reg;
 	
-	public static void main(String[] args) {
+	public Server() {
 		try {
-			Registry reg = LocateRegistry.createRegistry(1199);
-
-			
+			reg = LocateRegistry.createRegistry(1109);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void load() {
+		try {
 			Field field = new Field();
 			field.load("map1");
 			
-			
-			
-			Receiver aValidator = new ReceiverImpl(field);
+			Receiver aValidator = new ReceiverImpl(field,this);
 			reg.rebind("validator", aValidator);
 			
 		} catch (RemoteException e) {
 			System.out.println(e.getMessage());
-		}  
+		}
 	}
+	
+	public static void main(String[] args) {
+		 Server s = new Server();
+		 s.load();
+	}
+	
+	
+	
 }
