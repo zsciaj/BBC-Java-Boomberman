@@ -246,7 +246,7 @@ public class Client implements KeyListener, Serializable {
 		try {
 			return this.getReceiver().getPlayerData(player).getLives();
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			e.printStackTrace();  
 			return 0;
 		}
 
