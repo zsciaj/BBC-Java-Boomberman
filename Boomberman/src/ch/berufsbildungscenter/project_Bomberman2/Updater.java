@@ -2,9 +2,8 @@ package ch.berufsbildungscenter.project_Bomberman2;
 
 public class Updater extends Thread {
 
-	Client client;
+	private Client client;
 	private volatile boolean stop = false;
-	private boolean running = false;
 	
 	public Updater(Client c) {
 		this.setClient(c);
@@ -15,7 +14,7 @@ public class Updater extends Thread {
 	
 			try {
 				getClient().update();
-				
+				getClient().ckeckGameOver();
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -58,6 +57,4 @@ public class Updater extends Thread {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-
-
 }
