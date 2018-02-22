@@ -58,7 +58,7 @@ public class Tester {
 		Assert.assertEquals("Peter",this.getPlayerData().getNameLabel().getText());
 
 	}
-	
+	 
 
 
 	
