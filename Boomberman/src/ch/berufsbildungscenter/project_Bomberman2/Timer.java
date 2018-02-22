@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class Timer extends JLabel implements Runnable,Serializable{
 

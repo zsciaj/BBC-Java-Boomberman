@@ -1,49 +1,90 @@
 package ch.berufsbildungscenter.project_Bomberman2;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.rmi.RemoteException;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import javax.swing.ImageIcon;
 
-import junit.framework.Assert;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-class Tester {
+public class Tester {
+	private Field field;
+	private Receiver receiver;
+	private PlayerData playerData;
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		
+	@Before
+	public void setUp() throws Exception {
+		this.setField(new Field());
+		this.setReceiver(new ReceiverImpl(this.getField()));
+		this.getField().load("map1");
+		this.setPlayerData(new PlayerData((ImageIcon) Block.loadIcon("player1front.png"),1));
 	}
 
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-		
-		
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 	}
 
 	@Test
-	void test() {
-		Field f = new Field();
-		f.load("map1");
+	public void test1() {
+		Timer t = new Timer();
+		Assert.assertEquals(300, t.getTime());
+
+	}
+
+	@Test
+	public void test2() {
+
+		Receiver r = null;
 		try {
-			Receiver reciver = new ReceiverImpl(f);
+			Assert.assertEquals(1, this.getReceiver().sendPlayer().getPlayerNr());
+			Assert.assertEquals(2, this.getReceiver().sendPlayer().getPlayerNr());
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Assert.assertEquals(1,4);
+	}
+
+	@Test
+	public void test3() {
+		int[] i = { 0, 0 };
+		Assert.assertEquals(i[0], this.getField().findIndex(this.getField().get(0, 0))[0]);
+		Assert.assertEquals(i[1], this.getField().findIndex(this.getField().get(0, 0))[1]);
+	}
+	
+	@Test
+	public void test4() {
+		this.getPlayerData().setName("Peter");
+		Assert.assertEquals("Peter",this.getPlayerData().getNameLabel().getText());
+
+	}
+	
+
+
+	
+
+	public PlayerData getPlayerData() {
+		return playerData;
+	}
+
+	public void setPlayerData(PlayerData playerData) {
+		this.playerData = playerData;
+	}
+
+	public Field getField() {
+		return field;
+	}
+
+	public void setField(Field field) {
+		this.field = field;
+	}
+
+	public Receiver getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(Receiver receiver) {
+		this.receiver = receiver;
 	}
 
 }
