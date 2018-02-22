@@ -49,7 +49,7 @@ public class Client implements KeyListener, Serializable {
 			
 			Client client = new Client();
 			client.setReceiver(receiver);
-			
+			 
 			client.setPlayer(client.getReceiver().sendPlayer());
 
 			
