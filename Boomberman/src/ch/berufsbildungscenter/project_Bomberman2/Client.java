@@ -52,11 +52,11 @@ public class Client implements KeyListener, Serializable {
 			 
 			client.setPlayer(client.getReceiver().sendPlayer());
 			System.out.println(name);
-			client.getReceiver().setPlayername(name, client.getPlayer());
 			
+			client.getReceiver().setPlayername(name, client.getPlayer());
 			this.getWindow().dispose();
 			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
-
+				
 			}
 			client.getReceiver().start();
 			client.show();
