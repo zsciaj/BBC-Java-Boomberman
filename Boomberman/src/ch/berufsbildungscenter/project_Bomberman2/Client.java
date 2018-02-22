@@ -51,7 +51,7 @@ public class Client implements KeyListener, Serializable {
 			client.setReceiver(receiver);
 			 
 			client.setPlayer(client.getReceiver().sendPlayer());
-
+			System.out.println(name);
 			client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr()).setName(name);
 			
 			this.getWindow().dispose();
