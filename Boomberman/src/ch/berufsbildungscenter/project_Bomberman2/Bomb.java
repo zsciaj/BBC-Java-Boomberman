@@ -33,10 +33,10 @@ public class Bomb extends Block implements Runnable {
 			Block actual = this.getField().get(x + pos[0],y + pos[1]);						//Hole den Aktuellen Block
 			if (actual.isBreakable()) {
 				this.getField().placeExplosion(x + pos[0],y + pos[1]);						//Plaziere an dieser Stelle eine Explosion
-			}else {
+			} else {
 				if (actual.getId().equals(this.getField().getPlayer1().getId())){			//Überprüfe ob der Aktuelle Block Spieler 1 ist
 					this.getField().getPlayer1().getPlayerData().hit(50/(j+1));				//Füge dem jeweiligen spieler schaden zu     (schaden = 50/(entfernungInBlöcken+1))
-				}else if (actual.getId().equals(this.getField().getPlayer2().getId())){		//Überprüfe ob der Aktuelle Block Spieler 1 ist
+				} else if (actual.getId().equals(this.getField().getPlayer2().getId())){		//Überprüfe ob der Aktuelle Block Spieler 1 ist
 					this.getField().getPlayer2().getPlayerData().hit(50/(j+1));				//Füge dem jeweiligen spieler schaden zu     (schaden = 50/(entfernungInBlöcken+1))
 				}
 				return;
@@ -52,7 +52,6 @@ public class Bomb extends Block implements Runnable {
 	public Field getField() {
 		return field;
 	}
-
 
 	public void setField(Field field) {
 		this.field = field;

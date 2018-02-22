@@ -13,12 +13,10 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.UnmarshalException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Client implements KeyListener, Serializable {
@@ -35,32 +33,28 @@ public class Client implements KeyListener, Serializable {
 	private Timer timer;
 	private Updater updater;
 
-
-   
 	public void reload() {
-		
+
 		try {
-			
-			
-			String name = this.getPlayer().getPlayerData().getName();
-			
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); // 192.168.3.172	 localhost
+
+			String name = this.getPlayer().getPlayerData().getName();									//Alten Namen zwischen speichern
+
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); 						// 192.168.3.172 localhost
 			Receiver receiver = (Receiver) remote;
-			
+
 			Client client = new Client();
 			client.setReceiver(receiver);
-			 
+
 			client.setPlayer(client.getReceiver().sendPlayer());
-			System.out.println(name);
 			
 			client.getReceiver().setPlayername(name, client.getPlayer());
 			this.getWindow().dispose();
 			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
-				
+
 			}
 			client.getReceiver().start();
 			client.show();
-			
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -70,29 +64,30 @@ public class Client implements KeyListener, Serializable {
 		}
 
 	}
-	
+
 	public static void load() {
-		
+
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); // 192.168.3.172	 localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); // 192.168.3.172 localhost
 			Receiver receiver = (Receiver) remote;
-			
+
 			Client client = new Client();
 			client.setReceiver(receiver);
-			
+
 			InputName inputName = new InputName();
-			
+
 			client.setPlayer(client.getReceiver().sendPlayer());
 
-			while (inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
+			while (inputName.getPlayerName() == null || client.getReceiver()
+					.getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
 				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			}
-	
+
 			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			inputName.dispose();
 			client.getReceiver().start();
 			client.show();
-			
+
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -100,10 +95,9 @@ public class Client implements KeyListener, Serializable {
 		} catch (NotBoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
+
 	public static void main(String[] args) {
 		load();
 	}
@@ -136,7 +130,8 @@ public class Client implements KeyListener, Serializable {
 				this.getReceiver().movePlayer(this.getPlayer(), dir[0], dir[1]);
 				break;
 			case ' ':
-				this.getReceiver().placeBomb(this.getPlayer(), this.getPlayerDirection()[0], this.getPlayerDirection()[1]);
+				this.getReceiver().placeBomb(this.getPlayer(), this.getPlayerDirection()[0],
+						this.getPlayerDirection()[1]);
 				break;
 			}
 			this.setPlayerDirection(dir);
@@ -149,7 +144,7 @@ public class Client implements KeyListener, Serializable {
 
 	private void showOver(String image) {
 		JButton b = new JButton();
-		
+
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -159,11 +154,10 @@ public class Client implements KeyListener, Serializable {
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
-		
+
 		this.getMap().removeAll();
 		this.getMap().setLayout(new GridLayout(1, 1));
 		b.setIcon(Block.loadIcon(image));
@@ -183,7 +177,7 @@ public class Client implements KeyListener, Serializable {
 
 	}
 
-  void ckeckGameOver() {
+	void ckeckGameOver() {
 
 		if (this.getTimer().getText().equals("0:00")) {
 			this.getUpdater().setStop(true);
@@ -201,7 +195,7 @@ public class Client implements KeyListener, Serializable {
 	void update() {
 		Field s;
 		try {
-			this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()*-1+3).hit(1);
+			this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() * -1 + 3).hit(1);
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 
 			this.getInfoBar().removeAll();
@@ -237,11 +231,11 @@ public class Client implements KeyListener, Serializable {
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
-			
+
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
 			this.setTimer(this.getReceiver().sendTimer());
 			infoBar.add(this.getTimer());
-			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() *-1+3));
+			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() * -1 + 3));
 
 			for (ArrayList<Block> i : s) {
 				for (Block j : i) {

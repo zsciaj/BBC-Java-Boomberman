@@ -54,7 +54,7 @@ public class Block extends JLabel {
 
 
 
-	protected static Icon loadIcon(String iconName) {							//Methode um Bilder zu laden	
+	protected static Icon loadIcon(String iconName) {											//Methode um Bilder zu laden	
 		final URL resource = Block.class.getResource("/resource/" + iconName);
 
 		if (resource == null) {
