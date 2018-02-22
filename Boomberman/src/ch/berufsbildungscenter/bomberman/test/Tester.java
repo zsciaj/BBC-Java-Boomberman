@@ -1,4 +1,4 @@
-package ch.berufsbildungscenter.project_Bomberman2;
+package ch.berufsbildungscenter.bomberman.test;
 
 import java.rmi.RemoteException;
 
@@ -8,6 +8,13 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import ch.berufsbildungscenter.bomberman.main.Block;
+import ch.berufsbildungscenter.bomberman.main.Field;
+import ch.berufsbildungscenter.bomberman.main.PlayerData;
+import ch.berufsbildungscenter.bomberman.main.Receiver;
+import ch.berufsbildungscenter.bomberman.main.ReceiverImpl;
+import ch.berufsbildungscenter.bomberman.main.Timer;
 
 public class Tester {
 	private Field field;
@@ -58,10 +65,9 @@ public class Tester {
 		Assert.assertEquals("Peter",this.getPlayerData().getNameLabel().getText());
 
 	}
-	 
 
 
-	
+
 
 	public PlayerData getPlayerData() {
 		return playerData;

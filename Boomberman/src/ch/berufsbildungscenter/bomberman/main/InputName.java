@@ -1,4 +1,4 @@
-package ch.berufsbildungscenter.project_Bomberman2;
+package ch.berufsbildungscenter.bomberman.main;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
