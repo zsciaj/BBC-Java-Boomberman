@@ -46,7 +46,7 @@ public class Timer extends JLabel implements Runnable,Serializable{
 	
 	public int getTime() {
 		Date d = new Date();
-		return (( 60  +  (this.getStartSek() + this.getStartMin()*60) - (d.getSeconds() + d.getMinutes()*60)  ));
+		return (( 300  +  (this.getStartSek() + this.getStartMin()*60) - (d.getSeconds() + d.getMinutes()*60)  ));
 	}
 	
 	public Date getStartTime() {
