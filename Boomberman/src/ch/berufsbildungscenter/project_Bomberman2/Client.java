@@ -13,6 +13,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.UnmarshalException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -43,7 +44,7 @@ public class Client implements KeyListener, Serializable {
 			
 			
 			
-			Remote remote = Naming.lookup("rmi://localhost:1109/validator"); // 192.168.3.172	 localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); // 192.168.3.172	 localhost
 			Receiver receiver = (Receiver) remote;
 			
 			Client client = new Client();
@@ -53,7 +54,7 @@ public class Client implements KeyListener, Serializable {
 
 			
 			this.getWindow().dispose();
-			while(!this.getReceiver().isReadyToRestart());
+			while(!client.getReceiver().isReadyToRestart());
 			client.getReceiver().start();
 			client.show();
 			
@@ -70,7 +71,7 @@ public class Client implements KeyListener, Serializable {
 	public static void load() {
 		
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1109/validator"); // 192.168.3.172	 localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); // 192.168.3.172	 localhost
 			Receiver receiver = (Receiver) remote;
 			
 			Client client = new Client();
