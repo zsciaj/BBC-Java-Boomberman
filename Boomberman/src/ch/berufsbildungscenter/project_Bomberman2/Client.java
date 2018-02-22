@@ -52,7 +52,7 @@ public class Client implements KeyListener, Serializable {
 			 
 			client.setPlayer(client.getReceiver().sendPlayer());
 			System.out.println(name);
-			client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr()).setName(name);
+			client.getReceiver().setPlayername(name, client.getPlayer());
 			
 			this.getWindow().dispose();
 			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
@@ -201,7 +201,7 @@ public class Client implements KeyListener, Serializable {
 	void update() {
 		Field s;
 		try {
-
+			this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()*-1+3).hit(1);
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 
 			this.getInfoBar().removeAll();
