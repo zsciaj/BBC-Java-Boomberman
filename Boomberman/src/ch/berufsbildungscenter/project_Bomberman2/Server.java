@@ -13,9 +13,11 @@ public class Server {
 		try {
 			reg = LocateRegistry.createRegistry(1109);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
+	
+	
 	
 	
 	public void load() {
@@ -23,7 +25,7 @@ public class Server {
 			Field field = new Field();
 			field.load("map1");
 			
-			Receiver aValidator = new ReceiverImpl(field,this);
+			Receiver aValidator = new ReceiverImpl(field);
 			reg.rebind("validator", aValidator);
 			
 		} catch (RemoteException e) {
@@ -33,6 +35,7 @@ public class Server {
 	
 	public static void main(String[] args) {
 		 Server s = new Server();
+		 
 		 s.load();
 	}
 	

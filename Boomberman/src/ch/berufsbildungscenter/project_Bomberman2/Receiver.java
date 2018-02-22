@@ -26,4 +26,6 @@ public interface Receiver extends Remote {
 	public Timer sendTimer() throws RemoteException;
 	
 	public void restart() throws RemoteException;
+	
+	public boolean isReadyToRestart() throws RemoteException;
 }

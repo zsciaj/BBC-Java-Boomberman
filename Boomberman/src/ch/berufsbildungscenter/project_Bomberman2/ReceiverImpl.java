@@ -7,19 +7,33 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 
-//	private Client client1;
-//	private Client client2;
+	private boolean readyToRestart;
+	private boolean player1setted;
 	private Field field;
 	private Timer timer;
-	private Server server;
 	
 	public void restart() throws RemoteException{
-		this.getServer().load();
+		if (!this.isPlayer1setted()) {
+			this.setPlayer1setted(true);
+		}else {
+			this.setPlayer1setted(false);
+			this.reload();
+			this.setReadyToRestart(true);
+			
+			
+		}
+		
 	}
   
-	public ReceiverImpl(Field field,Server server) throws RemoteException {
+	public void reload() {
+		this.setPlayer1setted(false);
+		this.setField(new Field());
+		this.getField().load("map1");
+		this.setTimer(null);
+	}
+	
+	public ReceiverImpl(Field field) throws RemoteException {
 		this.setField(field);
-		this.setServer(server);
 	}
 	
 	public void start() {
@@ -34,12 +48,13 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 	public synchronized Player sendPlayer() throws RemoteException{
-		if (this.getField().getPlayer1().isUsed()) {					//Überprufe ob der Spieler1 schon vergeben ist
+		this.setReadyToRestart(false);
+		if (this.getField().getPlayer1().isUsed()) {									//Überprufe ob der Spieler1 schon vergeben ist
 			this.getField().getPlayer2().setUsed(true);
 			return this.getField().getPlayer2();					
 		}else {
 			this.getField().getPlayer1().setUsed(true);
-			return this.getField().getPlayer1();
+			return this.getField().getPlayer1();		
 	
 		}
 	}
@@ -89,6 +104,25 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	}
 	
 
+
+
+
+	public boolean isPlayer1setted() {
+		return player1setted;
+	}
+
+	public void setPlayer1setted(boolean player1setted) {
+		this.player1setted = player1setted;
+	}
+
+	public boolean isReadyToRestart() throws RemoteException{
+		return readyToRestart;
+	}
+
+	public void setReadyToRestart(boolean readyToRestart) {
+		this.readyToRestart = readyToRestart;
+	}
+
 	public Field getField() {
 		return field;
 	}
@@ -107,13 +141,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		this.timer = timer;
 	}
 
-	public Server getServer() {
-		return server;
-	}
 
-	public void setServer(Server server) {
-		this.server = server;
-	}
 
 
 	

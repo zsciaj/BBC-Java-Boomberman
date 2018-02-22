@@ -17,7 +17,7 @@ import javax.swing.JProgressBar;
 public class PlayerData extends JPanel implements Serializable {
 	
 	int lives = 100;
-	private String name = "Player";
+	private String name = null;
 	private JLabel nameLabel = new JLabel();
 	private JLabel pictureLabel = new JLabel();
 	private JProgressBar healthbar = new JProgressBar();
