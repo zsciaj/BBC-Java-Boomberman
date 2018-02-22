@@ -24,7 +24,7 @@ public class Client implements KeyListener, Serializable {
 
 	private static final long serialVersionUID = -7575456849669230547L;
 
-	private Receiver receiver;
+	private static Receiver receiver;
 	private Player player;
 	private JFrame window;
 	private JPanel map;
@@ -34,17 +34,25 @@ public class Client implements KeyListener, Serializable {
 	private Timer timer;
 	private Updater updater;
 
-	public Client(Receiver r) {
-		this.setReceiver(r);
-	} 
+
    
-	public void prepare() {
+	public void reload() {
 		
 		try {
+			String name = this.getPlayer().getPlayerData().getName();
+			Remote remote;
+			remote = Naming.lookup("rmi://localhost:1109/validator");
 			
-			this.getReceiver().start();
-			this.show();
-		} catch (RemoteException e) {
+			Receiver receiver = (Receiver) remote;
+			Client client = new Client();
+			
+			client.setReceiver(receiver);
+			client.setPlayer(client.getReceiver().sendPlayer());
+			client.getReceiver().setPlayername(name,this.getPlayer());
+			client.getReceiver().start();
+			client.show();
+			
+		} catch (RemoteException | NotBoundException | MalformedURLException e) {
 			System.err.println(e.getMessage());
 		}
 
@@ -54,10 +62,13 @@ public class Client implements KeyListener, Serializable {
 		
 		try {
 			Remote remote = Naming.lookup("rmi://localhost:1109/validator");
+			
 			Receiver receiver = (Receiver) remote;
-			Client client = new Client(receiver);
-			client.prepare();
+			Client client = new Client();
+			client.setReceiver(receiver);
+			
 			InputName inputName = new InputName();
+			
 			client.setPlayer(client.getReceiver().sendPlayer());
 
 			while (inputName.getPlayerName() == null || client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
@@ -65,6 +76,9 @@ public class Client implements KeyListener, Serializable {
 			}
 			client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			inputName.dispose();
+			client.getReceiver().start();
+			client.show();
+			
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (RemoteException e) {
@@ -127,10 +141,10 @@ public class Client implements KeyListener, Serializable {
 				try {
 					getWindow().dispose();
 					getReceiver().restart();
+					reload();
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
-				load();
 				
 			}
 		});
@@ -316,12 +330,12 @@ public class Client implements KeyListener, Serializable {
 		this.player = p;
 	}
 
-	public Receiver getReceiver() {
+	public static Receiver getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(Receiver receiver) {
-		this.receiver = receiver;
+	public static void setReceiver(Receiver r) {
+		receiver = r;
 	}
 
 	public JPanel getInfoBar() {
