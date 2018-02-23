@@ -14,14 +14,14 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	public void movePlayer(Player p, int x, int y) {
 		int[] pos = this.findIndex(p);
 		if (this.get(pos[0] + y, pos[1] + x).isWalkable()) {
-			this.set(pos[0], pos[1], new Block("Grass.png", true, true)); 				// Setze an der alten Position ein neues Grass
+			this.set(pos[0], pos[1], new Block("grass.png", true, true)); 				// Setze an der alten Position ein neues Grass
 			this.set(pos[0] + y, pos[1] + x, p); 										// Setze den Spieler an die neue Position
 		}
 	}
 
 	public void delete(Block b) {
 		int[] pos = this.findIndex(b);
-		this.set(pos[0], pos[1], new Block("Grass.png", true, true)); 					// Ersetzt den Block mit einem neuen Grass
+		this.set(pos[0], pos[1], new Block("grass.png", true, true)); 					// Ersetzt den Block mit einem neuen Grass
 	}
 
 	public void placeBomb(Player p, int x, int y) {
@@ -35,7 +35,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 	}
 
 	public void placeExplosion(int x, int y) {
-		Explosion e = new Explosion("Explosion.png", false, true, this);
+		Explosion e = new Explosion("explosion.png", false, true, this);
 		this.set(x, y, e);
 		Thread t = new Thread(e);
 		t.start();
@@ -59,7 +59,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 
 					switch (i) {
 					case "0":
-						line.add(new Block("Grass.png", true, true));
+						line.add(new Block("grass.png", true, true));
 						break;
 					case "1":
 						line.add(new Block("unbreakableblock.png", false, false));
