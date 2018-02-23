@@ -12,6 +12,8 @@ import javax.swing.JProgressBar;
 
 public class PlayerData extends JPanel implements Serializable {
 
+	private static final long serialVersionUID = 4365612043039392213L;
+	
 	int lives = 100;
 	private String name = null;
 	private JLabel nameLabel = new JLabel();

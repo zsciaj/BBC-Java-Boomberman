@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 
 public class Timer extends JLabel implements Runnable, Serializable {
 
+	private static final long serialVersionUID = -329063742720724845L;
+	
 	Date startTime = new Date();
 
 	public Timer() {

@@ -5,6 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 
+	private static final long serialVersionUID = 7658924036691161306L;
+	
 	private boolean readyToRestart;
 	private boolean player1setted;
 	private Field field;

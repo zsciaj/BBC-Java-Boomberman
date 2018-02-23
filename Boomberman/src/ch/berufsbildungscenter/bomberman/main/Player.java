@@ -4,6 +4,8 @@ import javax.swing.ImageIcon;
 
 public class Player extends Block {
 
+	private static final long serialVersionUID = 716109455058925087L;
+	
 	private boolean used;
 	private int playerNr;
 	private PlayerData playerData;

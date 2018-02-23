@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 
+	private static final long serialVersionUID = -8060832557919354631L;
+	
 	private Player player1;
 	private Player player2;
 
@@ -48,7 +50,6 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			fr = new FileReader("resource/" + fileName + ".txt");
 			br = new BufferedReader(fr);
 			String s;
-			int i1 = 0;
 			while ((s = br.readLine()) != null) {
 
 				ArrayList<Block> line = new ArrayList<Block>();

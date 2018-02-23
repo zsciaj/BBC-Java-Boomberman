@@ -2,6 +2,8 @@ package ch.berufsbildungscenter.bomberman.main;
 
 public class Bomb extends Block implements Runnable {
 
+	private static final long serialVersionUID = 962125613896700621L;
+	
 	private Field field;
 
 	public Bomb(String image, boolean breakable, boolean walkable, Field field) {

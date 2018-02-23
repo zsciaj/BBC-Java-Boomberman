@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 
 public class InputName extends JDialog {
 
+	private static final long serialVersionUID = 2492178050319948117L;
+	
 	private JTextField demand = new JTextField("Gib deinen Spielnamen ein und drücke auf 'Start'!");
 	private JTextField input = new JTextField();
 	private JButton startButton = new JButton("Start");

@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 
 public class Block extends JLabel {
 
+	private static final long serialVersionUID = -6121329571145065988L;
+	
 	private boolean breakable;
 	private boolean walkable;
 	String id = UUID.randomUUID().toString(); 									// Zufällige Id um das Objekt zu identifizieren

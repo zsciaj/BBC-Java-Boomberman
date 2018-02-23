@@ -43,7 +43,6 @@ public class Tester {
 	@Test
 	public void test2() {
 
-		Receiver r = null;
 		try {
 			Assert.assertEquals(1, this.getReceiver().sendPlayer().getPlayerNr());
 			Assert.assertEquals(2, this.getReceiver().sendPlayer().getPlayerNr());
