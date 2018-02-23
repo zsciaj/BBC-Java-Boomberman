@@ -105,22 +105,22 @@ public class Client implements KeyListener, Serializable {
 		try {
 			int[] dir = new int[2];
 			switch (key) {
-			case 'w':
+			case 'w': case 'W':
 				dir[1] = -1;
 				this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "back.png");
 				this.getReceiver().movePlayer(this.getPlayer(), dir[0], dir[1]);
 				break;
-			case 's':
+			case 's': case 'S':
 				dir[1] = 1;
 				this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "front.png");
 				this.getReceiver().movePlayer(this.getPlayer(), dir[0], dir[1]);
 				break;
-			case 'a':
+			case 'a': case 'A':
 				dir[0] = -1;
 				this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "left.png");
 				this.getReceiver().movePlayer(this.getPlayer(), dir[0], dir[1]);
 				break;
-			case 'd':
+			case 'd': case 'D':
 				dir[0] = 1;
 				this.getPlayer().setIcon("player" + this.getPlayer().getPlayerNr() + "right.png");
 				this.getReceiver().movePlayer(this.getPlayer(), dir[0], dir[1]);
