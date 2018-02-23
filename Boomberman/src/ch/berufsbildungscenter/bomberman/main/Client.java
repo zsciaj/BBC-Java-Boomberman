@@ -37,21 +37,20 @@ public class Client implements KeyListener, Serializable {
 
 		try {
 
-			String name = this.getPlayer().getPlayerData().getName();									//Alten Namen zwischen speichern
+			String name = this.getPlayer().getPlayerData().getName(); 					// Alten Namen zwischen speichern
 
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); 						// 192.168.3.172 localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
 			Receiver receiver = (Receiver) remote;
 
 			Client client = new Client();
 			client.setReceiver(receiver);
-
 			client.setPlayer(client.getReceiver().sendPlayer());
-			
 			client.getReceiver().setPlayername(name, client.getPlayer());
 			this.getWindow().dispose();
 			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
-
+				
 			}
+			
 			client.getReceiver().start();
 			client.show();
 
@@ -66,14 +65,11 @@ public class Client implements KeyListener, Serializable {
 	}
 
 	public static void load() {
-
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator"); // 192.168.3.172 localhost
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
 			Receiver receiver = (Receiver) remote;
-
 			Client client = new Client();
 			client.setReceiver(receiver);
-
 			InputName inputName = new InputName();
 
 			client.setPlayer(client.getReceiver().sendPlayer());
@@ -174,7 +170,6 @@ public class Client implements KeyListener, Serializable {
 		} else {
 			this.showOver("player1over.png");
 		}
-
 	}
 
 	void ckeckGameOver() {
@@ -189,16 +184,13 @@ public class Client implements KeyListener, Serializable {
 			this.getUpdater().setStop(true);
 			this.showOver("player2over.png");
 		}
-
 	}
 
 	void update() {
 		Field s;
 		try {
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
-
 			this.getInfoBar().removeAll();
-
 			this.getInfoBar().add(this.getReceiver().getPlayerData(1));
 			this.setTimer(this.getReceiver().sendTimer());
 			this.getInfoBar().add(this.getTimer());
@@ -207,7 +199,6 @@ public class Client implements KeyListener, Serializable {
 			s = this.getReceiver().sendField();
 			for (ArrayList<Block> ab : s) {
 				for (Block b : ab) {
-
 					this.getMap().remove(0);
 					this.getMap().add(b);
 				}
@@ -230,7 +221,6 @@ public class Client implements KeyListener, Serializable {
 		Field s;
 		try {
 			s = this.getReceiver().sendField();
-
 			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
 			this.setTimer(this.getReceiver().sendTimer());
 			infoBar.add(this.getTimer());

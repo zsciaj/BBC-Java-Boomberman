@@ -1,7 +1,5 @@
 package ch.berufsbildungscenter.bomberman.main;
 
-
-
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -11,101 +9,85 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	private boolean player1setted;
 	private Field field;
 	private Timer timer;
-	
-	public void restart() throws RemoteException{
+
+	public void restart() throws RemoteException {
 		if (!this.isPlayer1setted()) {
 			this.setPlayer1setted(true);
-		}else {
+		} else {
 			this.setPlayer1setted(false);
 			this.reload();
 			this.setReadyToRestart(true);
-			
-			
 		}
-		
+
 	}
-  
+
 	public void reload() {
 		this.setPlayer1setted(false);
 		this.setField(new Field());
 		this.getField().load("map1");
 		this.setTimer(null);
 	}
-	
+
 	public ReceiverImpl(Field field) throws RemoteException {
 		this.setField(field);
 	}
-	
+
 	public void start() {
 		this.setTimer(new Timer());
 		Thread t = new Thread(this.getTimer());
 		t.start();
 	}
-  
-	
+
 	public Field sendField() throws RemoteException {
 		return this.getField();
 	}
-	
-	public synchronized Player sendPlayer() throws RemoteException{
+
+	public synchronized Player sendPlayer() throws RemoteException {
 		this.setReadyToRestart(false);
-		if (this.getField().getPlayer1().isUsed()) {									//Überprufe ob der Spieler1 schon vergeben ist
+		if (this.getField().getPlayer1().isUsed()) { 							// Überprufe ob der Spieler1 schon vergeben ist
 			this.getField().getPlayer2().setUsed(true);
-			return this.getField().getPlayer2();					
-		}else {
+			return this.getField().getPlayer2();
+		} else {
 			this.getField().getPlayer1().setUsed(true);
-			return this.getField().getPlayer1();		
-	
+			return this.getField().getPlayer1();
 		}
 	}
-	
-	public Timer sendTimer()  throws RemoteException{
+
+	public Timer sendTimer() throws RemoteException {
 		return this.getTimer();
 	}
-	
+
 	public Player resendPlayer(Player p) throws RemoteException {
-		if (p.getPlayerNr() == 1) {											//Überprüfe ob der Spieler player 1 ist
+		if (p.getPlayerNr() == 1) { 											// Überprüfe ob der Spieler player 1 ist
 			return this.getField().getPlayer1();
-		}else {
+		} else {
 			return this.getField().getPlayer2();
 		}
 	}
-	
-	
+
 	public PlayerData getPlayerData(int code) throws RemoteException {
-		if (code == 1) {	
+		if (code == 1) {
 			return this.getField().getPlayer1().getPlayerData();
-			
-		}else {
+		} else {
 			return this.getField().getPlayer2().getPlayerData();
 		}
-		
 	}
-	
-	public void setPlayername(String name,Player p) throws RemoteException{
-		if (p.getPlayerNr() == 1) {												//Überprüfe ob der Spieler player 1 ist
+
+	public void setPlayername(String name, Player p) throws RemoteException {
+		if (p.getPlayerNr() == 1) { 											// Überprüfe ob der Spieler player 1 ist
 			this.getField().getPlayer1().getPlayerData().setName(name);
-		}else {
+		} else {
 			this.getField().getPlayer2().getPlayerData().setName(name);
-			
 		}
-		
 	}
-	
-	
+
 	public void movePlayer(Player p, int x, int y) throws RemoteException {
-		this.getField().movePlayer(p,x,y);
+		this.getField().movePlayer(p, x, y);
 	}
 
-
-	
 	public void placeBomb(Player p, int x, int y) throws RemoteException {
-		this.getField().placeBomb(p,x,y);
+		this.getField().placeBomb(p, x, y);
 	}
-	
-
-
-
 
 	public boolean isPlayer1setted() {
 		return player1setted;
@@ -115,7 +97,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		this.player1setted = player1setted;
 	}
 
-	public boolean isReadyToRestart() throws RemoteException{
+	public boolean isReadyToRestart() throws RemoteException {
 		return readyToRestart;
 	}
 
@@ -131,19 +113,12 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 		this.field = map;
 	}
 
-
 	public Timer getTimer() {
 		return timer;
 	}
-
 
 	public void setTimer(Timer timer) {
 		this.timer = timer;
 	}
 
-
-
-
-	
-	
 }

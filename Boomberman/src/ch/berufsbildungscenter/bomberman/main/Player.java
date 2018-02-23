@@ -2,19 +2,18 @@ package ch.berufsbildungscenter.bomberman.main;
 
 import javax.swing.ImageIcon;
 
-public class Player extends Block{
+public class Player extends Block {
 
 	private boolean used;
 	private int playerNr;
 	private PlayerData playerData;
-	
-	public Player(String image, boolean breakable, boolean walkable,int nr) {
+
+	public Player(String image, boolean breakable, boolean walkable, int nr) {
 		super(image, breakable, walkable);
 		this.setPlayerNr(nr);
-		this.setPlayerData(new PlayerData((ImageIcon) loadIcon(image),nr));
-			
+		this.setPlayerData(new PlayerData((ImageIcon) loadIcon(image), nr));
 	}
-	
+
 	public boolean isUsed() {
 		return used;
 	}
@@ -38,6 +37,5 @@ public class Player extends Block{
 	public void setPlayerData(PlayerData playerData) {
 		this.playerData = playerData;
 	}
-
 
 }

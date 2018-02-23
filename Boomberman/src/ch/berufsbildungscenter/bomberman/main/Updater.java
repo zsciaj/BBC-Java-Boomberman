@@ -15,42 +15,19 @@ public class Updater extends Thread {
 
 	public void run() {
 		while (!stop) {
-	
+
 			try {
-				
-				SwingUtilities.invokeAndWait(new Runnable() {     //https://stackoverflow.com/questions/8224422/updating-gui-gives-a-flickering-effect
+				SwingUtilities.invokeAndWait(new Runnable() { 					// https://stackoverflow.com/questions/8224422/updating-gui-gives-a-flickering-effect
 					@Override
 					public void run() {
 						getClient().update();
 						getClient().ckeckGameOver();
-						}
-					});
+					}
+				});
 				Thread.sleep(10);
 			} catch (InterruptedException | InvocationTargetException e) {
 				e.printStackTrace();
 			}
-			
-		
-			// try {
-			// SwingUtilities.invokeAndWait(new Runnable() { //
-			// https://stackoverflow.com/questions/8224422/updating-gui-gives-a-flickering-effect
-			// \\
-			//
-			// @Override
-			// public void run() {
-			// getClient().update();
-			//
-			// }
-			// });
-			//
-			// } catch (InvocationTargetException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// } catch (InterruptedException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-
 		}
 
 	}

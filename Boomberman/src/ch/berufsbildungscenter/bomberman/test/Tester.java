@@ -26,7 +26,7 @@ public class Tester {
 		this.setField(new Field());
 		this.setReceiver(new ReceiverImpl(this.getField()));
 		this.getField().load("map1");
-		this.setPlayerData(new PlayerData((ImageIcon) Block.loadIcon("player1front.png"),1));
+		this.setPlayerData(new PlayerData((ImageIcon) Block.loadIcon("player1front.png"), 1));
 	}
 
 	@After
@@ -58,16 +58,12 @@ public class Tester {
 		Assert.assertEquals(i[0], this.getField().findIndex(this.getField().get(0, 0))[0]);
 		Assert.assertEquals(i[1], this.getField().findIndex(this.getField().get(0, 0))[1]);
 	}
-	
+
 	@Test
 	public void test4() {
 		this.getPlayerData().setName("Peter");
-		Assert.assertEquals("Peter",this.getPlayerData().getNameLabel().getText());
-
+		Assert.assertEquals("Peter", this.getPlayerData().getNameLabel().getText());
 	}
-
-
-
 
 	public PlayerData getPlayerData() {
 		return playerData;
