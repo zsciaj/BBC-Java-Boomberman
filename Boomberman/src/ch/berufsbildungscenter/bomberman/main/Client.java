@@ -94,7 +94,7 @@ public class Client implements KeyListener, Serializable {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 		load();
 	}
 
