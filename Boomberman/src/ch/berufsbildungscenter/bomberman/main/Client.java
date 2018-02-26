@@ -49,7 +49,7 @@ public class Client implements KeyListener, Serializable {
 			this.getWindow().dispose();
 			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {	//Warte auf den Namen des Anderen Spielers
 			}
-			client.getReceiver().start();
+			client.getReceiver().start(); 
 			client.show();
 
 		} catch (MalformedURLException e) {
