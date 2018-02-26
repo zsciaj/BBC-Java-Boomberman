@@ -186,7 +186,6 @@ public class Client implements KeyListener, Serializable {
 	}
 
 	void update() {
-		Field s;
 		try {
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			this.getInfoBar().removeAll();
