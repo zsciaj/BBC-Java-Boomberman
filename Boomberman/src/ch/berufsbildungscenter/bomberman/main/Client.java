@@ -39,7 +39,7 @@ public class Client implements KeyListener, Serializable {
 
 			String name = this.getPlayer().getPlayerData().getName(); 							// Alten Namen zwischen speichern
 			
-			Remote remote = Naming.lookup("rmi://localhost:1109/validator");					
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");					
 			Receiver receiver = (Receiver) remote;
 
 			Client client = new Client();
@@ -65,7 +65,7 @@ public class Client implements KeyListener, Serializable {
 
 	public static void load() {
 		try {
-			Remote remote = Naming.lookup("rmi://localhost:1109/validator");
+			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client();
 			client.setReceiver(receiver);
@@ -191,20 +191,6 @@ public class Client implements KeyListener, Serializable {
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			this.getInfoBar().removeAll();
 			this.showWindow();
-			this.getMap().revalidate();
-		} catch (RemoteException e) {
-
-		}
-	}
-
-	public void showWindow() {
-		Field s;
-		try {
-			this.getInfoBar().add(this.getReceiver().getPlayerData(1));
-			this.setTimer(this.getReceiver().sendTimer());
-			this.getInfoBar().add(this.getTimer());
-			this.getInfoBar().add(this.getReceiver().getPlayerData(2));
-
 			s = this.getReceiver().sendField();
 			for (ArrayList<Block> ab : s) {
 				for (Block b : ab) {
@@ -212,7 +198,18 @@ public class Client implements KeyListener, Serializable {
 					this.getMap().add(b);
 				}
 			}
-			
+			this.getMap().revalidate();
+		} catch (RemoteException e) {
+
+		}
+	}
+
+	public void showWindow() {
+		try {
+			this.getInfoBar().add(this.getReceiver().getPlayerData(1));
+			this.setTimer(this.getReceiver().sendTimer());
+			this.getInfoBar().add(this.getTimer());
+			this.getInfoBar().add(this.getReceiver().getPlayerData(2));	
 		} catch (RemoteException e) {
 
 		}
@@ -235,10 +232,7 @@ public class Client implements KeyListener, Serializable {
 		Field s;
 		try {
 			
-			this.getInfoBar().add(this.getReceiver().getPlayerData(1));
-			this.setTimer(this.getReceiver().sendTimer());
-			this.getInfoBar().add(this.getTimer());
-			this.getInfoBar().add(this.getReceiver().getPlayerData(2));
+			this.showWindow();
 			
 			s = this.getReceiver().sendField();
 			for (ArrayList<Block> i : s) {
