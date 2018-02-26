@@ -190,7 +190,7 @@ public class Client implements KeyListener, Serializable {
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			this.getInfoBar().removeAll();
 			this.showWindow();
-			s = this.getReceiver().sendField();
+			Field s = this.getReceiver().sendField();
 			for (ArrayList<Block> ab : s) {
 				for (Block b : ab) {
 					this.getMap().remove(0);
