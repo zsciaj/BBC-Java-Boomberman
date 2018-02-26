@@ -94,7 +94,7 @@ public class Client implements KeyListener, Serializable {
 
 	}
 
-	public static void main(String[] args) { 
+	public static void main(String[] args) {  
 		load();
 	}
 
@@ -144,7 +144,6 @@ public class Client implements KeyListener, Serializable {
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					getReceiver().getPlayerData(getPlayer().getPlayerNr()).setLives(100);
 					b.setEnabled(false);
 					getReceiver().restart();
 					reload();
