@@ -88,8 +88,14 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			
 		} finally {
 			try {
-				br.close();
-				fr.close();
+				if (br != null) {
+					br.close();
+				}
+				if (fr != null) {
+					fr.close();
+				}
+				
+				
 			} catch (IOException e) {
 			}
 		}

@@ -39,7 +39,7 @@ public class Client implements KeyListener, Serializable {
 
 			String name = this.getPlayer().getPlayerData().getName(); 							// Alten Namen zwischen speichern
 			
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");					
+			Remote remote = Naming.lookup("rmi://localhost:1109/validator");					
 			Receiver receiver = (Receiver) remote;
 
 			Client client = new Client();
@@ -65,7 +65,7 @@ public class Client implements KeyListener, Serializable {
 
 	public static void load() {
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
+			Remote remote = Naming.lookup("rmi://localhost:1109/validator");
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client();
 			client.setReceiver(receiver);
