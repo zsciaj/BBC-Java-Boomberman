@@ -11,7 +11,7 @@ public class Timer extends JLabel implements Runnable, Serializable {
 
 	private static final long serialVersionUID = -329063742720724845L;
 	
-	Date startTime = new Date();
+	Date startTime = new Date();										//Speichere die Startzeit
 
 	public Timer() {
 		this.setText("0:0");
@@ -29,11 +29,11 @@ public class Timer extends JLabel implements Runnable, Serializable {
 			String s;
 
 			if (this.getTime() % 60 < 10) {
-				s = "0" + this.getTime() % 60;
+				s = "0" + this.getTime() % 60;						//Berechne Sekunden
 			} else {
-				s = "" + this.getTime() % 60;
+				s = "" + this.getTime() % 60;						//Berechne Sekunden
 			}
-			this.setText(this.getTime() / 60 + ":" + s);
+			this.setText(this.getTime() / 60 + ":" + s);			//Berechne Minuten und füge Sekunden hinzu
 			this.revalidate();
 		}
 	}
@@ -41,7 +41,7 @@ public class Timer extends JLabel implements Runnable, Serializable {
 	@SuppressWarnings("deprecation")
 	public int getTime() {
 		Date d = new Date();
-		return ((120 + (this.getStartSek() + this.getStartMin() * 60) - (d.getSeconds() + d.getMinutes() * 60)));
+		return ((120 + (this.getStartSek() + this.getStartMin() * 60) - (d.getSeconds() + d.getMinutes() * 60))); //Berechne Verbleibende Zeit in Sekunden
 	}
 
 	public Date getStartTime() {

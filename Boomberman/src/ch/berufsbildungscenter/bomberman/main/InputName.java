@@ -21,25 +21,26 @@ public class InputName extends JDialog {
 	public InputName() {
 		this.setTitle("Bomberman!");
 		this.setSize(350, 120);
-		this.setVisible(true);
 		this.setResizable(false);
 
 		this.getInput().setFont(new Font("Arial", Font.BOLD, 16));
 		this.getStartButton().setFont(new Font("Arial", Font.BOLD, 20));
-
 		this.getDemand().setFont(new Font("Arial", Font.TRUETYPE_FONT, 16));
+		
 		this.getDemand().setEditable(false);
 
 		add(this.getDemand(), BorderLayout.NORTH);
 		add(this.getStartButton(), BorderLayout.SOUTH);
 		add(this.getInput(), BorderLayout.CENTER);
 
-		startButton.addActionListener(new ActionListener() {
+		startButton.addActionListener(new ActionListener() {				//Füge einen neuen ActionListener Hinzu
 			public void actionPerformed(ActionEvent e) {
 				setPlayerName(input.getText());
 			}
 		});
 
+		this.setVisible(true);
+		
 	}
 
 	public String getPlayerName() {

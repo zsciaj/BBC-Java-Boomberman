@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 
 public class Client implements KeyListener, Serializable {
 
-	private static final long serialVersionUID = -7575456849669230547L;
+	private static final long serialVersionUID = -6121329571145065988L;
 
 	private Receiver receiver;
 	private Player player;
@@ -39,7 +39,7 @@ public class Client implements KeyListener, Serializable {
 
 			String name = this.getPlayer().getPlayerData().getName(); 							// Alten Namen zwischen speichern
 			
-			Remote remote = Naming.lookup("rmi://localhost:1109/validator"); //192.168.3.172
+			Remote remote = Naming.lookup("rmi://localhost:1109/validator");					
 			Receiver receiver = (Receiver) remote;
 
 			Client client = new Client();
@@ -47,7 +47,7 @@ public class Client implements KeyListener, Serializable {
 			client.setPlayer(client.getReceiver().sendPlayer());
 			client.getReceiver().setPlayername(name, client.getPlayer());						// Alten Namen erneut Setzen
 			this.getWindow().dispose();
-			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {	
+			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {	//Warte auf den Namen des Anderen Spielers
 			}
 			client.getReceiver().start();
 			client.show();
@@ -140,7 +140,7 @@ public class Client implements KeyListener, Serializable {
 	private void showOver(String image) {
 		JButton b = new JButton();
 
-		b.addActionListener(new ActionListener() {
+		b.addActionListener(new ActionListener() {						//Füge Neuen ActionListener dem Button hinzu
 			public void actionPerformed(ActionEvent e) {
 				try {
 					b.setEnabled(false);
@@ -190,6 +190,16 @@ public class Client implements KeyListener, Serializable {
 		try {
 			this.setPlayer(this.getReceiver().resendPlayer(this.getPlayer()));
 			this.getInfoBar().removeAll();
+			this.showWindow();
+			this.getMap().revalidate();
+		} catch (RemoteException e) {
+
+		}
+	}
+
+	public void showWindow() {
+		Field s;
+		try {
 			this.getInfoBar().add(this.getReceiver().getPlayerData(1));
 			this.setTimer(this.getReceiver().sendTimer());
 			this.getInfoBar().add(this.getTimer());
@@ -202,12 +212,15 @@ public class Client implements KeyListener, Serializable {
 					this.getMap().add(b);
 				}
 			}
-			this.getMap().revalidate();
+			
 		} catch (RemoteException e) {
 
 		}
+		
 	}
-
+	
+	
+	
 	public void show() {
 		JFrame window = new JFrame();
 		JPanel map = new JPanel();
@@ -216,33 +229,34 @@ public class Client implements KeyListener, Serializable {
 		map.setBackground(Color.decode("#F0BB47"));
 		infoBar.setLayout(new GridLayout(1, 3));
 		infoBar.setBackground(Color.decode("#F0BB47"));
-
+		this.setInfoBar(infoBar);
+		this.setWindow(window);
+		this.setMap(map);
 		Field s;
 		try {
-			s = this.getReceiver().sendField();
-			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr()));
+			
+			this.getInfoBar().add(this.getReceiver().getPlayerData(1));
 			this.setTimer(this.getReceiver().sendTimer());
-			infoBar.add(this.getTimer());
-			infoBar.add(this.getReceiver().getPlayerData(this.getPlayer().getPlayerNr() * -1 + 3));
-
+			this.getInfoBar().add(this.getTimer());
+			this.getInfoBar().add(this.getReceiver().getPlayerData(2));
+			
+			s = this.getReceiver().sendField();
 			for (ArrayList<Block> i : s) {
 				for (Block j : i) {
 					map.add(j);
 				}
 			}
 
-			window.add(map, BorderLayout.SOUTH);
-			window.setVisible(true);
-			window.setSize(920, 806);
-			window.setResizable(false);
-			window.addKeyListener(this);
+			this.getWindow().add(map, BorderLayout.SOUTH);
+			
+			this.getWindow().setSize(920, 806);
+			this.getWindow().setResizable(false);
+			this.getWindow().addKeyListener(this);
 
-			window.add(infoBar, BorderLayout.CENTER);
+			this.getWindow().add(infoBar, BorderLayout.CENTER);
 
-			this.setInfoBar(infoBar);
-			this.setWindow(window);
-			this.setMap(map);
-
+			this.getWindow().setVisible(true);
+			
 			Updater u = new Updater(this);
 			u.start();
 			this.setUpdater(u);

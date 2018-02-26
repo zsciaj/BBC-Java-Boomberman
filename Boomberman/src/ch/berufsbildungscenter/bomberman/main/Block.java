@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 public class Block extends JLabel {
 
-	private static final long serialVersionUID = -6121329571145065988L;
+	private static final long serialVersionUID = -612132957867465988L;
 	
 	private boolean breakable;
 	private boolean walkable;
@@ -46,6 +46,8 @@ public class Block extends JLabel {
 		return id;
 	}
 
+	
+	
 	public static Icon loadIcon(String iconName) { 								// Methode um Bilder zu laden
 		final URL resource = Block.class.getResource("/resource/" + iconName);
 

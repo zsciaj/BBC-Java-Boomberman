@@ -13,7 +13,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver {
 	private Timer timer;
 
 	public void restart() throws RemoteException {
-		if (!this.isPlayer1setted()) {
+		if (!this.isPlayer1setted()) {								
 			this.setPlayer1setted(true);
 		} else {
 			this.setPlayer1setted(false);

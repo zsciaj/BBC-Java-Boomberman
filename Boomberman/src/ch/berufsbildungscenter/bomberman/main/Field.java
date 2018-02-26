@@ -50,10 +50,10 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 			fr = new FileReader("resource/" + fileName + ".txt");
 			br = new BufferedReader(fr);
 			String s;
-			while ((s = br.readLine()) != null) {
-
+			while ((s = br.readLine()) != null) {								//Solange die Linie im File nicht leer ist
+				
 				ArrayList<Block> line = new ArrayList<Block>();
-
+				
 				String[] keyList = new String[15];
 				keyList = s.split("/");
 				for (String i : keyList) {
