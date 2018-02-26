@@ -37,7 +37,7 @@ public class Client implements KeyListener, Serializable {
 
 		try {
 
-			String name = this.getPlayer().getPlayerData().getName(); 					// Alten Namen zwischen speichern
+			String name = this.getPlayer().getPlayerData().getName(); 							// Alten Namen zwischen speichern
 
 			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
 			Receiver receiver = (Receiver) remote;
@@ -45,7 +45,7 @@ public class Client implements KeyListener, Serializable {
 			Client client = new Client();
 			client.setReceiver(receiver);
 			client.setPlayer(client.getReceiver().sendPlayer());
-			client.getReceiver().setPlayername(name, client.getPlayer());
+			client.getReceiver().setPlayername(name, client.getPlayer());						// Alten Namen erneut Setzen
 			this.getWindow().dispose();
 			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
 				
@@ -74,7 +74,7 @@ public class Client implements KeyListener, Serializable {
 
 			client.setPlayer(client.getReceiver().sendPlayer());
 
-			while (inputName.getPlayerName() == null || client.getReceiver()
+			while (inputName.getPlayerName() == null || client.getReceiver()						//Warte bius der Andere Spieler bereit ist
 					.getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
 				client.getReceiver().setPlayername(inputName.getPlayerName(), client.getPlayer());
 			}
@@ -144,6 +144,7 @@ public class Client implements KeyListener, Serializable {
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					getReceiver().getPlayerData(getPlayer().getPlayerNr()).setLives(100);
 					b.setEnabled(false);
 					getReceiver().restart();
 					reload();
