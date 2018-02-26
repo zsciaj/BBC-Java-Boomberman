@@ -52,7 +52,7 @@ public class PlayerData extends JPanel implements Serializable {
 	}
 
 	public int getLives() {
-		return lives;
+		return lives; 
 	}
 
 	public void setLives(int lives) {
