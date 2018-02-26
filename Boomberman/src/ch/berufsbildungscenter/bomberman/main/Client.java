@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -14,6 +16,7 @@ import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -38,8 +41,8 @@ public class Client implements KeyListener, Serializable {
 		try {
 
 			String name = this.getPlayer().getPlayerData().getName(); 							// Alten Namen zwischen speichern
-
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
+			
+			Remote remote = Naming.lookup("rmi://localhost:1109/validator"); //192.168.3.172
 			Receiver receiver = (Receiver) remote;
 
 			Client client = new Client();
@@ -47,10 +50,8 @@ public class Client implements KeyListener, Serializable {
 			client.setPlayer(client.getReceiver().sendPlayer());
 			client.getReceiver().setPlayername(name, client.getPlayer());						// Alten Namen erneut Setzen
 			this.getWindow().dispose();
-			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {
-				
+			while (client.getReceiver().getPlayerData(client.getPlayer().getPlayerNr() * -1 + 3).getName() == null) {	
 			}
-			
 			client.getReceiver().start();
 			client.show();
 
@@ -61,12 +62,13 @@ public class Client implements KeyListener, Serializable {
 		} catch (NotBoundException e) {
 
 		}
+		
 
 	}
 
 	public static void load() {
 		try {
-			Remote remote = Naming.lookup("rmi://192.168.3.172:1109/validator");
+			Remote remote = Naming.lookup("rmi://localhost:1109/validator");
 			Receiver receiver = (Receiver) remote;
 			Client client = new Client();
 			client.setReceiver(receiver);

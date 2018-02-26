@@ -43,7 +43,7 @@ public class Bomb extends Block implements Runnable {
 			x += addX;
 			y += addY;
 		}
-
+		
 	}
 
 	public Field getField() {
