@@ -26,7 +26,6 @@ public class Updater extends Thread {
 				});
 				Thread.sleep(10);
 			} catch (InterruptedException | InvocationTargetException e) {
-				e.printStackTrace();
 			}
 		}
 

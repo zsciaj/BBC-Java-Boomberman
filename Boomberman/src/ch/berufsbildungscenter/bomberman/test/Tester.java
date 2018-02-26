@@ -47,7 +47,7 @@ public class Tester {
 			Assert.assertEquals(1, this.getReceiver().sendPlayer().getPlayerNr());
 			Assert.assertEquals(2, this.getReceiver().sendPlayer().getPlayerNr());
 		} catch (RemoteException e) {
-			e.printStackTrace();
+
 		}
 	}
 

@@ -11,7 +11,7 @@ public class Server {
 		try {
 			reg = LocateRegistry.createRegistry(1109);
 		} catch (RemoteException e) {
-			System.out.println(e.getMessage());
+
 		}
 	}
 
@@ -22,7 +22,7 @@ public class Server {
 			Receiver aValidator = new ReceiverImpl(field);
 			reg.rebind("validator", aValidator);
 		} catch (RemoteException e) {
-			System.out.println(e.getMessage());
+
 		}
 	}
 

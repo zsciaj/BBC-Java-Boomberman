@@ -23,7 +23,6 @@ public class Timer extends JLabel implements Runnable, Serializable {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 			this.setFont(new Font("Arial", Font.BOLD, 30));
 			this.setBackground(Color.WHITE);

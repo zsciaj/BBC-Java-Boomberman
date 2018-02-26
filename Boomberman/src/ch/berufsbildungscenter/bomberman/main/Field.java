@@ -85,7 +85,7 @@ public class Field extends ArrayList<ArrayList<Block>> implements Serializable {
 				this.add(line);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			
 		} finally {
 			try {
 				br.close();

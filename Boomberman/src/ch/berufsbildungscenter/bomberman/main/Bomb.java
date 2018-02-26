@@ -19,7 +19,6 @@ public class Bomb extends Block implements Runnable {
 			this.explode(0, 1);
 			this.explode(0, -1);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
 		} finally {
 			this.getField().delete(this);
 		}

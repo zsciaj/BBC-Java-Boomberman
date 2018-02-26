@@ -12,7 +12,6 @@ public class Explosion extends Bomb {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
 		} finally {
 			this.getField().delete(this);
 		}

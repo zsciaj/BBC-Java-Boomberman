@@ -55,11 +55,11 @@ public class Client implements KeyListener, Serializable {
 			client.show();
 
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+
 		} catch (RemoteException e) {
-			e.printStackTrace();
+
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+
 		}
 
 	}
@@ -85,11 +85,11 @@ public class Client implements KeyListener, Serializable {
 			client.show();
 
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+
 		} catch (RemoteException e) {
-			e.printStackTrace();
+
 		} catch (NotBoundException e) {
-			e.printStackTrace();
+
 		}
 
 	}
@@ -133,7 +133,7 @@ public class Client implements KeyListener, Serializable {
 			this.setPlayerDirection(dir);
 
 		} catch (RemoteException e) {
-			// e.printStackTrace();
+
 		}
 
 	}
@@ -148,7 +148,7 @@ public class Client implements KeyListener, Serializable {
 					getReceiver().restart();
 					reload();
 				} catch (RemoteException e1) {
-					e1.printStackTrace();
+
 				}
 
 			}
@@ -205,7 +205,7 @@ public class Client implements KeyListener, Serializable {
 			}
 			this.getMap().revalidate();
 		} catch (RemoteException e) {
-			// e.printStackTrace();
+
 		}
 	}
 
@@ -248,7 +248,7 @@ public class Client implements KeyListener, Serializable {
 			u.start();
 			this.setUpdater(u);
 		} catch (RemoteException e1) {
-			// e.printStackTrace();
+
 		}
 
 	}
@@ -267,7 +267,6 @@ public class Client implements KeyListener, Serializable {
 		try {
 			return this.getReceiver().getPlayerData(player).getLives();
 		} catch (RemoteException e) {
-			e.printStackTrace();
 			return 1;
 		}
 
