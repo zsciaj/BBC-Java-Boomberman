@@ -36,7 +36,7 @@ public class Tester {
 	@Test
 	public void test1() {
 		Timer t = new Timer();
-		Assert.assertEquals(300, t.getTime());
+		Assert.assertEquals(120, t.getTime());
 
 	}
 
