@@ -66,10 +66,9 @@ public class PlayerData extends JPanel implements Serializable {
 	} 
 
 	public void setName(String name) {
-		if (name != null && (!name.isEmpty())) {
-			this.name = name;
-			this.getNameLabel().setText(name);
-		}	
+		this.name = name;
+		this.getNameLabel().setText(name);
+	
 
 	}
 
